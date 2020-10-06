@@ -1,0 +1,25 @@
+[{"ent_id":1,
+"model":"products.category",
+"fields":{
+"name":"single_malt",
+"friendly_name":"Single Malt"}},
+{"ent_id":2,
+"model":"products.category",
+"fields":{
+"name":"blended_whiskey",
+"friendly_name":"Blended Whiskey"}},
+{"ent_id":3,
+"model":"products.category",
+"fields":{
+"name":"blended_malt",
+"friendly_name":"Blended Malt"}},
+{"ent_id":4,
+"model":"products.category",
+"fields":{
+"name":"grain_whiskey",
+"friendly_name":"Grain Whiskey"}},
+{"ent_id":5,
+"model":"products.category",
+"fields":{
+"name":"organic_whiskey",
+"friendly_name":"Organic Whiskey"}}]
