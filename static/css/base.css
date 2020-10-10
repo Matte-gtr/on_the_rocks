@@ -1,3 +1,98 @@
-.test {
-    font-size: 10px;
+/*---------base css---------*/
+
+body {
+    font-family: poppins, sans-serif;
+}
+
+.header-logo {
+    display: flex;
+    padding-left: 5%;
+    letter-spacing: 2px;
+    padding-top: .5rem;
+    align-items: center;
+}
+
+.logo {
+    font-size: 32px;
+}
+
+.burger-container {
+    padding-left: 10px;
+}
+
+.burger-button {
+    border: 0;
+    background-color: transparent;
+}
+
+.burger-button:focus {
+    outline: 0;
+}
+
+.burger-line {
+    background-color: #343a40;
+    width: 25px;
+    height: 3px;
+    margin: 6px;
+}
+
+.navbar {
+    padding: 0;
+}
+
+li .nav-link {
+    padding: .5rem .3rem;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.burger-button {
+    padding: 10px;
+    padding-top: 0px;
+    width: 62px;
+}
+
+.burger-button div {
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    margin: 7px;
+}
+
+.search-button {
+    margin-left: -36px;
+    margin-top: 2px;
+    border: 0;
+    color: #343a40;
+    padding: 1px;
+    background-color: #fafafa;
+}
+
+.search-bar {
+    margin-left: 5%;
+    width: 95% !important;
+    border-radius: 1.5rem;
+    border: 1px solid #495057;
+}
+
+/*---------media queries---------*/
+
+@media (min-width: 576px) {
+    li .nav-link {
+        padding: .5rem 1rem;
+    }
+    .burger-container {
+    padding-left: 15px;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar {
+        padding: .5rem 1rem;
+    }
 }
