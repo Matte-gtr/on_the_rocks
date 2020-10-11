@@ -1,4 +1,4 @@
-/*---------base css---------*/
+/*---------navigation/navbar---------*/
 
 body {
     font-family: poppins, sans-serif;
@@ -14,6 +14,15 @@ body {
 
 .logo {
     font-size: 32px;
+}
+
+.logo-link {
+    color: #343a40;;
+}
+
+.logo-link:hover {
+    text-decoration: none;
+    color: #343a40;;
 }
 
 .burger-container {
@@ -80,6 +89,34 @@ li .nav-link {
     border: 1px solid #495057;
 }
 
+/*---------landing page---------*/
+
+.landing-image {
+    background: url("/media/landing-image-cropped.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 72px);
+    width: 100%;
+}
+
+.landing-message {
+    padding: 4rem 2rem;
+    background-color: transparent;
+    color: #fafafa;
+    position: absolute;
+    top: 22vh;
+    right: 10vw;
+}
+
+.welcome {
+    margin-top: 14vh;
+}
+
+.entry-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fafafa;
+    border-radius: 3px;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {
@@ -94,5 +131,8 @@ li .nav-link {
 @media (min-width: 992px) {
     .navbar {
         padding: .5rem 1rem;
+    }
+    .landing-image {
+        height: calc(100vh - 72px - 56px);
     }
 }

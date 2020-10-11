@@ -38,11 +38,11 @@
   <body>
 
     <header class="container-fluid navbar-light">
-        <div class="row py-2">
+        <div class="row pt-2">
             <div class="col d-none d-lg-flex">
                 <div class="header-logo">
                     <h1 class="logo">
-                        <a href="{% url 'home' %}">
+                        <a href="{% url 'home' %}" class="logo-link">
                             <i class="fas fa-glass-whiskey"></i>
                             <strong>ON</strong><span class="small">the</span><strong>ROCKS</strong>
                         </a>
@@ -60,7 +60,7 @@
                 <div class="search-container">
                     <form class="form-inline w-100">
                         <input class="form-control mr-0 search-bar" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
+                        <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
                     </form>
                 </div>
             </div>
@@ -113,7 +113,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto nav-fill w-100">
                     <li class="nav-item d-lg-none">
-                        <a class="nav-link text-uppercase" href="{% url 'home' %}}">Home</a>
+                        <a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-uppercase" href="#">About Us</a>
@@ -145,7 +145,7 @@
     <div class="container" id="mobile-search" style="display:none">
         <div class="row">
             <div class="col d-lg-none">
-                <div class="search-container py-2">
+                <div class="search-container py-3">
                     <form class="form-inline w-100">
                         <input class="form-control mr-0 ml-2 search-bar" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
