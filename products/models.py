@@ -26,7 +26,7 @@ class Product(models.Model):
     proof = models.DecimalField(max_digits=3, decimal_places=1)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     rating = models.DecimalField(max_digits=2, decimal_places=1, null=True,
-                                 blank=True)
+                                 blank=True, default=0.0)
     image = models.ImageField(null=True, blank=True)
 
     def __str__(self):

@@ -1,3 +1,15 @@
 from django.shortcuts import render
+from .models import Product
 
-# Create your views here.
+
+def products(request):
+    """ Returns a list of products """
+
+    products = Product.objects.all()
+    template = 'products/products.html'
+
+    context = {
+        'products': products,
+    }
+
+    return render(request, template, context)

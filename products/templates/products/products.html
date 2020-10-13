@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                    <div class="card-card">
+                    {% if product.image %}
+                        <a href="#">
+                            <img src="{{ product.image.url }}" class="card-img">
+                        </a>
+                    {% else %}
+                        <a href="#">
+                            <img src="{{ MEDIA_URL }}no-image.jpg" class="card-img">
+                        </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ product.name }}</h3>
+                        <p class="card-price">£{{ product.price }}</p>
+                        <p class="card-price">{{ product.category.friendly_name }}</p>
+                        {% if product.rating > 0.0 %}
+                            <p>{{ product.rating }}/5</p>
+                        {% else %}
+                            <p>No Reviews yet</p>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

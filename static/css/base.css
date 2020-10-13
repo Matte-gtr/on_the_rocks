@@ -117,6 +117,20 @@ li .nav-link {
     border-radius: 3px;
 }
 
+/*---------products/whiskey page---------*/
+
+.card {
+    display: inline-block;
+}
+
+.card-image {
+
+}
+
+.card-title {
+
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {
