@@ -55,4 +55,10 @@
             {% endfor %}
         </div>
     </div>
+    {% if products.has_previous %}
+        <a href="{% url 'products' %}?page={{products.previous_page_number}}">Previous</a>
+    {% endif %}
+    {% if products.has_next %}
+        <a href="{% url 'products' %}?page={{products.next_page_number}}">Next</a>
+    {% endif %}
 {% endblock %}

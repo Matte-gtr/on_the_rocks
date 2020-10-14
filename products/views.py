@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from .models import Product
 from django.contrib import messages
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage
 
 
 def products(request):
@@ -22,8 +23,15 @@ def products(request):
 
     template = 'products/products.html'
 
+    pagi = Paginator(products, 20)
+    page_num = request.GET.get('page',1)
+    try:
+        page = pagi.page(page_num)
+    except EmptyPage:
+        page = pagi.page(1)
+
     context = {
-        'products': products,
+        'products': page,
         'page_header': "Whiskeys"
     }
 
