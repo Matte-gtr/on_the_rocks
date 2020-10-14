@@ -58,8 +58,8 @@
             </div>
             <div class="col d-none d-lg-inline">
                 <div class="search-container">
-                    <form class="form-inline w-100">
-                        <input class="form-control mr-0 search-bar" type="search" placeholder="Search" aria-label="Search">
+                    <form class="form-inline w-100" method="GET" action="{% url 'products' %}">
+                        <input class="form-control mr-0 search-bar" type="search" placeholder="Search" aria-label="Search" name="search">
                         <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
                     </form>
                 </div>
@@ -123,7 +123,7 @@
                             Whiskeys
                         </a>
                         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item text-uppercase" href="#">All Whiskeys</a>
+                            <a class="dropdown-item text-uppercase" href="{% url 'products' %}">All Whiskeys</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-uppercase" href="#">Single Malt</a>
                             <a class="dropdown-item text-uppercase" href="#">Blended Malt</a>
@@ -146,8 +146,8 @@
         <div class="row">
             <div class="col d-lg-none">
                 <div class="search-container py-3">
-                    <form class="form-inline w-100">
-                        <input class="form-control mr-0 ml-2 search-bar" type="search" placeholder="Search" aria-label="Search">
+                    <form class="form-inline w-100" method="GET" action="{% url 'products' %}">
+                        <input class="form-control mr-0 ml-2 search-bar" type="search" placeholder="Search" aria-label="Search" name="search">
                         <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
                     </form>
                 </div>

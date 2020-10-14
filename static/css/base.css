@@ -1,3 +1,24 @@
+/*---------General---------*/
+
+.page-header {
+    text-align: center;
+    font-size: 35px;
+    padding-top: 17px;
+    text-transform: uppercase;
+}
+
+.grey {
+    color:#495057;
+}
+
+.plain-anchor {
+    color: inherit;
+}
+
+.plain-anchor:hover {
+    color: inherit;
+}
+
 /*---------navigation/navbar---------*/
 
 body {
@@ -119,16 +140,26 @@ li .nav-link {
 
 /*---------products/whiskey page---------*/
 
-.card {
-    display: inline-block;
-}
-
-.card-image {
-
-}
-
 .card-title {
+    font-size: 20px;
+    height: 47px;
+}
 
+.card {
+    box-shadow: -6px -3px 4px #adabab;
+}
+
+.card-detail {
+    font-size: 12px
+}
+
+.card-price {
+    font-weight: 600;
+}
+
+.card-img-top {
+    min-height: 15vw;
+    background: url(/media/103.gif) no-repeat center center;
 }
 
 /*---------media queries---------*/

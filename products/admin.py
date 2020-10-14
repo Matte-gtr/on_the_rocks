@@ -17,6 +17,9 @@ class ProductAdmin(admin.ModelAdmin):
         'proof',
         'price',
     ]
+    ordering = [
+        'name',
+    ]
 
 
 admin.site.register(Category, CategoryAdmin)

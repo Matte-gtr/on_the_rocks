@@ -1,28 +1,54 @@
 {% extends 'base.html' %}
+
+{% block page_header %}
+    <div class="container page-header">
+        <div class="row">
+            <div class="col">
+                {{ page_header }}
+                <hr class="grey w-50">
+            </div>
+        </div>
+    </div>
+{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             {% for product in products %}
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="card-card">
-                    {% if product.image %}
-                        <a href="#">
-                            <img src="{{ product.image.url }}" class="card-img">
-                        </a>
-                    {% else %}
-                        <a href="#">
-                            <img src="{{ MEDIA_URL }}no-image.jpg" class="card-img">
-                        </a>
-                    {% endif %}
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mt-2 mb-2">
+                    <div class="card h-100 border-0">
+                        <div class="row">   
+                            <div class="col">
+                                {% if product.image %}
+                                    <a href="#">
+                                        <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+                                    </a>
+                                {% else %}
+                                    <a href="#">
+                                        <img src="{{ MEDIA_URL }}no-image.jpg" class="card-img-top img-fluid" alt="{{ product.name }}">
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
                     <div class="card-body">
-                        <h3 class="card-title">{{ product.name }}</h3>
-                        <p class="card-price">£{{ product.price }}</p>
-                        <p class="card-price">{{ product.category.friendly_name }}</p>
-                        {% if product.rating > 0.0 %}
-                            <p>{{ product.rating }}/5</p>
-                        {% else %}
-                            <p>No Reviews yet</p>
-                        {% endif %}
+                        <div class="row">   
+                            <div class="col">
+                                <h3 class="card-title">{{ product.name }}{% if product.detail %}<small class="grey"> - {{ product.detail }}</small>{% endif %}</h3>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                    <div class="row">   
+                            <div class="col">
+                                <p class="mb-0"><a class="plain-anchor" href="#"><i class="fas fa-tag fa-sm"></i> {{ product.category.friendly_name }}</a></p>
+                                <p class="mb-0 card-detail grey">{{ product.size }}/{{ product.proof }}%</p>
+                                <p class="mb-0 card-price">£{{ product.price }}</p>
+                                {% if product.rating > 0.0 %}
+                                    <p class="mb-0 card-detail">{{ product.rating }}/5</p>
+                                {% else %}
+                                    <p class="mb-0 card-detail grey">No Reviews yet</p>
+                                {% endif %}
+                                </div>
+                            </div> 
                         </div>
                     </div>
                 </div>
