@@ -147,6 +147,7 @@ li .nav-link {
 
 .card {
     box-shadow: -6px -3px 4px #adabab;
+    border: 1px solid lightgrey;
 }
 
 .card-detail {
@@ -160,6 +161,16 @@ li .nav-link {
 .card-img-top {
     min-height: 15vw;
     background: url(/media/103.gif) no-repeat center center;
+}
+
+.pagination>li.active>a {
+  background-color: darkgray !important;
+  border-color: lightgray !important;
+}
+
+.pagination>li.page-item>a {
+  border-color: lightgray;
+  color: #010101;
 }
 
 /*---------media queries---------*/
