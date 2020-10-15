@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load product_tags %}
 
 {% block page_header %}
@@ -20,12 +21,12 @@
                         <div class="row">   
                             <div class="col">
                                 {% if product.image %}
-                                    <a href="#">
-                                        <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+                                    <a href="{% url 'product_display' product.id %}">
+                                        <img src="{{ product.image.url }}" class="card-img-top card-image" alt="{{ product.name }}">
                                     </a>
                                 {% else %}
-                                    <a href="#">
-                                        <img src="{{ MEDIA_URL }}no-image.jpg" class="card-img-top img-fluid" alt="{{ product.name }}">
+                                    <a href="{% url 'product_display' product.id %}">
+                                        <img src="{{ MEDIA_URL }}no-image.jpg" class="card-img-top card-image" alt="{{ product.name }}">
                                     </a>
                                 {% endif %}
                             </div>

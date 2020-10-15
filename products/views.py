@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Product
 from django.contrib import messages
 from django.db.models import Q
@@ -6,7 +6,8 @@ from django.core.paginator import Paginator, EmptyPage
 
 
 def products(request):
-    """ Returns a list of products """
+    """ Returns a list of paginated products, either all
+    products or based on your search term """
 
     products = Product.objects.all()
 
@@ -35,4 +36,13 @@ def products(request):
         'page_header': "Whiskeys"
     }
 
+    return render(request, template, context)
+
+
+def product_display(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    template = 'products/product_display.html'
+    context = {
+        'product': product,
+    }
     return render(request, template, context)

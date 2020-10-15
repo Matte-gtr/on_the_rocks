@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid py-4 px-4">
+    <div class="row">
+        <div class="col-12 col-lg-4">
+            <div class="display-section">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.detail }}</p>
+                <p>{{ product.category.friendly_name }}</p>
+                <p>{{ product.size }} / {{ product.proof }}%</p>
+                {% if product.rating > 0.0 %}
+                    <p>Rating: {{ product.rating }} / 5</p>
+                {% endif %}
+                <p>{{ product.description }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="display-section">
+                <img class="img-fluid" src="{{ product.image.url }}">
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="display-section">
+                <p>£{{ product.price }}</p>
+            </div>    
+        </div>
+    </div>
+</div>
+
+{% endblock %}

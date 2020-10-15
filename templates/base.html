@@ -37,8 +37,8 @@
   </head>
   <body>
 
-    <header class="container-fluid navbar-light">
-        <div class="row pt-2">
+    <header class="container-fluid navbar-light fixed-top">
+        <div class="row pt-2 header-bg">
             <div class="col d-none d-lg-flex">
                 <div class="header-logo">
                     <h1 class="logo">
@@ -107,41 +107,42 @@
                 </ul>
             </div>
         </div>
-    </header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto nav-fill w-100">
-                    <li class="nav-item d-lg-none">
-                        <a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#">About Us</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Whiskeys
-                        </a>
-                        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item text-uppercase" href="{% url 'products' %}">All Whiskeys</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-uppercase" href="#">Single Malt</a>
-                            <a class="dropdown-item text-uppercase" href="#">Blended Malt</a>
-                            <a class="dropdown-item text-uppercase" href="#">Blended Whiskey</a>
-                            <a class="dropdown-item text-uppercase" href="#">Grain Whiskey</a>
-                            <a class="dropdown-item text-uppercase" href="#">Organic Whiskey</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#">Create-a-crate</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="#">Cocktails</a>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto nav-fill w-100">
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Whiskeys
+                            </a>
+                            <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}">All Whiskeys</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-uppercase" href="#">Single Malt</a>
+                                <a class="dropdown-item text-uppercase" href="#">Blended Malt</a>
+                                <a class="dropdown-item text-uppercase" href="#">Blended Whiskey</a>
+                                <a class="dropdown-item text-uppercase" href="#">Grain Whiskey</a>
+                                <a class="dropdown-item text-uppercase" href="#">Organic Whiskey</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" href="#">Create-a-crate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" href="#">Cocktails</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
+    <div class="nav-spacer"></div>
     <div class="container" id="mobile-search" style="display:none">
         <div class="row">
             <div class="col d-lg-none">
