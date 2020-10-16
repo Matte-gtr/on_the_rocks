@@ -23,6 +23,22 @@ body {
     color: inherit;
 }
 
+.text-orange {
+        color: #ff7600;
+}
+
+.btn-orange {
+    color: #fff;
+    background-color: #ff8552;
+    border-color: #ff8552;
+}
+
+.btn-orange:hover {
+    color: #ff8552;
+    background-color: #495057;
+    border-color: #ff8552;
+}
+
 /*---------navigation/navbar---------*/
 
 .header-bg {
@@ -39,6 +55,7 @@ body {
 
 .logo {
     font-size: 32px;
+    margin-bottom: 1rem;
 }
 
 .logo-link {
@@ -100,7 +117,7 @@ li .nav-link {
 
 .search-button {
     margin-left: -36px;
-    margin-top: 2px;
+    margin-top: -4px;
     border: 0;
     color: #343a40;
     padding: 1px;
@@ -109,6 +126,7 @@ li .nav-link {
 
 .search-bar {
     margin-left: 5%;
+    margin-bottom: .5rem;
     width: 95% !important;
     border-radius: 1.5rem;
     border: 1px solid #495057;
@@ -188,6 +206,23 @@ li .nav-link {
 .pagination>li.page-item>a {
   border-color: lightgray;
   color: #010101;
+}
+
+/*---------product display---------*/
+
+.display-section {
+    max-width: 620px;
+    margin-top: 20px;
+}
+
+.image-section {
+    max-width: 460px;
+}
+
+.buy-container {
+    padding: 10px;
+    background-color: #e4e1e1;
+    border-radius: 3px;
 }
 
 /*---------media queries---------*/

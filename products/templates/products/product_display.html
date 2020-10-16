@@ -4,29 +4,44 @@
 
 <div class="container-fluid py-4 px-4">
     <div class="row">
-        <div class="col-12 col-lg-4">
+        <div class="col-12 offset-xl-2 col-xl-10">
             <div class="display-section">
-                <h3>{{ product.name }}</h3>
+                <h3 class="mt-3">{{ product.name }}</h3>
                 <p>{{ product.detail }}</p>
-                <p>{{ product.category.friendly_name }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4 offset-xl-2 order-12 order-md-1">
+            <div class="display-section">
+                <a href="#" class="plain-anchor"><p><i class="fas fa-tag fa-sm"></i> {{ product.category.friendly_name }}</p></a>
                 <p>{{ product.size }} / {{ product.proof }}%</p>
                 {% if product.rating > 0.0 %}
-                    <p>Rating: {{ product.rating }} / 5</p>
+                    <p class="text-orange"><small>Rating: {{ product.rating }} / 5</small></p>
+                {% else %}
+                    <p class="text-orange"><small>No Rating yet</small></p>
                 {% endif %}
                 <p>{{ product.description }}</p>
             </div>
+            <div class="display-section buy-container">
+                <p><strong>£{{ product.price }}</strong></p>
+                <form class="form" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-12 p-0">
+                            <label for="quantity">Quantity: </label>
+                            <input class="form-control w-auto mb-3" type="number" name="quantity" min="1" max="99" value="1" />
+                            <button type="submit" class="btn btn-orange">ADD TO BASKET</button>
+                        </div>
+                    </div>
+                </form>
+            </div>    
         </div>
-        <div class="col-12 col-lg-4">
-            <div class="display-section">
+        <div class="col-12 col-md-6 col-xl-4 order-1 order-md-12">
+            <div class="image-section">
                 <img class="img-fluid" src="{{ product.image.url }}">
             </div>
         </div>
-        <div class="col-12 col-lg-4">
-            <div class="display-section">
-                <p>£{{ product.price }}</p>
-            </div>    
-        </div>
     </div>
+
 </div>
 
 {% endblock %}
