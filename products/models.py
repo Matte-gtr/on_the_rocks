@@ -48,7 +48,7 @@ class ProductReview(models.Model):
                                 on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     stars = models.IntegerField(default=3, choices=STAR_CHOICES)
-    review = models.TextField()
+    review = models.TextField(null=True, blank=True)
     anon = models.BooleanField(default=False)
     authorised = models.BooleanField(default=False)
 

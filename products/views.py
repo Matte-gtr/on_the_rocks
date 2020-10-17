@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 
+from .forms import ReviewForm
+
 
 def products(request):
     """ Returns a list of paginated products, either all
@@ -42,7 +44,9 @@ def products(request):
 def product_display(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     template = 'products/product_display.html'
+    form = ReviewForm()
     context = {
         'product': product,
+        'form': form,
     }
     return render(request, template, context)
