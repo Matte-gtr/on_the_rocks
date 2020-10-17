@@ -15,12 +15,25 @@ body {
     color:#495057;
 }
 
+.light-grey {
+    color:#9a9a9a;
+}
+
 .plain-anchor {
     color: inherit;
 }
 
 .plain-anchor:hover {
     color: inherit;
+}
+
+.plain-anchor-no-underline {
+    color: inherit;
+}
+
+.plain-anchor-no-underline:hover {
+    color: inherit;
+    text-decoration: none;
 }
 
 .text-orange {
@@ -39,10 +52,22 @@ body {
     border-color: #ff8552;
 }
 
+.section-title {
+    background-color: #e4e1e1;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
 /*---------navigation/navbar---------*/
 
 .header-bg {
     background-image: linear-gradient(to bottom right, #b5a081, #ffeee0);
+}
+
+.nav-bg {
+    background-color: #f1f1f1!important;
 }
 
 .header-logo {

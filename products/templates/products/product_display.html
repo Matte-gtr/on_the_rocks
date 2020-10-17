@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
 
-<div class="container-fluid py-4 px-4">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row py-3 px-4">
         <div class="col-12 offset-xl-2 col-xl-10">
             <div class="display-section">
                 <h3 class="mt-3">{{ product.name }}</h3>
-                <p>{{ product.detail }}</p>
+                <p class="light-grey">{{ product.detail }}</p>
             </div>
         </div>
         <div class="col-12 col-md-6 col-xl-4 offset-xl-2 order-12 order-md-1">
@@ -41,7 +41,23 @@
             </div>
         </div>
     </div>
-
+    <div class="row section-title">
+        <div class="col-12 text-center">
+            <h4 class="text-uppercase m-0">Reviews</h4>
+        </div>
+    </div>
+    <div class="row">
+        {% for review in product.reviews.all %}
+            {% if review.authorised == True %}
+                <p>{{ review.user }}</p>
+                <p>{{ review.created_on }}</p>
+                <p>{{ review.review }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row">
+        Review Form here
+    </div>
 </div>
 
 {% endblock %}
