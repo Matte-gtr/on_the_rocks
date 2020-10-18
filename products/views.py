@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import Product
+from .models import Product, Category
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
@@ -23,6 +23,11 @@ def products(request):
                 Q(description__icontains=query) |\
                 Q(detail__icontains=query)
             products = products.filter(search_results)
+
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',')
+            products = products.filter(category__name__in=categories)
+            categories = Category.objects.filter(name__in=categories)
 
     template = 'products/products.html'
 
@@ -49,4 +54,10 @@ def product_display(request, product_id):
         'product': product,
         'form': form,
     }
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=product)
+        print(request.POST)
+        form.save()
+
     return render(request, template, context)

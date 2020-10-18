@@ -86,7 +86,7 @@
             {% endfor %}
             <div class="row">
                 <div class="col">
-                    <form action="#" method="POST" class="review-form">
+                    <form action="{% url 'product_display' product.id %}" method="POST" class="review-form">
                         {% csrf_token %}
                         <h6 class="form-header">Write your own Review</h6>
                             {{ form|crispy }}

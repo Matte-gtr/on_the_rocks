@@ -124,11 +124,11 @@
                             <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-uppercase" href="{% url 'products' %}">All Whiskeys</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-uppercase" href="#">Single Malt</a>
-                                <a class="dropdown-item text-uppercase" href="#">Blended Malt</a>
-                                <a class="dropdown-item text-uppercase" href="#">Blended Whiskey</a>
-                                <a class="dropdown-item text-uppercase" href="#">Grain Whiskey</a>
-                                <a class="dropdown-item text-uppercase" href="#">Organic Whiskey</a>
+                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=single_malt">Single Malt</a>
+                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=blended_malt">Blended Malt</a>
+                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=blended_whiskey">Blended Whiskey</a>
+                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=grain_whiskey">Grain Whiskey</a>
+                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=organic_whiskey">Organic Whiskey</a>
                             </div>
                         </li>
                         <li class="nav-item">
