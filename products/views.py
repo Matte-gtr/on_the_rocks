@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import Product, Category
+from .models import Product, Category, ProductReview
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
@@ -30,6 +30,7 @@ def products(request):
             categories = Category.objects.filter(name__in=categories)
 
     template = 'products/products.html'
+    product_count = products.count()
 
     pagi = Paginator(products, 36)
     page_num = request.GET.get('page', 1)
@@ -40,7 +41,8 @@ def products(request):
 
     context = {
         'products': page,
-        'page_header': "Whiskeys"
+        'page_header': "Whiskeys",
+        'product_count': product_count,
     }
 
     return render(request, template, context)
@@ -56,8 +58,14 @@ def product_display(request, product_id):
     }
 
     if request.method == 'POST':
-        form = ReviewForm(request.POST, instance=product)
-        print(request.POST)
-        form.save()
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.product = product
+            review.save()
+            # messages(request, "Thankyou. Your review has been submitted for review")
+        # else:
+            # messages(request, "Review failed, please try again")
 
     return render(request, template, context)
