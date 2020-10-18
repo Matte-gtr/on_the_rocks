@@ -48,7 +48,7 @@
                     <div class="card-footer">
                     <div class="row">   
                             <div class="col">
-                                <p class="mb-0"><a class="plain-anchor" href="#"><i class="fas fa-tag fa-sm"></i> {{ product.category.friendly_name }}</a></p>
+                                <p class="mb-0"><a class="plain-anchor" href="{% url 'products' %}?category={{product.category}}"><i class="fas fa-tag fa-sm"></i> {{ product.category.friendly_name }}</a></p>
                                 <p class="mb-0 card-detail grey">{{ product.size }}/{{ product.proof }}%</p>
                                 <p class="mb-0 card-price">£{{ product.price }}</p>
                                 {% if product.rating > 0.0 %}

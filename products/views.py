@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import Product, Category, ProductReview
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
 
 from .forms import ReviewForm
+from .models import Product, Category, ProductReview
 
 
 def products(request):
@@ -50,22 +50,38 @@ def products(request):
 
 def product_display(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
+    
+    if request.method == 'POST':
+        if request.user:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.product = product
+                review.save()
+                # messages(request, "Thankyou. Your review has been submitted
+                # for review")
+            # else:
+                # messages(request, "Review failed, please try again")
+        # else:
+            # messages (request, "You have to be logged in to add reviews")
+
     template = 'products/product_display.html'
     form = ReviewForm()
     context = {
         'product': product,
         'form': form,
     }
+    return render(request, template, context)
 
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.product = product
-            review.save()
-            # messages(request, "Thankyou. Your review has been submitted for review")
-        # else:
-            # messages(request, "Review failed, please try again")
 
+def site_management(request):
+    template = 'products/site_management.html'
+    page_header = 'Site Management'
+    all_reviews = ProductReview.objects.all()
+    reviews = all_reviews.filter(authorised=False)
+    context = {
+        'page_header': page_header,
+        'reviews': reviews,
+    }
     return render(request, template, context)
