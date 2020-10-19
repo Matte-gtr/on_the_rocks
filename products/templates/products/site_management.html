@@ -28,7 +28,7 @@
                                 <div class="management-card">
                                     <h6><small class="font-weight-bold">{{ review.product.name }} - </small><small>{{ review.user }}</small></h6>
                                     <p class="mb-0"><small><span class="text-orange">Review: </span>{{ review.review }} - <span class="text-orange">Rating: </span>{{ review.stars }}/5</small></p>
-                                    <p class="mb-1 mt-2"><a class="btn btn-sm btn-outline-primary mr-2" href="{% url 'approve_review' review.id %}">Approve</a><a class="btn btn-sm btn-outline-danger" href="#">Reject</a></p>
+                                    <p class="mb-1 mt-2"><a class="btn btn-sm btn-outline-primary mr-2" href="{% url 'approve_review' review.id %}">Approve</a><a class="btn btn-sm btn-outline-danger" href="{% url 'delete_review' review.id %}">Reject</a></p>
                                 </div>
                             {% endfor %}
                         {% else %}

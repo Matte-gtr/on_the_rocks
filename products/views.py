@@ -97,3 +97,12 @@ def approve_review(request, review_id):
         review.save(update_fields=['authorised'])
         # messages(request, f'{review.product} review by {review.user} approved')
     return redirect(reverse('site_management'))
+
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(ProductReview, pk=review_id)
+    if request.user.is_superuser:
+        review.delete()
+        # messages(request, f'{review.product} review by {review.user} deleted')
+    return redirect(reverse('site_management'))
