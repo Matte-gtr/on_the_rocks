@@ -52,9 +52,9 @@
                                 <p class="mb-0 card-detail grey">{{ product.size }}/{{ product.proof }}%</p>
                                 <p class="mb-0 card-price">£{{ product.price }}</p>
                                 {% if product.rating > 0.0 %}
-                                    <p class="mb-0 card-detail">{{ product.rating }}/5</p>
+                                    <p class="mb-0 card-detail text-orange">{{ product.rating }}/5</p>
                                 {% else %}
-                                    <p class="mb-0 card-detail grey">No Reviews yet</p>
+                                    <p class="mb-0 card-detail text-orange">No Reviews yet</p>
                                 {% endif %}
                                 </div>
                             </div> 

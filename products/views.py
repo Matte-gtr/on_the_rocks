@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage
 
@@ -53,7 +54,7 @@ def product_display(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
 
     if request.method == 'POST':
-        if request.user:
+        if request.user.is_authenticated:
             form = ReviewForm(request.POST)
             if form.is_valid():
                 review = form.save(commit=False)
@@ -64,7 +65,8 @@ def product_display(request, product_id):
                 # for review")
             # else:
                 # messages(request, "Review failed, please try again")
-        # else:
+        else:
+            return redirect(reverse('home'))  # test purposes
             # messages (request, "You have to be logged in to add reviews")
 
     template = 'products/product_display.html'
@@ -91,18 +93,28 @@ def site_management(request):
 
 @login_required
 def approve_review(request, review_id):
+    """ approve a review so it is displayed on the product page """
     review = get_object_or_404(ProductReview, pk=review_id)
+
+    product = get_object_or_404(Product, pk=review.product_id)
+    rating = product.reviews.aggregate(Avg('stars'))['stars__avg']
+
     if request.user.is_superuser:
         review.authorised = True
         review.save(update_fields=['authorised'])
-        # messages(request, f'{review.product} review by {review.user} approved')
+        product.rating = round(rating, 1)
+        product.save(update_fields=['rating'])
+        # messages(request, f'{review.product} review by
+        # {review.user} approved')
     return redirect(reverse('site_management'))
 
 
 @login_required
 def delete_review(request, review_id):
+    """ delete a review that is awaiting authorisation """
     review = get_object_or_404(ProductReview, pk=review_id)
     if request.user.is_superuser:
         review.delete()
-        # messages(request, f'{review.product} review by {review.user} deleted')
+        # messages(request, f'{review.product} review by {review.user}
+        # deleted')
     return redirect(reverse('site_management'))
