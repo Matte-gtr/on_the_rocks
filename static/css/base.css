@@ -291,6 +291,27 @@ li .nav-link {
     margin-top: -15px;
 }
 
+/*---------site management---------*/
+
+.notification-count {
+    border: 1px solid orange;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: orange;
+    color: black;
+}
+
+.management-card {
+    background-color: lightgray;
+    padding: 8px 10px 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {

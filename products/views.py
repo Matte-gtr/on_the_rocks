@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage
 
 from .forms import ReviewForm
@@ -50,7 +51,7 @@ def products(request):
 
 def product_display(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    
+
     if request.method == 'POST':
         if request.user:
             form = ReviewForm(request.POST)
@@ -75,6 +76,7 @@ def product_display(request, product_id):
     return render(request, template, context)
 
 
+@login_required
 def site_management(request):
     template = 'products/site_management.html'
     page_header = 'Site Management'
@@ -85,3 +87,13 @@ def site_management(request):
         'reviews': reviews,
     }
     return render(request, template, context)
+
+
+@login_required
+def approve_review(request, review_id):
+    review = get_object_or_404(ProductReview, pk=review_id)
+    if request.user.is_superuser:
+        review.authorised = True
+        review.save(update_fields=['authorised'])
+        # messages(request, f'{review.product} review by {review.user} approved')
+    return redirect(reverse('site_management'))
