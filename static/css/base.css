@@ -218,8 +218,9 @@ li .nav-link {
 
 .card-image {
     max-width: 80%;
-    height: auto;
+    height: 310px;
     transform: translateX(12.5%);
+    object-fit: contain;
 }
 
 .card-detail {
@@ -232,7 +233,7 @@ li .nav-link {
 
 .card-img-top {
     min-height: 15vw;
-    background: url(/media/103.gif) no-repeat center center;
+    background: url(/media/tenor.gif) no-repeat center center;
 }
 
 .pagination>li.active>a {
@@ -322,6 +323,24 @@ li .nav-link {
     padding: 8px 10px 5px 10px;
     margin: 5px;
     border-radius: 5px;
+}
+
+/*---------cart---------*/
+
+.cart-field {
+    width: 4.5rem;
+    height: 2rem;
+}
+
+.cart-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 140px;
+    object-fit: contain;
+}
+
+.mb-2px {
+    margin-bottom: 2px;
 }
 
 /*---------media queries---------*/

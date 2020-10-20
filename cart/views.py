@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 
 def view_cart(request):
@@ -23,3 +23,13 @@ def add_to_cart(request, product_id):
 
     request.session['cart'] = cart
     return redirect(redirect_url)
+
+
+def update_quantity(request, product_id):
+    quantity = int(request.POST.get('quantity'))
+    cart = request.session.get('cart', {})
+
+    cart[product_id] = quantity
+
+    request.session['cart'] = cart
+    return redirect(reverse('view_cart'))
