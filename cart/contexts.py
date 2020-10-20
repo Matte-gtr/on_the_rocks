@@ -18,6 +18,8 @@ def cart_contents(request):
             'quantity': quantity,
             'product': product,
         })
+        # elif product is a crate...
+            # do some other stuff to add the crate to the cart
 
     if total < settings.FREE_SHIPPING_THRESHOLD:
         free_delivery_delta = settings.FREE_SHIPPING_THRESHOLD - total

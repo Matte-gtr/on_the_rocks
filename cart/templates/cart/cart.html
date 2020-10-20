@@ -14,8 +14,8 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                {% if cart_items %}
-                    <p>There are items!</p>
+                {% if products_in_cart %}
+                    <p>{{ products_in_cart }}</p>
                 {% else %}
                     <p>There are no items!</p>
                 {% endif %}
