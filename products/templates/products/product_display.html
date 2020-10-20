@@ -25,15 +25,16 @@
                 </div>
                 <div class="display-section buy-container">
                     <p><strong>£{{ product.price }}</strong></p>
-                    <form class="form" method="POST" action="">
+                    <form class="form" method="POST" action="{% url 'add_to_cart' product.id %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <div class="col-12 p-0">
                                 <label for="quantity">Quantity: </label>
                                 <input class="form-control w-auto mb-3" type="number" name="quantity" min="1" max="99" value="1" />
-                                <button type="submit" class="btn btn-orange">ADD TO BASKET</button>
+                                <button type="submit" class="btn btn-orange">ADD TO CART</button>
                             </div>
                         </div>
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     </form>
                 </div>
                 <a class="btn btn-outline-secondary text-uppercase mt-3 ml-2" href="{% url 'products' %}" role="button">Continue Shopping</a>

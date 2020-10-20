@@ -98,9 +98,11 @@
                         <a class="text-info font-weight-bold nav-link" href="{% url 'view_cart' %}">
                             <div class="text-center text-dark">
                                 <div><i class="fas fa-shopping-cart fa-lg"></i></div>
-                                <p class="my-0">
-                                        $0.00
-                                </p>
+                                {% if total %}
+                                    <p class="my-0 text-orange">£{{ total }}</p>
+                                {% else %}
+                                    <p class="my-0">£0.00</p>
+                                {% endif %}
                             </div>
                         </a>
                     </li>
