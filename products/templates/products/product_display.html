@@ -14,10 +14,10 @@
             </div>
             <div class="col-12 col-md-6 col-xl-4 offset-xl-2 order-12 order-md-1">
                 <div class="display-section">
-                    <a href="#" class="plain-anchor"><p><i class="fas fa-tag fa-sm"></i> {{ product.category.friendly_name }}</p></a>
+                    <a href="{% url 'products' %}?category={{ product.category }}" class="plain-anchor"><p><i class="fas fa-tag fa-sm"></i> {{ product.category.friendly_name }}</p></a>
                     <p>{{ product.size }} / {{ product.proof }}%</p>
                     {% if product.rating > 0.0 %}
-                        <p class="text-orange"><small>Rating: {{ product.rating }} / 5</small></p>
+                        <a href="#reviews" class="orange-link"><p class="text-orange"><small>Rating: {{ product.rating }} / 5</small></p></a>
                     {% else %}
                         <p class="text-orange"><small>No Rating yet</small></p>
                     {% endif %}
@@ -46,7 +46,7 @@
     </section>
     <div class="row section-title">
         <div class="col-12 text-center">
-            <h4 class="text-uppercase m-0">Reviews</h4>
+            <h4 class="text-uppercase m-0" id="reviews">Reviews</h4>
         </div>
     </div>
     <section class="review-section">

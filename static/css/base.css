@@ -37,7 +37,11 @@ body {
 }
 
 .text-orange {
-        color: #ff7600;
+    color: #ff7600;
+}
+
+.orange-link:hover {
+    color: #ff7600;
 }
 
 .btn-orange {
@@ -62,6 +66,10 @@ body {
 
 .w-90 {
     width: 90%;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /*---------navigation/navbar---------*/
@@ -237,6 +245,10 @@ li .nav-link {
   color: #010101;
 }
 
+.cat-links {
+    display: none;
+}
+
 /*---------product display---------*/
 
 .display-section {
@@ -324,6 +336,15 @@ li .nav-link {
     .card {
         margin-left: 0;
         margin-right: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .cat-links {
+        display: block;
+    }
+    .mobile-links {
+        display: none;
     }
 }
 

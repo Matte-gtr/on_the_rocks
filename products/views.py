@@ -14,6 +14,9 @@ def products(request):
     products or based on your search term """
 
     products = Product.objects.all()
+    category_filter = ''
+    current_category = ''
+    search = ''
 
     if request.GET:
         if "search" in request.GET:
@@ -25,11 +28,14 @@ def products(request):
                 Q(description__icontains=query) |\
                 Q(detail__icontains=query)
             products = products.filter(search_results)
+            search = query
 
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
             products = products.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
+            category_filter = Category.objects.all()
+            current_category = request.GET['category']
 
     template = 'products/products.html'
     product_count = products.count()
@@ -45,6 +51,9 @@ def products(request):
         'products': page,
         'page_header': "Whiskeys",
         'product_count': product_count,
+        'category_filter': category_filter,
+        'current_category': current_category,
+        'search': search,
     }
 
     return render(request, template, context)

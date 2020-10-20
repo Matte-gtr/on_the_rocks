@@ -10,13 +10,39 @@
                 <hr class="grey w-50">
             </div>
         </div>
+        {% if category_filter %}
+            <div class="row cat-links mb-1">
+                <div class="col">
+                    {% for category in category_filter %}
+                        {% if category.name == current_category %}
+                            <a class="btn btn-secondary btn-sm" href="#" role="button">{{ category.friendly_name }}</a>
+                        {% else %}
+                            <a class="btn btn-outline-secondary btn-sm" href="{% url 'products' %}?category={{ category.name }}" role="button">{{ category.friendly_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mobile-links mb-1">
+                <div class="col">
+                    {% for category in category_filter %}
+                        {% if category.name == current_category %}
+                            <a class="btn btn-outline-secondary btn-sm" href="#" role="button">{{ category.friendly_name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col">
-                {{ product_count }}
+                {% if search %}
+                    <p class="mb-1">{{ product_count }} Products found for "{{ search }}"</p>
+                {% else %}
+                    <p class="mb-1">{{ product_count }} Products</p>
+                {% endif %}
             </div>
         </div>
     </div>
