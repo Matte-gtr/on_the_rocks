@@ -11,12 +11,12 @@ from .models import Product, Category, ProductReview
 
 def products(request):
     """ Returns a list of paginated products, either all
-    products or based on your search term """
+    products or based on your search term or category filter """
 
     products = Product.objects.all()
     category_filter = ''
     current_category = ''
-    search = ''
+    query = ''
 
     if request.GET:
         if "search" in request.GET:
@@ -28,7 +28,6 @@ def products(request):
                 Q(description__icontains=query) |\
                 Q(detail__icontains=query)
             products = products.filter(search_results)
-            search = query
 
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
@@ -53,7 +52,7 @@ def products(request):
         'product_count': product_count,
         'category_filter': category_filter,
         'current_category': current_category,
-        'search': search,
+        'search': query,
     }
 
     return render(request, template, context)
