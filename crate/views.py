@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from products.models import Product, Category
 
 
@@ -7,7 +7,13 @@ def create_a_crate(request):
     all_categories = Category.objects.all()
     category = False
     products = Product.objects.all()
-    categories = ''
+    categories = None
+    crate = request.session.get('crate', {})
+    if crate.items():
+        for product_id, quantity in crate.items():
+            product = get_object_or_404(Product, pk=product_id)
+            categories = product.category.name.split(',')
+            products = products.filter(category__name__in=categories)
 
     if request.method == 'GET':
         if 'category' in request.GET:

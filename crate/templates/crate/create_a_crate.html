@@ -15,7 +15,7 @@
         <section>
             <div class="row">
                 <div class="col text-center light-grey">
-                    <p>Add 6 bottles from your selected category to your crate, then add the create to your cart to <strong class="text-orange">save 15%</strong> on all items in the crate.</p>
+                    <p>Add 6 bottles to your crate from your selected category, then add the create to your cart to <strong class="text-orange">save 20%</strong> on all items in the crate.</p>
                 </div>
             </div>
             <div class="row">
@@ -79,11 +79,20 @@
             <div class="row">
                 <div class="col">
                     {% for item in products_in_crate %}
-                        <h1>{{ item.product.name }}</h1><a href="{% url 'delete_from_crate' item.product.id %}">Del</a>
+                        <h5>{{ item.product.name }}</h5>
+                        <h5>{{ item.quantity }}</h5>
+                        <form class="form cart-delete" method="POST" action="{% url 'delete_from_crate' item.product.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="col-12 p-0">
+                                    <button type="submit" class="btn btn-sm btn-orange mr-2">Remove</button>
+                                </div>
+                            </div>
+                        </form>
                     {% endfor %}
-                    {{ products_in_crate }}
-                    {{ crate_total }}
-                    {{ crate_product_count }}
+                    <h6>£{{ crate_total|floatformat:2 }}</h6>
+                    <h6>£{{ total_with_discount|floatformat:2 }}</h6>
+                    <h6>products_in_crate: {{ crate_product_count }}</h6>
                 </div>
             </div>
         </section>

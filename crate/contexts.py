@@ -1,14 +1,15 @@
 from django.shortcuts import get_object_or_404
 from products.models import Product
+from decimal import Decimal
 
 
 def crate_contents(request):
     products_in_crate = []
     crate_total = 0
+    total_with_discount = 0
     crate_product_count = 0
     crate = request.session.get('crate', {})
     category_selected = ''
-    # products = Product.objects.all()
 
     for product_id, quantity in crate.items():
         product = get_object_or_404(Product, pk=product_id)
@@ -20,12 +21,13 @@ def crate_contents(request):
             'quantity': quantity,
             'product': product,
         })
-        # products = products.filter(category__name__in=category_selected.name)
+        total_with_discount = crate_total * Decimal(0.8)
 
     context = {
         'products_in_crate': products_in_crate,
         'crate_total': crate_total,
         'crate_product_count': crate_product_count,
         'category_selected': category_selected,
+        'total_with_discount': total_with_discount,
     }
     return context
