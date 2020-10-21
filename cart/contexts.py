@@ -8,8 +8,9 @@ def cart_contents(request):
     total = 0
     product_count = 0
     cart = request.session.get('cart', {})
+
+    # if product is not a crate...
     for product_id, quantity in cart.items():
-        # if product is not a crate...
         product = get_object_or_404(Product, pk=product_id)
         total += quantity * product.price
         product_count += quantity

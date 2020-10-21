@@ -22,21 +22,21 @@
                 <div class="col px-5">
                     <form method="GET" action="{% url 'create_a_crate' %}">
                         <select class="form-control" name="category" id="categorySelect">
-                            <option class="light-grey">Select Category</option>
-                            {% for category in all_categories %}
-                                {% if category.name == category_selected %}
-                                    <option value="{{ category.name }}" selected>{{ category.friendly_name }}</option>
-                                {% else %}
-                                    <option value="{{ category.name }}">{{ category.friendly_name }}</option>
-                                {% endif %}
-                            {% endfor %}
+                            <option class="light-grey" selected disabled>Select Category</option>
+                            {% if category_selected %}
+                                <option value="{{ category_selected.name }}" selected>{{ category_selected.friendly_name }}</option>
+                            {% else %}
+                                {% for cat in all_categories %}
+                                    <option value="{{ cat.name }}">{{ cat.friendly_name }}</option>
+                                {% endfor %}
+                            {% endif %}
                         </select>
                     </form>
                 </div>
             </div>
         </section>
         <section>
-            {% if category_selected %}
+            {% if category or category_selected %}
                 <div class="row">
                     <div class="col px-0">
                         <div class="product-container container">
@@ -52,9 +52,19 @@
                                                     <a href="{% url 'product_display' product.id %}" class="plain-anchor" target="_blank"><h6 class="my-0">{{ product.name }}</h6></a>
                                                     <p class="my-0"><small>{{ product.size }}</small></p>
                                                     <p class="my-0"><small>{{ product.proof }}</small></p>
-                                                    <p class="my-0"><small class="font-weight-bold">£{{ product.price }}</small><span class="cart-delete"><a class="btn btn-orange btn-sm mr-2 mb-2 mt-2" href="#" role="button">Add</a></span></p>
+                                                    <p class="my-0">
+                                                        <small class="font-weight-bold">£{{ product.price }}</small>
+                                                        <form class="form cart-delete" method="POST" action="{% url 'add_to_crate' product.id %}">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <div class="col-12 p-0">
+                                                                    <input class="form-control d-inline-block crate-size" type="number" name="quantity" min="1" max="6" value="1"/>
+                                                                    <button type="submit" class="btn btn-sm btn-orange mr-2 crate-size">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </p>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -64,6 +74,18 @@
                     </div>
                 </div>
             {% endif %}
+        </section>
+        <section>
+            <div class="row">
+                <div class="col">
+                    {% for item in products_in_crate %}
+                        <h1>{{ item.product.name }}</h1><a href="{% url 'delete_from_crate' item.product.id %}">Del</a>
+                    {% endfor %}
+                    {{ products_in_crate }}
+                    {{ crate_total }}
+                    {{ crate_product_count }}
+                </div>
+            </div>
         </section>
     </div>
 {% endblock %}

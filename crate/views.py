@@ -5,7 +5,7 @@ from products.models import Product, Category
 def create_a_crate(request):
     template = "crate/create_a_crate.html"
     all_categories = Category.objects.all()
-    category_selected = False
+    category = False
     products = Product.objects.all()
     categories = ''
 
@@ -14,14 +14,14 @@ def create_a_crate(request):
             categories = request.GET['category'].split(',')
             products = products.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
-            category_selected = request.GET['category']
+            category = request.GET['category']
 
     context = {
         'all_categories': all_categories,
         'page_header': 'Create-a-crate',
         'categories': categories,
         'products': products,
-        'category_selected': category_selected,
+        'category': category,
     }
     return render(request, template, context)
 
@@ -36,5 +36,12 @@ def add_to_crate(request, product_id):
     else:
         crate[product_id] = quantity
 
+    request.session['crate'] = crate
+    return redirect(reverse('create_a_crate'))
+
+
+def delete_from_crate(request, product_id):
+    crate = request.session.get('crate', {})
+    crate.pop(product_id)
     request.session['crate'] = crate
     return redirect(reverse('create_a_crate'))
