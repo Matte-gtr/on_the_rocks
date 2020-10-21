@@ -34,13 +34,13 @@
             <hr class="d-none d-md-block w-90 mt-0">
             {% for item in products_in_cart %}
                 <div class="row">
-                    <div class="order-2 order-md-1 col-4 col-md-2">
+                    <div class="order-2 order-md-1 col-4 col-md-2 text-center">
                         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img">
                     </div>
                     <div class="order-1 order-md-2 col-8 col-md-4">
                         <div class="row pr-2">
                             <div class="col">
-                                <p class="mb-1"><span class="font-weight-bold">{{ item.product.name }}</span>{% if item.product.detail %}<small class="light-grey"> - {{ item.product.detail }}</small>{% endif %}</p>
+                                <p class="mb-1"><a href="{% url 'product_display' item.product.id %}" class="font-weight-bold plain-anchor">{{ item.product.name }}</a>{% if item.product.detail %}<small class="light-grey"> - {{ item.product.detail }}</small>{% endif %}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -72,5 +72,16 @@
         {% else %}
             <p>There are no items!</p>
         {% endif %}
+        <div class="row">
+            <div class="col">
+                <h6 class="text-right total">Cart Total: £{{ total|floatformat:2 }}</h6>
+                <h6 class="text-right shipping">Shipping: £{{ shipping|floatformat:2 }}</h6>
+                <h6 class="text-right grand-total">Grand Total: £{{ grand_total|floatformat:2 }}</h6>
+                <div class="row div-right mb-4 mt-3">
+                    <a class="btn btn-secondary text-uppercase mr-2" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
+                    <a class="btn btn-orange text-uppercase mr-2" href="#" role="button"><i class="fas fa-lock fa-sm"></i> Secure Checkout</a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

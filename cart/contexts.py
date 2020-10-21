@@ -22,15 +22,21 @@ def cart_contents(request):
             # do some other stuff to add the crate to the cart
 
     if total < settings.FREE_SHIPPING_THRESHOLD:
-        free_delivery_delta = settings.FREE_SHIPPING_THRESHOLD - total
+        free_shipping_delta = settings.FREE_SHIPPING_THRESHOLD - total
+        shipping = settings.STANDARD_SHIPPING_COST
     else:
-        free_delivery_delta = 0
+        free_shipping_delta = 0
+        shipping = 0
+
+    grand_total = shipping + total
 
     context = {
         'products_in_cart': products_in_cart,
         'total': total,
         'product_count': product_count,
-        'free_delivery_delta': free_delivery_delta,
-        'free_delivery_threshold': settings.FREE_SHIPPING_THRESHOLD,
+        'free_shipping_delta': free_shipping_delta,
+        'free_shipping_threshold': settings.FREE_SHIPPING_THRESHOLD,
+        'shipping': shipping,
+        'grand_total': grand_total,
     }
     return context

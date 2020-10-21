@@ -19,7 +19,7 @@
                     {% if product.rating > 0.0 %}
                         <a href="#reviews" class="orange-link"><p class="text-orange"><small>Rating: {{ product.rating }} / 5</small></p></a>
                     {% else %}
-                        <p class="text-orange"><small>No Rating yet</small></p>
+                        <a href="#reviews" class="orange-link"><p class="text-orange"><small>No Rating yet</small></p></a>
                     {% endif %}
                     <p>{{ product.description }}</p>
                 </div>
@@ -37,7 +37,7 @@
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     </form>
                 </div>
-                <a class="btn btn-secondary text-uppercase mt-3" href="{% url 'products' %}" role="button">Continue Shopping</a>
+                <a class="btn btn-secondary text-uppercase mt-3" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
             </div>
             <div class="col-12 col-md-6 col-xl-4 order-1 order-md-12">
                 <div class="image-section">

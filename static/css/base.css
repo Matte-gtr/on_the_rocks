@@ -343,6 +343,24 @@ li .nav-link {
     margin-bottom: 2px;
 }
 
+.total {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.shipping {
+    font-size: 17px;
+}
+
+.grand-total {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.div-right {
+    justify-content: flex-end;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {
