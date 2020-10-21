@@ -1,5 +1,79 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block page_header %}
+    <div class="container page-header">
+        <div class="row">
+            <div class="col">
+                {{ page_header }}
+                <hr class="grey w-50">
+            </div>
+        </div>
+    </div>
+{% endblock %}
 {% block content %}
-    <h1>Create a crate</h1>
+    <div class="container">
+        <section>
+            <div class="row">
+                <div class="col text-center light-grey">
+                    <p>Add 6 bottles from your selected category to your crate, then add the create to your cart to <strong class="text-orange">save 15%</strong> on all items in the crate.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col px-5">
+                    <form method="GET" action="{% url 'create_a_crate' %}">
+                        <select class="form-control" name="category" id="categorySelect">
+                            <option class="light-grey">Select Category</option>
+                            {% for category in all_categories %}
+                                {% if category.name == category_selected %}
+                                    <option value="{{ category.name }}" selected>{{ category.friendly_name }}</option>
+                                {% else %}
+                                    <option value="{{ category.name }}">{{ category.friendly_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section>
+            {% if category_selected %}
+                <div class="row">
+                    <div class="col px-0">
+                        <div class="product-container container">
+                            {% for product in products %}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="crate-card">
+                                            <div class="row">
+                                                <div class="col-2 text-center pr-0 m-auto">
+                                                    <img class="img-fluid crate-img" src="{{ product.image.url }}">
+                                                </div>
+                                                <div class="col-10 mt-1">
+                                                    <a href="{% url 'product_display' product.id %}" class="plain-anchor" target="_blank"><h6 class="my-0">{{ product.name }}</h6></a>
+                                                    <p class="my-0"><small>{{ product.size }}</small></p>
+                                                    <p class="my-0"><small>{{ product.proof }}</small></p>
+                                                    <p class="my-0"><small class="font-weight-bold">£{{ product.price }}</small><span class="cart-delete"><a class="btn btn-orange btn-sm mr-2 mb-2 mt-2" href="#" role="button">Add</a></span></p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+{% endblock %}
+{% block postload_js %}
+{{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#categorySelect').change(function() {
+                this.form.submit();
+            });
+        });
+    </script>
 {% endblock %}

@@ -373,6 +373,34 @@ li .nav-link {
     padding: 2px;
 }
 
+/*---------create-a-crate---------*/
+
+.product-container {
+    box-shadow: -6px -3px 4px #adabab;
+    padding-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #adabab;
+    border-radius: 5px;
+    max-height: 56vh;
+    overflow: auto;
+}
+
+.crate-card {
+    border: 1px solid #adabab;
+    box-shadow: -6px -3px 4px #adabab;
+    padding: 2px;
+}
+
+.crate-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+    background: url(/media/tenor.gif) no-repeat center center;
+    background-size: cover;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {
