@@ -361,6 +361,18 @@ li .nav-link {
     justify-content: flex-end;
 }
 
+.cart-delete {
+    float: right;
+    padding-right: 10%;
+}
+
+.shipping-banner {
+    background-color: #6c757d;
+    color: #fafafa;
+    text-transform: uppercase;
+    padding: 2px;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {
@@ -382,6 +394,9 @@ li .nav-link {
     }
     .mobile-links {
         display: none;
+    }
+    .cart-delete {
+        padding-right: 0;
     }
 }
 

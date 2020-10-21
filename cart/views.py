@@ -33,3 +33,10 @@ def update_quantity(request, product_id):
 
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
+
+
+def delete_from_cart(request, product_id):
+    cart = request.session.get('cart', {})
+    cart.pop(product_id)
+    request.session['cart'] = cart
+    return redirect(reverse('view_cart'))

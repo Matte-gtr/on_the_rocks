@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block page_header %}
+    {% if products_in_cart and free_shipping_delta > 0 %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col text-center shipping-banner">
+                <p class="mb-0">Spend £{{ free_shipping_delta }} more to get free shipping!</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     <div class="container page-header">
         <div class="row">
             <div class="col">
@@ -63,25 +72,35 @@
                             </div>
                         </form>
                     </div>
-                    <div class=" order-5 col">
-                        <strong><span class="d-md-none">SubTotal: </span>£{{ item.product.price }}</strong>
+                    <div class="order-5 col">
+                        <strong><span class="d-md-none">SubTotal: </span>£{{ item.product.price }}<span class="cart-delete"><a href="{% url 'delete_from_cart' item.product.id %}" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
                     </div>
                     <hr class="order-6 w-90">
                 </div>
             {% endfor %}
         {% else %}
-            <p>There are no items!</p>
+            <p class="text-center py-4">There are no items in your cart</p>
         {% endif %}
-        <div class="row">
-            <div class="col">
-                <h6 class="text-right total">Cart Total: £{{ total|floatformat:2 }}</h6>
-                <h6 class="text-right shipping">Shipping: £{{ shipping|floatformat:2 }}</h6>
-                <h6 class="text-right grand-total">Grand Total: £{{ grand_total|floatformat:2 }}</h6>
-                <div class="row div-right mb-4 mt-3">
-                    <a class="btn btn-secondary text-uppercase mr-2" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
-                    <a class="btn btn-orange text-uppercase mr-2" href="#" role="button"><i class="fas fa-lock fa-sm"></i> Secure Checkout</a>
+        {% if products_in_cart %}
+            <div class="row">
+                <div class="col">
+                    <h6 class="text-right total">Cart Total: £{{ total|floatformat:2 }}</h6>
+                    <h6 class="text-right shipping">Shipping: £{{ shipping|floatformat:2 }}</h6>
+                    <h6 class="text-right grand-total">Grand Total: £{{ grand_total|floatformat:2 }}</h6>
+                    <div class="row div-right mb-4 mt-3">
+                        <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
+                        <a class="btn btn-orange text-uppercase mr-2 mb-2" href="#" role="button"><i class="fas fa-lock fa-sm"></i> Secure Checkout</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <div class="row">
+                <div class="col">
+                    <div class="row mb-4 mt-3">
+                        <a class="btn btn-secondary text-uppercase mr-2 mx-auto" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
