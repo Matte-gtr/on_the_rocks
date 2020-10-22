@@ -9,17 +9,17 @@ def cart_contents(request):
     product_count = 0
     cart = request.session.get('cart', {})
 
-    # if product is not a crate...
     for product_id, quantity in cart.items():
-        product = get_object_or_404(Product, pk=product_id)
-        total += quantity * product.price
-        product_count += quantity
-        products_in_cart.append({
-            'product_id': product_id,
-            'quantity': quantity,
-            'product': product,
-        })
-        # elif product is a crate...
+        if type(quantity) == int:
+            product = get_object_or_404(Product, pk=product_id)
+            total += quantity * product.price
+            product_count += quantity
+            products_in_cart.append({
+                'product_id': product_id,
+                'quantity': quantity,
+                'product': product,
+            })
+        # else product is a crate...
             # do some other stuff to add the crate to the cart
 
     if total < settings.FREE_SHIPPING_THRESHOLD:

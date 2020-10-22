@@ -64,3 +64,29 @@ def empty_crate(request):
     request.session['crate'] = {}
 
     return redirect(reverse('create_a_crate'))
+
+
+def add_crate_to_cart(request):
+    """ add your crate/quantity to the cart """
+    redirect_url = request.POST.get('redirect_url')
+    cart = request.session.get('cart', {})
+    crate = request.session.get('crate')
+    count_check = 0
+    crate_count = 1
+
+    for product_id in list(crate.keys()):
+        count_check += crate[product_id]
+
+    if count_check == 6:
+        while f'crate{crate_count}' in list(cart.keys()):
+            crate_count += 1
+        cart[f'crate{crate_count}'] = crate
+
+    for key, value in cart.items():
+        print(type(value))
+        print(crate_count)
+    print(cart)
+
+    request.session['cart'] = cart
+    request.session['crate'] = {}
+    return redirect(redirect_url)

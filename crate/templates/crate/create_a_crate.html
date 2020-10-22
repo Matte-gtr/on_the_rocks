@@ -50,7 +50,7 @@
                                                     <img class="img-fluid crate-img" src="{{ product.image.url }}">
                                                 </div>
                                                 <div class="col-10 mt-1">
-                                                    <a href="{% url 'product_display' product.id %}" class="plain-anchor" target="_blank"><h6 class="my-0">{{ product.name }}</h6></a>
+                                                    <a href="{% url 'product_display' product.id %}" class="plain-anchor"><h6 class="my-0">{{ product.name }}</h6></a>
                                                     <p class="my-0"><small>{{ product.size }}</small></p>
                                                     <p class="my-0"><small>{{ product.proof }}%</small></p>
                                                     <div class="my-0">
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="row text-center">
-                <form class="form m-auto pb-0" method="POST" action="#">
+                <form class="form m-auto pb-0" method="POST" action="{% url 'add_crate_to_cart' %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <div class="col-12 p-0">
