@@ -21,7 +21,7 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        {% if products_in_cart %}
+        {% if products_in_cart or crates_in_cart %}
             <div class="row d-none d-md-flex">
                 <div class="offset-2 col-4">
                     <div class="row">
@@ -44,7 +44,11 @@
             {% for item in products_in_cart %}
                 <div class="row">
                     <div class="order-2 order-md-1 col-4 col-md-2 text-center">
-                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img">
+                        {% else %}
+                            <img src="{{ MEDIA_URL }}no-image.jpg" alt="{{ item.product.name }}" class="cart-img">
+                        {% endif %}
                     </div>
                     <div class="order-1 order-md-2 col-8 col-md-4">
                         <div class="row pr-2">
@@ -78,10 +82,51 @@
                     <hr class="order-6 w-90">
                 </div>
             {% endfor %}
+
+            {% for crate in crates_in_cart %}
+            <div class="crate-cart-card">
+                <div class="row">
+                    <div class="order-2 order-md-1 col-4 col-md-2 text-center">
+                        <img src="{{ MEDIA_URL }}crate-default.jpg" alt="custom crate" class="cart-img">
+                    </div>
+                    <div class="order-1 order-md-2 col-8 col-md-4">
+                        <div class="row pr-2">
+                            <div class="col">
+                                <p class="mb-1"><a href="{% url 'create_a_crate' %}" class="font-weight-bold plain-anchor">Custom Crate (20% off)</a></p>
+                                {% for item in crate.items %}
+                                    <div class="crate-cart-content">
+                                        <p class="m-0"><small><a href="{% url 'product_display' item.product.id %}" class="plain-anchor">{{ item.product.name }} - {{ item.product.size }} x {{ item.quantity }}</a></small></p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>{{ item.product.size }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-3 col-12 col-md-2">
+                        <p><span class="d-md-none">crate price: </span>£{{ crate.original_price|floatformat:2 }}</p>
+                    </div>
+                    <div class="order-4 col-12 col-md-2">
+                        <p><span class="d-md-none">Quantity: </span>1</p>
+                    </div>
+                    <div class="order-5 col">
+                        <strong><span class="d-md-none">SubTotal: </span>£{{ crate.discounted_price|floatformat:2 }}<span class="cart-delete"><a href="#" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
+                    </div>
+                </div>
+                <div class="crate-item-container">
+                </div>
+                <hr class="order-6 w-90">
+                </div>
+            {% endfor %}
+
+
         {% else %}
             <p class="text-center py-4">There are no items in your cart</p>
         {% endif %}
-        {% if products_in_cart %}
+        {% if products_in_cart or crates_in_cart %}
             <div class="row">
                 <div class="col">
                     <h6 class="text-right total">Cart Total: £{{ total|floatformat:2 }}</h6>
@@ -102,11 +147,6 @@
                 </div>
             </div>
         {% endif %}
-        {% for crate in crates_in_cart %}
-            <p>{{ crate.crate_id }}</p>
-            <p>{{ crate.items }}</p>
-        {% endfor %}
-        <p> {{crates_in_cart}} </p>
-        <p> products_in_cart </p>
     </div>
+    <a href="{% url 'clear_cart' %}">Clear Cart</a>
 {% endblock %}

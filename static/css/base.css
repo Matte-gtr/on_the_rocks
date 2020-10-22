@@ -424,6 +424,12 @@ li .nav-link {
     color: #010101;
 }
 
+.crate-cart-content {
+    background-color: #f1ecec;
+    padding-left: 5px;
+    border-radius: 3px;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {

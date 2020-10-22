@@ -23,24 +23,27 @@ def cart_contents(request):
             })
         else:
             items = []
+            original_price = 0
+            discounted_price = 0
             for product_pk, amount in quantity.items():
                 product = get_object_or_404(Product, pk=product_pk)
-                discounted_price = (amount * product.price) * Decimal(0.8)
+                original_price += amount * product.price
+                discounted_price += (amount * product.price) * Decimal(0.8)
+                discounted_product_price = product.price * Decimal(0.8)
                 total += (amount * product.price) * Decimal(0.8)
                 product_count += amount
-                print(product_id)
                 items.append({
                     'product_id': product_pk,
                     'quantity': amount,
                     'product': product,
-                    'price': discounted_price,
+                    'price': discounted_product_price,
                 })
             crates_in_cart.append({
                 'crate_id': product_id,
                 'items': items,
+                'original_price': original_price,
+                'discounted_price': discounted_price,
             })
-            # crates_in_cart.append to be modified
-            print(crates_in_cart)
 
     if total < settings.FREE_SHIPPING_THRESHOLD:
         free_shipping_delta = settings.FREE_SHIPPING_THRESHOLD - total

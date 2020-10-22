@@ -70,3 +70,8 @@ def add_crate_to_cart(request):
     request.session['cart'] = cart
     request.session['crate'] = {}
     return redirect(redirect_url)
+
+
+def clear_cart(request):
+    request.session['cart'] = {}
+    return redirect(reverse('view_cart'))
