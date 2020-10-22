@@ -83,6 +83,17 @@
                     <h3>Your Crate is Full!</h3>
                 </div>
             </div>
+            <div class="row text-center">
+                <form class="form m-auto pb-0" method="POST" action="#">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-12 p-0">
+                            <button type="submit" class="btn btn-orange">ADD TO CART</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                </form>
+            </div>
         </section>
         {% endif %}
         <section>
@@ -94,9 +105,15 @@
             <div class="row crate-contents">
                 <div class="col">
                     <div class="row">
+                    {% if crate_product_count > 0 %}
                         <div class="col text-orange mb-2">
                             <h5 class="strikethrough">Crate Total: <span class="strikeout">£{{ crate_total|floatformat:2 }}</span> <span class="text-large">£{{ total_with_discount|floatformat:2 }}</span></h5>
                         </div>
+                    {% else %}
+                        <div class="col mb-2 text-center">
+                            <h5>Your crate is empty</h5>
+                        </div>
+                    {% endif %}
                     </div>
                     {% for item in products_in_crate %}
                         <div class="row">
@@ -109,7 +126,7 @@
                                         <div class="col-10 mt-1">
                                             <h6 class="my-0">{{ item.product.name }}</h6>
                                             <p class="my-0"><small>{{ item.product.size }}</small></p>
-                                            <p class="my-0"><small class="font-weight-bold">£{{ product.price }}</small></p>
+                                            <p class="my-0"><small class="font-weight-bold">£{{ item.product.price }}</small></p>
                                             <div class="my-0">
                                                 <small class="font-weight-bold">Quantity: {{ item.quantity }}</small>
                                                 <form class="form cart-delete" method="POST" action="{% url 'delete_from_crate' item.product.id %}">
@@ -127,7 +144,6 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <h5>{{ crate_product_count }}</h5>
                 </div>
             </div>
         </section>

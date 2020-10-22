@@ -48,6 +48,13 @@ def add_to_crate(request, product_id):
 
 def delete_from_crate(request, product_id):
     crate = request.session.get('crate', {})
-    crate.pop(product_id)
+    quantity = 1
+
+    if product_id in list(crate.keys()):
+        if crate[product_id] > 1:
+            crate[product_id] -= quantity
+        else:
+            crate.pop(product_id)
+
     request.session['crate'] = crate
     return redirect(reverse('create_a_crate'))
