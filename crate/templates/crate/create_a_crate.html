@@ -144,6 +144,11 @@
                             </div>
                         </div>
                     {% endfor %}
+                    {% if crate_product_count > 0 %}
+                        <div class="col mt-2">
+                            <a class="btn btn-danger" href="{% url 'empty_crate' %}" role="button">Empty your crate</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </section>

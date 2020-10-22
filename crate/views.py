@@ -58,3 +58,9 @@ def delete_from_crate(request, product_id):
 
     request.session['crate'] = crate
     return redirect(reverse('create_a_crate'))
+
+
+def empty_crate(request):
+    request.session['crate'] = {}
+
+    return redirect(reverse('create_a_crate'))
