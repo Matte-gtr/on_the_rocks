@@ -22,6 +22,8 @@ def crate_contents(request):
             'product': product,
         })
         total_with_discount = crate_total * Decimal(0.8)
+    
+    max_in_crate = 6 - crate_product_count
 
     context = {
         'products_in_crate': products_in_crate,
@@ -29,5 +31,6 @@ def crate_contents(request):
         'crate_product_count': crate_product_count,
         'category_selected': category_selected,
         'total_with_discount': total_with_discount,
+        'max_in_crate': max_in_crate,
     }
     return context

@@ -35,7 +35,7 @@ def create_a_crate(request):
 def add_to_crate(request, product_id):
     """ add a product to the crate """
     crate = request.session.get('crate', {})
-    quantity = 1
+    quantity = int(request.POST.get('quantity'))
 
     if product_id in list(crate.keys()):
         crate[product_id] += quantity

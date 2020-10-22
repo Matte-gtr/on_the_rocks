@@ -406,6 +406,23 @@ li .nav-link {
     height: 30px;
 }
 
+.crate-contents {
+    border: 1px solid #adabab;
+    margin-bottom: 30px;
+    padding-top: 20px;
+}
+
+.strikeout {
+    text-decoration: line-through;
+    color: #adabab;
+}
+
+.text-large {
+    font-weight: 600;
+    font-size: 23px;
+    color: #010101;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {

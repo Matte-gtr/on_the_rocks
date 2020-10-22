@@ -15,7 +15,7 @@
         <section>
             <div class="row">
                 <div class="col text-center light-grey">
-                    <p>Add 6 bottles to your crate from your selected category, then add the create to your cart to <strong class="text-orange">save 20%</strong> on all items in the crate.</p>
+                    <p>Add 6 bottles to your crate from your selected category, then add the crate to your cart to <strong class="text-orange">save 20%</strong> on all items in the crate.</p>
                 </div>
             </div>
             <div class="row">
@@ -35,6 +35,7 @@
                 </div>
             </div>
         </section>
+        {% if crate_product_count < 6 %}
         <section>
             {% if category or category_selected %}
                 <div class="row">
@@ -51,19 +52,19 @@
                                                 <div class="col-10 mt-1">
                                                     <a href="{% url 'product_display' product.id %}" class="plain-anchor" target="_blank"><h6 class="my-0">{{ product.name }}</h6></a>
                                                     <p class="my-0"><small>{{ product.size }}</small></p>
-                                                    <p class="my-0"><small>{{ product.proof }}</small></p>
-                                                    <p class="my-0">
+                                                    <p class="my-0"><small>{{ product.proof }}%</small></p>
+                                                    <div class="my-0">
                                                         <small class="font-weight-bold">£{{ product.price }}</small>
                                                         <form class="form cart-delete" method="POST" action="{% url 'add_to_crate' product.id %}">
                                                             {% csrf_token %}
                                                             <div class="form-group">
                                                                 <div class="col-12 p-0">
-                                                                    <input class="form-control d-inline-block crate-size" type="number" name="quantity" min="1" max="6" value="1"/>
+                                                                    <input class="form-control d-inline-block crate-size" type="number" name="quantity" min="1" max="{{ max_in_crate }}" value="1"/>
                                                                     <button type="submit" class="btn btn-sm btn-orange mr-2 crate-size">Add</button>
                                                                 </div>
                                                             </div>
                                                         </form>
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,24 +76,58 @@
                 </div>
             {% endif %}
         </section>
+        {% else %}
         <section>
             <div class="row">
+                <div class="col text-center mt-4 text-orange">
+                    <h3>Your Crate is Full!</h3>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        <section>
+            <div class="row section-title mb-0">
+                <div class="col-12 text-center">
+                    <h4 class="text-uppercase m-0" id="reviews">Crate Contents</h4>
+                </div>
+            </div>
+            <div class="row crate-contents">
                 <div class="col">
+                    <div class="row">
+                        <div class="col text-orange mb-2">
+                            <h5 class="strikethrough">Crate Total: <span class="strikeout">£{{ crate_total|floatformat:2 }}</span> <span class="text-large">£{{ total_with_discount|floatformat:2 }}</span></h5>
+                        </div>
+                    </div>
                     {% for item in products_in_crate %}
-                        <h5>{{ item.product.name }}</h5>
-                        <h5>{{ item.quantity }}</h5>
-                        <form class="form cart-delete" method="POST" action="{% url 'delete_from_crate' item.product.id %}">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <div class="col-12 p-0">
-                                    <button type="submit" class="btn btn-sm btn-orange mr-2">Remove</button>
+                        <div class="row">
+                            <div class="col">
+                                <div class="crate-card">
+                                    <div class="row">
+                                        <div class="col-2 text-center pr-0 m-auto">
+                                            <img class="img-fluid crate-img" src="{{ item.product.image.url }}">
+                                        </div>
+                                        <div class="col-10 mt-1">
+                                            <h6 class="my-0">{{ item.product.name }}</h6>
+                                            <p class="my-0"><small>{{ item.product.size }}</small></p>
+                                            <p class="my-0"><small class="font-weight-bold">£{{ product.price }}</small></p>
+                                            <div class="my-0">
+                                                <small class="font-weight-bold">Quantity: {{ item.quantity }}</small>
+                                                <form class="form cart-delete" method="POST" action="{% url 'delete_from_crate' item.product.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <div class="col-12 p-0">
+                                                            <button type="submit" class="btn btn-sm btn-orange mr-2">Remove</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     {% endfor %}
-                    <h6>£{{ crate_total|floatformat:2 }}</h6>
-                    <h6>£{{ total_with_discount|floatformat:2 }}</h6>
-                    <h6>products_in_crate: {{ crate_product_count }}</h6>
+                    <h5>{{ crate_product_count }}</h5>
                 </div>
             </div>
         </section>
