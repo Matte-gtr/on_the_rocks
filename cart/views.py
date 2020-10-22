@@ -26,6 +26,7 @@ def add_to_cart(request, product_id):
 
 
 def update_quantity(request, product_id):
+    """ updates the quantity of a selected item in the cart """
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
 
@@ -36,6 +37,7 @@ def update_quantity(request, product_id):
 
 
 def delete_from_cart(request, product_id):
+    """ deletes an item from the cart """
     cart = request.session.get('cart', {})
     cart.pop(product_id)
     request.session['cart'] = cart
@@ -62,16 +64,6 @@ def add_crate_to_cart(request):
         # items in your crate.')
         return redirect(redirect_url)
 
-    for key, value in cart.items():
-        print(type(value))
-        print(crate_count)
-    print(cart)
-
     request.session['cart'] = cart
     request.session['crate'] = {}
     return redirect(redirect_url)
-
-
-def clear_cart(request):
-    request.session['cart'] = {}
-    return redirect(reverse('view_cart'))

@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block page_header %}
-    {% if products_in_cart and free_shipping_delta > 0 %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col text-center shipping-banner">
-                <p class="mb-0">Spend £{{ free_shipping_delta }} more to get free shipping!</p>
+    <!--Free delivery banner-->
+    {% if products_in_cart or crates_in_cart %}
+        {% if free_shipping_delta > 0 %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col text-center shipping-banner">
+                    <p class="mb-0">Spend £{{ free_shipping_delta|floatformat:2 }} more to get free shipping!</p>
+                </div>
             </div>
         </div>
-    </div>
+        {% endif %}
     {% endif %}
+    <!--Page header-->
     <div class="container page-header">
         <div class="row">
             <div class="col">
@@ -20,6 +24,7 @@
     </div>
 {% endblock %}
 {% block content %}
+    <!--Cart main body-->
     <div class="container">
         {% if products_in_cart or crates_in_cart %}
             <div class="row d-none d-md-flex">
@@ -113,7 +118,7 @@
                         <p><span class="d-md-none">Quantity: </span>1</p>
                     </div>
                     <div class="order-5 col">
-                        <strong><span class="d-md-none">SubTotal: </span>£{{ crate.discounted_price|floatformat:2 }}<span class="cart-delete"><a href="#" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
+                        <strong><span class="d-md-none">SubTotal: </span>£{{ crate.discounted_price|floatformat:2 }}<span class="cart-delete"><a href="{% url 'delete_from_cart' crate.crate_id %}" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
                     </div>
                 </div>
                 <div class="crate-item-container">
@@ -121,11 +126,10 @@
                 <hr class="order-6 w-90">
                 </div>
             {% endfor %}
-
-
         {% else %}
             <p class="text-center py-4">There are no items in your cart</p>
         {% endif %}
+        <!--Cart totals & shipping-->
         {% if products_in_cart or crates_in_cart %}
             <div class="row">
                 <div class="col">
@@ -148,5 +152,4 @@
             </div>
         {% endif %}
     </div>
-    <a href="{% url 'clear_cart' %}">Clear Cart</a>
 {% endblock %}

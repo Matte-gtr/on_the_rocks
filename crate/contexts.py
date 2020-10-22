@@ -4,6 +4,8 @@ from decimal import Decimal
 
 
 def crate_contents(request):
+    """ keeps track of the items and prices/totals in your crate until
+    the crate is added to the cart """
     products_in_crate = []
     crate_total = 0
     total_with_discount = 0

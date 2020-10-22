@@ -428,6 +428,7 @@ li .nav-link {
     background-color: #f1ecec;
     padding-left: 5px;
     border-radius: 3px;
+    margin-bottom: 1px;
 }
 
 /*---------media queries---------*/
