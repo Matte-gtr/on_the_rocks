@@ -99,7 +99,7 @@
                             <div class="text-center text-dark">
                                 <div><i class="fas fa-shopping-cart fa-lg"></i></div>
                                 {% if total %}
-                                    <p class="my-0 text-orange">£{{ total }}</p>
+                                    <p class="my-0 text-orange">£{{ total|floatformat:2 }}</p>
                                 {% else %}
                                     <p class="my-0">£0.00</p>
                                 {% endif %}

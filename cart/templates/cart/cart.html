@@ -102,5 +102,11 @@
                 </div>
             </div>
         {% endif %}
+        {% for crate in crates_in_cart %}
+            <p>{{ crate.crate_id }}</p>
+            <p>{{ crate.items }}</p>
+        {% endfor %}
+        <p> {{crates_in_cart}} </p>
+        <p> products_in_cart </p>
     </div>
 {% endblock %}

@@ -22,7 +22,7 @@ def crate_contents(request):
             'product': product,
         })
         total_with_discount = crate_total * Decimal(0.8)
-    
+
     max_in_crate = 6 - crate_product_count
 
     context = {
