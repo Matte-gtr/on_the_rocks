@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.db.models import Sum
+from django.conf import settings
 
 from products.models import Product
 
@@ -19,10 +20,39 @@ class Order(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     country = models.CharField(max_length=40, null=False, blank=False)
     date = models.DateTimeField(auto_now_add=True)
-    delivery_cost = models.DecimalField(max_digits=5, decimal_places=2,
+    shipping_cost = models.DecimalField(max_digits=5, decimal_places=2,
                                         null=False, default=0)
-    order_cost = models.DecimalField(decimal_places=2, null=False, default=0)
-    grand_total = models.DecimalField(decimal_places=2, null=False, default=0)
+    order_cost = models.DecimalField(max_digits=7, decimal_places=2,
+                                     null=False, default=0)
+    grand_total = models.DecimalField(max_digits=7, decimal_places=2,
+                                      null=False, default=0)
+
+    def _create_order_number(self):
+        """ creates a unique order number for each order """
+        return uuid.uuid4().hex.upper()
+
+    def update_order_cost(self):
+        """ Updates the grand total each time an order line item is added and
+        calculates the delivery cost """
+        self.order_cost = self.lineitems.aggregate(
+            Sum('lineitem_total'))['lineitem_total__sum']
+        if self.order_cost < settings.FREE_SHIPPING_THRESHOLD:
+            self.shipping_cost = settings.STANDARD_SHIPPING_COST
+            self.save
+        else:
+            self.shipping_cost = 0
+        self.grand_total = self.order_cost + self.shipping_cost
+        self.save()
+
+    def save(self, *args, **kwargs):
+        """ change defalt save method to create an order number if
+        one doesn't already exist """
+        if not self.order_number:
+            self.order_number = self._create_order_number()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.order_number
 
 
 class OrderLineItem(models.Model):
@@ -31,6 +61,18 @@ class OrderLineItem(models.Model):
                               related_name='lineitems')
     product = models.ForeignKey(Product, null=False, blank=False,
                                 on_delete=models.CASCADE)
-    in_crate = models.BooleanField(editable=False)
+    crate_id = models.BooleanField(editable=False, null=True, blank=True)
     quantity = models.IntegerField(null=False, blank=False, default=0)
-    lineitem_total = models.IntegerField(decimal_places=2)
+    lineitem_total = models.DecimalField(max_digits=7, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        """ change defalt save method to calculate the cost of
+        each line item """
+        if self.crate_id:
+            self.lineitem_total = (self.product.price * self.quantity) * 0.8
+        else:
+            self.lineitem_total = self.product.price * self.quantity
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Product {self.product.id} on order {self.order_number}'
