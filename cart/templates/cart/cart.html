@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cart_tools %}
+
 {% block page_header %}
     <!--Free delivery banner-->
     {% if products_in_cart or crates_in_cart %}
@@ -82,7 +84,7 @@
                         </form>
                     </div>
                     <div class="order-5 col">
-                        <strong><span class="d-md-none">SubTotal: </span>£{{ item.product.price }}<span class="cart-delete"><a href="{% url 'delete_from_cart' item.product.id %}" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
+                        <strong><span class="d-md-none">SubTotal: </span>£{{ item.product.price|calc_subtotal:item.quantity }}<span class="cart-delete"><a href="{% url 'delete_from_cart' item.product.id %}" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
                     </div>
                     <hr class="order-6 w-90">
                 </div>
