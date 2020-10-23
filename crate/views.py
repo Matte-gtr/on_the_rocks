@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib import messages
+
 from products.models import Product, Category
 
 
@@ -34,27 +36,37 @@ def create_a_crate(request):
 
 def add_to_crate(request, product_id):
     """ add a product to the crate """
+    product = get_object_or_404(Product, pk=product_id)
     crate = request.session.get('crate', {})
     quantity = int(request.POST.get('quantity'))
 
     if product_id in list(crate.keys()):
         crate[product_id] += quantity
+        messages.success(request, f'{product.name} quantity has been \
+            adjusted to {crate[product_id]}')
     else:
         crate[product_id] = quantity
+        messages.success(request, f'{product.name} has been added to \
+            your crate')
 
     request.session['crate'] = crate
     return redirect(reverse('create_a_crate'))
 
 
 def delete_from_crate(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
     crate = request.session.get('crate', {})
     quantity = 1
 
     if product_id in list(crate.keys()):
         if crate[product_id] > 1:
             crate[product_id] -= quantity
+            messages.success(request, f'{product.name} quantity has been \
+            adjusted to {crate[product_id]} in your crate')
         else:
             crate.pop(product_id)
+            messages.success(request, f'{product.name} has been removed from \
+            your crate')
 
     request.session['crate'] = crate
     return redirect(reverse('create_a_crate'))
@@ -62,5 +74,6 @@ def delete_from_crate(request, product_id):
 
 def empty_crate(request):
     request.session['crate'] = {}
+    messages.success(request, 'Your crate has been emptied')
 
     return redirect(reverse('create_a_crate'))

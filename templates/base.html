@@ -160,7 +160,19 @@
 
     {% if messages %}
         <div class="message-container">
-            
+            {% for message in messages %}
+                {% with message.level as level %}
+                    {% if level == 40 %}
+                        {% include 'includes/toasts/toast_error.html' %} <!--error-->
+                    {% elif level == 30 %}
+                        {% include 'includes/toasts/toast_warning.html' %} <!--warning-->
+                    {% elif level == 25 %}
+                        {% include 'includes/toasts/toast_success.html' %} <!--success-->
+                    {% else %}
+                        {% include 'includes/toasts/toast_info.html' %} <!--info-->
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
         </div>
     {% endif %}
 
@@ -176,6 +188,7 @@
             $('#toggle-search').click(function() {
                 $('#mobile-search').slideToggle()
             });
+            $('.toast').toast('show');
         });
     </script>
     {% endblock %}

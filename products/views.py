@@ -59,6 +59,8 @@ def products(request):
 
 
 def product_display(request, product_id):
+    """ display the details of a product and any associated
+    approved reviews """
     product = get_object_or_404(Product, pk=product_id)
 
     if request.method == 'POST':
@@ -88,6 +90,7 @@ def product_display(request, product_id):
 
 @login_required
 def site_management(request):
+    """ display the site management page """
     template = 'products/site_management.html'
     page_header = 'Site Management'
     all_reviews = ProductReview.objects.all()
@@ -112,8 +115,12 @@ def approve_review(request, review_id):
         review.save(update_fields=['authorised'])
         product.rating = round(rating, 1)
         product.save(update_fields=['rating'])
-        # messages(request, f'{review.product} review by
-        # {review.user} approved')
+        messages.info(request, f'{review.product} review by\
+            {review.user} approved')
+    else:
+        messages.error(request, 'You need to be assigned as administrator \
+            to do that')
+
     return redirect(reverse('site_management'))
 
 
@@ -123,6 +130,6 @@ def delete_review(request, review_id):
     review = get_object_or_404(ProductReview, pk=review_id)
     if request.user.is_superuser:
         review.delete()
-        # messages(request, f'{review.product} review by {review.user}
-        # deleted')
+        messages.warning(request, f'{review.product} review by {review.user}\
+            deleted')
     return redirect(reverse('site_management'))
