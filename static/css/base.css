@@ -89,6 +89,13 @@ html {
     border: 2px solid;
 }
 
+.size-restrict {
+    overflow-y: auto;
+    padding-top: 2px;
+    padding-left: 2px;
+    max-height: 150px;
+}
+
 /*---------navigation/navbar---------*/
 
 .header-bg {

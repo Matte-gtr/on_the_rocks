@@ -43,11 +43,11 @@ def add_to_crate(request, product_id):
     if product_id in list(crate.keys()):
         crate[product_id] += quantity
         messages.success(request, f'{product.name} quantity has been \
-            adjusted to {crate[product_id]}')
+            adjusted to {crate[product_id]}', extra_tags='crate')
     else:
         crate[product_id] = quantity
         messages.success(request, f'{product.name} has been added to \
-            your crate')
+            your crate', extra_tags='crate')
 
     request.session['crate'] = crate
     return redirect(reverse('create_a_crate'))
@@ -62,11 +62,11 @@ def delete_from_crate(request, product_id):
         if crate[product_id] > 1:
             crate[product_id] -= quantity
             messages.success(request, f'{product.name} quantity has been \
-            adjusted to {crate[product_id]} in your crate')
+            adjusted to {crate[product_id]} in your crate', extra_tags='crate')
         else:
             crate.pop(product_id)
             messages.success(request, f'{product.name} has been removed from \
-            your crate')
+            your crate', extra_tags='crate')
 
     request.session['crate'] = crate
     return redirect(reverse('create_a_crate'))

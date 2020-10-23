@@ -105,11 +105,6 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <p>{{ item.product.size }}</p>
-                            </div>
-                        </div>
                     </div>
                     <div class="order-3 col-12 col-md-2">
                         <p><span class="d-md-none">crate price: </span>£{{ crate.original_price|floatformat:2 }}</p>
@@ -118,7 +113,7 @@
                         <p><span class="d-md-none">Quantity: </span>1</p>
                     </div>
                     <div class="order-5 col">
-                        <strong><span class="d-md-none">SubTotal: </span>£{{ crate.discounted_price|floatformat:2 }}<span class="cart-delete"><a href="{% url 'delete_from_cart' crate.crate_id %}" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
+                        <strong><span class="d-md-none">SubTotal: </span>£{{ crate.discounted_price|floatformat:2 }}<span class="cart-delete"><a href="{% url 'delete_crate_from_cart' crate.crate_id %}" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
                     </div>
                 </div>
                 <div class="crate-item-container">

@@ -9,4 +9,19 @@
   <div class="toast-body">
     {{ message }}
   </div>
+  {% if 'cart' in message.extra_tags %}
+    <hr class="mt-0 mb-1">
+    <div class="toast-body container">
+        {% if products_in_cart or crates_in_cart %}
+            {% include 'includes/toasts/cart_summary.html' %}
+        {% endif %}
+    </div>
+    {% elif 'crate' in message.extra_tags %}
+    <hr class="mt-0 mb-1">
+    <div class="toast-body container">
+        {% if products_in_crate %}
+            {% include 'includes/toasts/crate_summary.html' %}
+        {% endif %}
+    </div>
+  {% endif %}
 </div>

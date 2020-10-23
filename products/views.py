@@ -22,7 +22,7 @@ def products(request):
         if "search" in request.GET:
             query = request.GET.get('search')
             if not query:
-                messages(request, "No search term entered")
+                messages.error(request, "No search term entered")
                 return redirect(reverse('products'))
             search_results = Q(name__icontains=query) |\
                 Q(description__icontains=query) |\
@@ -67,14 +67,15 @@ def product_display(request, product_id):
         if request.user.is_authenticated:
             form = ReviewForm(request.POST)
             if form.is_valid():
-                review = form.save(commit=False)
-                review.user = request.user
-                review.product = product
-                review.save()
-                # messages(request, "Thankyou. Your review has been submitted
-                # for review")
-            # else:
-                # messages(request, "Review failed, please try again")
+                try:
+                    review = form.save(commit=False)
+                    review.user = request.user
+                    review.product = product
+                    review.save()
+                    messages.success(request, "Thankyou. Your review has been submitted\
+                        for review")
+                except Exception as e:
+                    messages.error(request, f'Review failed: {e}')
         else:
             return redirect(reverse('home'))  # test purposes
             # messages (request, "You have to be logged in to add reviews")
@@ -115,11 +116,11 @@ def approve_review(request, review_id):
         review.save(update_fields=['authorised'])
         product.rating = round(rating, 1)
         product.save(update_fields=['rating'])
-        messages.info(request, f'{review.product} review by\
+        messages.success(request, f'{review.product} review by\
             {review.user} approved')
     else:
         messages.error(request, 'You need to be assigned as administrator \
-            to do that')
+            to approve reviews')
 
     return redirect(reverse('site_management'))
 
@@ -127,9 +128,12 @@ def approve_review(request, review_id):
 @login_required
 def delete_review(request, review_id):
     """ delete a review that is awaiting authorisation """
-    review = get_object_or_404(ProductReview, pk=review_id)
     if request.user.is_superuser:
-        review.delete()
-        messages.warning(request, f'{review.product} review by {review.user}\
-            deleted')
+        try:
+            review = get_object_or_404(ProductReview, pk=review_id)
+            review.delete()
+            messages.success(request, f'{review.product} review by {review.user}\
+                deleted')
+        except Exception as e:
+            messages.error(request, f'Error deleting review: {e}')
     return redirect(reverse('site_management'))
