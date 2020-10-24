@@ -10,7 +10,7 @@ from products.models import Product
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
     first_name = models.CharField(max_length=30, null=False, blank=False)
-    Last_name = models.CharField(max_length=30, null=False, blank=False)
+    last_name = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     contact_number = models.CharField(max_length=20, null=False, blank=False)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
@@ -61,7 +61,7 @@ class OrderLineItem(models.Model):
                               related_name='lineitems')
     product = models.ForeignKey(Product, null=False, blank=False,
                                 on_delete=models.CASCADE)
-    crate_id = models.BooleanField(editable=False, null=True, blank=True)
+    crate_id = models.CharField(max_length=10, null=True, blank=True)
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(max_digits=7, decimal_places=2)
 
