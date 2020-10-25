@@ -346,7 +346,7 @@ li .nav-link {
     background-color: lightgray;
     padding: 8px 10px 5px 10px;
     margin: 5px;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 /*---------cart---------*/
@@ -405,7 +405,7 @@ li .nav-link {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 1px solid #adabab;
-    border-radius: 5px;
+    border-radius: 3px;
     max-height: 56vh;
     overflow: auto;
 }
@@ -461,6 +461,39 @@ li .nav-link {
 
 .fs-20 {
     font-size: 20px;
+}
+
+/*---------stripe---------*/
+
+.stripe-card-field,
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.stripe-card-field:focus,
+.stripe-card-field:active,
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.stripe-card-field::placeholder {
+    color: #aab7c4;
+}
+
+.StripeElement--invalid {
+  border-color: #dc3545;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
 }
 
 /*---------media queries---------*/
