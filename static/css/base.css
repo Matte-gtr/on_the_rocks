@@ -451,8 +451,16 @@ li .nav-link {
 .crate-cart-content {
     background-color: #f1ecec;
     padding-left: 5px;
+    padding-right: 5px;
     border-radius: 3px;
     margin-bottom: 1px;
+    border: 1px solid #adabab;
+}
+
+/*---------checkout---------*/
+
+.fs-20 {
+    font-size: 20px;
 }
 
 /*---------media queries---------*/

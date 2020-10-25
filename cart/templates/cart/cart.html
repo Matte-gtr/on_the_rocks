@@ -2,6 +2,10 @@
 {% load static %}
 {% load cart_tools %}
 
+{% block extra_title %}
+    Cart
+{% endblock %}
+
 {% block page_header %}
     <!--Free delivery banner-->
     {% if products_in_cart or crates_in_cart %}
@@ -118,8 +122,6 @@
                         <strong><span class="d-md-none">SubTotal: </span>£{{ crate.discounted_price|floatformat:2 }}<span class="cart-delete"><a href="{% url 'delete_crate_from_cart' crate.crate_id %}" class="plain-anchor"><i class="fas fa-trash-alt"></i></a></span></strong>
                     </div>
                 </div>
-                <div class="crate-item-container">
-                </div>
                 <hr class="order-6 w-90">
                 </div>
             {% endfor %}
@@ -135,7 +137,7 @@
                     <h6 class="text-right grand-total">Grand Total: £{{ grand_total|floatformat:2 }}</h6>
                     <div class="row div-right mb-4 mt-3">
                         <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
-                        <a class="btn btn-orange text-uppercase mr-2 mb-2" href="#" role="button"><i class="fas fa-lock fa-sm"></i> Secure Checkout</a>
+                        <a class="btn btn-orange text-uppercase mr-2 mb-2" href="{% url 'checkout' %}" role="button"><i class="fas fa-lock fa-sm"></i> Proceed to Checkout</a>
                     </div>
                 </div>
             </div>

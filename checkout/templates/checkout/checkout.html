@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cart_tools %}
+
+{% block extra_title %}
+    Checkout
+{% endblock %}
+
+{% block page_header %}
+<!--Free delivery banner-->
+    {% if products_in_cart or crates_in_cart %}
+        {% if free_shipping_delta > 0 %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col text-center shipping-banner">
+                    <p class="mb-0">Spend £{{ free_shipping_delta|floatformat:2 }} more to get free shipping!</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+<!--Page header-->
+    <div class="container page-header">
+        <div class="row">
+            <div class="col">
+                {{ page_header }}
+                <hr class="grey w-50">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!--Billing/Delivery Form-->
+            <div class="col-12 col-lg-6">
+                <h5 class="text-orange">Order Details</h5>
+                <form action="" method="" id="payment-form">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="fs-20">Personal Details:</legend>
+                        {{ order_form.first_name | as_crispy_field }}
+                        {{ order_form.last_name | as_crispy_field }}
+                        {{ order_form.email | as_crispy_field }}
+                        {{ order_form.contact_number | as_crispy_field }}
+                    </fieldset>
+                    <fieldset class="form-group mb-0">
+                        <legend class="fs-20">Delivery Address:</legend>
+                        {{ order_form.street_address1 | as_crispy_field }}
+                        {{ order_form.street_address2 | as_crispy_field }}
+                        {{ order_form.town_or_city | as_crispy_field }}
+                        {{ order_form.postcode | as_crispy_field }}
+                        {{ order_form.county | as_crispy_field }}
+                        {{ order_form.country | as_crispy_field }}
+                    </fieldset>
+                    <fieldset class="text-right">
+                        {% if user.is_authenticated %}
+                            <label for="save-details">Save details to your profile?</label>
+                            <input type="checkbox" id="save-details" name="save-info" checked>
+                        {% else %}
+                            <label class="strikeout" for="save-details-disabled">Save details to your profile?</label>
+                            <input type="checkbox" id="save-details-disabled" disabled>
+                            <div class="float-left">
+                                <a href="{% url 'account_signup' %}">Sign Up</a> or <a href="{% url 'account_login' %}">Login</a> to save your details.
+                            </div>
+                        {% endif %}
+                    </fieldset>
+                    <fieldset>
+
+                    
+                    </fieldset>
+                </form>
+            </div>
+            <!--Order Summary-->
+            <div class="col-12 col-lg-6">
+            <h5 class="text-orange mb-3">Order Summary ({{ product_count }})</h5>
+                <div class="row d-none d-sm-flex">
+                    <div class="offset-2 col-6 col-sm-7">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="font-weight-bold">Product</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h6 class="font-weight-bold">Subtotal</h6>
+                    </div>
+                </div>
+                <hr class="w-90 mt-0">
+                {% for item in products_in_cart %}
+                    <div class="row">
+                        <div class="order-2 order-sm-1 col-4 col-sm-2 text-center">
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img">
+                            {% else %}
+                                <img src="{{ MEDIA_URL }}no-image.jpg" alt="{{ item.product.name }}" class="cart-img">
+                            {% endif %}
+                        </div>
+                        <div class="order-1 order-sm-2 col-8 col-sm-7">
+                            <div class="row pr-2">
+                                <div class="col">
+                                    <p class="mb-1"><span class="font-weight-bold">{{ item.product.name }}</span>{% if item.product.detail %}<small class="light-grey"> - {{ item.product.detail }}</small>{% endif %}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>{{ item.product.size }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-5 col">
+                            <strong><span class="d-sm-none">SubTotal: </span>£{{ item.product.price|calc_subtotal:item.quantity }}</strong>
+                        </div>
+                        <hr class="order-6 w-90">
+                    </div>
+                {% endfor %}
+
+                {% for crate in crates_in_cart %}
+                    <div class="crate-cart-card">
+                        <div class="row">
+                            <div class="order-2 order-sm-1 col-4 col-sm-2 text-center">
+                                <img src="{{ MEDIA_URL }}crate-default.jpg" alt="custom crate" class="cart-img">
+                            </div>
+                            <div class="order-1 order-sm-2 col-8 col-sm-7">
+                                <div class="row pr-2">
+                                    <div class="col">
+                                        <p class="mb-1"><span class="font-weight-bold">Custom Crate (20% off)</span><small> x 1</small></p>
+                                        {% for item in crate.items %}
+                                            <div class="crate-cart-content">
+                                                <p class="m-0"><small>{{ item.product.name }} - {{ item.product.size }} x {{ item.quantity }}</small></p>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-5 col">
+                                <strong><span class="d-sm-none">SubTotal: </span>£{{ crate.discounted_price|floatformat:2 }}</strong>
+                            </div>
+                        </div>
+                        <hr class="order-6 w-90">
+                    </div>
+                {% endfor %}
+                <h6 class="text-right">Cart Total: £{{ total|floatformat:2 }}</h6>
+                <h6 class="text-right">Shipping: £{{ shipping|floatformat:2 }}</h6>
+                <h6 class="text-right fs-20"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></h6>
+                <hr class="order-6 w-90">
+                <div class="text-right">
+                    <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'view_cart' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Edit Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

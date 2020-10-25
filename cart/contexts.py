@@ -9,6 +9,7 @@ def cart_contents(request):
     crates_in_cart = []
     total = 0
     product_count = 0
+    item_count = 0
     cart = request.session.get('cart', {})
 
     for product_id, quantity in cart.items():
@@ -16,6 +17,7 @@ def cart_contents(request):
             product = get_object_or_404(Product, pk=product_id)
             total += quantity * product.price
             product_count += quantity
+            item_count += quantity
             products_in_cart.append({
                 'product_id': product_id,
                 'quantity': quantity,
@@ -23,6 +25,7 @@ def cart_contents(request):
             })
         else:
             items = []
+            product_count += 1
             original_price = 0
             discounted_price = 0
             for product_pk, amount in quantity.items():
@@ -31,7 +34,7 @@ def cart_contents(request):
                 discounted_price += (amount * product.price) * Decimal(0.8)
                 discounted_product_price = product.price * Decimal(0.8)
                 total += (amount * product.price) * Decimal(0.8)
-                product_count += amount
+                item_count += amount
                 items.append({
                     'product_id': product_pk,
                     'quantity': amount,
@@ -59,6 +62,7 @@ def cart_contents(request):
         'crates_in_cart': crates_in_cart,
         'total': total,
         'product_count': product_count,
+        'item_count': item_count,
         'free_shipping_delta': free_shipping_delta,
         'free_shipping_threshold': settings.FREE_SHIPPING_THRESHOLD,
         'shipping': shipping,

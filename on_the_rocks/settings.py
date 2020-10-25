@@ -80,6 +80,10 @@ TEMPLATES = [
                 'cart.contexts.cart_contents',
                 'crate.contexts.crate_contents',
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ],
         },
     },
 ]

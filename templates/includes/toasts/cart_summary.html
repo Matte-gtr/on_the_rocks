@@ -1,65 +1,68 @@
-<div class="row">
-    <div class="col">
-        <div class="row">
-            {% if crate_product_count > 0 %}
-                <div class="col text-orange mb-2">
-                    <h5 class="strikethrough">Cart Total: <span class="text-large">£{{ grand_total|floatformat:2 }}</span></h5>
+<hr class="mt-0 mb-1">
+<div class="toast-body container">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                {% if crates_in_cart or products_in_cart %}
+                    <div class="col text-orange mb-2">
+                        <h5 class="strikethrough">Cart Total: <span class="text-large">£{{ grand_total|floatformat:2 }}</span></h5>
+                    </div>
+                {% else %}
+                    <div class="col mb-2 text-center">
+                        <h5>Your cart is empty</h5>
+                    </div>
+                {% endif %}
                 </div>
-            {% else %}
-                <div class="col mb-2 text-center">
-                    <h5>Your cart is empty</h5>
+                <div class="size-restrict">
+                {% for item in products_in_cart %}
+                    <div class="row mr-0">
+                        <div class="col">
+                            <div class="crate-card">
+                                <div class="row">
+                                    <div class="col-2 text-center pr-0 m-auto">
+                                        <img class="img-fluid crate-img" src="{{ item.product.image.url }}">
+                                    </div>
+                                    <div class="col-10 mt-1 mb-1">
+                                        <a href="{% url 'product_display' item.product.id %}" class="plain-anchor"><h6 class="my-0">{{ item.product.name }}</h6></a>
+                                        <p class="my-0"><small>{{ item.product.size }}</small></p>
+                                        <p class="my-0"><small class="font-weight-bold">£{{ item.product.price }}</small></p>
+                                        <div class="my-0">
+                                            <small class="font-weight-bold">Quantity: {{ item.quantity }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% for crate in crates_in_cart %}
+                    <div class="row mr-0">
+                        <div class="col">
+                            <div class="crate-card">
+                                <div class="row">
+                                    <div class="col-2 text-center pr-0 m-auto">
+                                        <img class="img-fluid crate-img" src="{{ MEDIA_URL }}crate-default.jpg">
+                                    </div>
+                                    <div class="col-10 mt-1 mb-1">
+                                        <a href="{% url 'create_a_crate' %}" class="plain-anchor"><h6 class="my-0">Custom Crate (20% off)</h6></a>
+                                        <p class="my-0"><small class="font-weight-bold">£{{ crate.discounted_price|floatformat:2 }}</small></p>
+                                        <div class="my-0">
+                                            <small class="font-weight-bold">Quantity: 1</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+            {% if products_in_cart or crates_in_cart %}
+                <div class="col mt-3 pl-0">
+                    <a class="btn btn-orange" href="{% url 'view_cart' %}" role="button">View Cart</a>
                 </div>
             {% endif %}
-            </div>
-            <div class="size-restrict">
-            {% for item in products_in_cart %}
-                <div class="row mr-0">
-                    <div class="col">
-                        <div class="crate-card">
-                            <div class="row">
-                                <div class="col-2 text-center pr-0 m-auto">
-                                    <img class="img-fluid crate-img" src="{{ item.product.image.url }}">
-                                </div>
-                                <div class="col-10 mt-1 mb-1">
-                                    <a href="{% url 'product_display' item.product.id %}" class="plain-anchor"><h6 class="my-0">{{ item.product.name }}</h6></a>
-                                    <p class="my-0"><small>{{ item.product.size }}</small></p>
-                                    <p class="my-0"><small class="font-weight-bold">£{{ item.product.price }}</small></p>
-                                    <div class="my-0">
-                                        <small class="font-weight-bold">Quantity: {{ item.quantity }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% for crate in crates_in_cart %}
-                <div class="row mr-0">
-                    <div class="col">
-                        <div class="crate-card">
-                            <div class="row">
-                                <div class="col-2 text-center pr-0 m-auto">
-                                    <img class="img-fluid crate-img" src="{{ MEDIA_URL }}crate-default.jpg">
-                                </div>
-                                <div class="col-10 mt-1 mb-1">
-                                    <a href="{% url 'create_a_crate' %}" class="plain-anchor"><h6 class="my-0">Custom Crate (20% off)</h6></a>
-                                    <p class="my-0"><small class="font-weight-bold">£{{ crate.discounted_price|floatformat:2 }}</small></p>
-                                    <div class="my-0">
-                                        <small class="font-weight-bold">Quantity: 1</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            
         </div>
-        {% if products_in_cart or crates_in_cart %}
-            <div class="col mt-3 pl-0">
-                <a class="btn btn-orange" href="{% url 'view_cart' %}" role="button">Secure Checkout</a>
-            </div>
-        {% endif %}
     </div>
 </div>
