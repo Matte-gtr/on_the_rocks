@@ -12,15 +12,15 @@ def cart_contents(request):
     item_count = 0
     cart = request.session.get('cart', {})
 
-    for product_id, quantity in cart.items():
-        if type(quantity) == int:
-            product = get_object_or_404(Product, pk=product_id)
-            total += quantity * product.price
-            product_count += quantity
-            item_count += quantity
+    for object_id, item_data in cart.items():
+        if isinstance(item_data, int):
+            product = get_object_or_404(Product, pk=object_id)
+            total += item_data * product.price
+            product_count += item_data
+            item_count += item_data
             products_in_cart.append({
-                'product_id': product_id,
-                'quantity': quantity,
+                'product_id': object_id,
+                'quantity': item_data,
                 'product': product,
             })
         else:
@@ -28,16 +28,16 @@ def cart_contents(request):
             product_count += 1
             original_price = 0
             discounted_price = 0
-            for product_pk, amount in quantity.items():
-                product = get_object_or_404(Product, pk=product_pk)
-                original_price += amount * product.price
-                discounted_price += (amount * product.price) * Decimal(0.8)
+            for product_id, quantity in item_data.items():
+                product = get_object_or_404(Product, pk=product_id)
+                original_price += quantity * product.price
+                discounted_price += (quantity * product.price) * Decimal(0.8)
                 discounted_product_price = product.price * Decimal(0.8)
-                total += (amount * product.price) * Decimal(0.8)
-                item_count += amount
+                total += (quantity * product.price) * Decimal(0.8)
+                item_count += quantity
                 items.append({
-                    'product_id': product_pk,
-                    'quantity': amount,
+                    'product_id': product_id,
+                    'quantity': quantity,
                     'product': product,
                     'price': discounted_product_price,
                 })
