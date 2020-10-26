@@ -103,7 +103,7 @@
                     <div class="order-1 order-md-2 col-8 col-md-4">
                         <div class="row pr-2">
                             <div class="col">
-                                <p class="mb-1"><a href="{% url 'create_a_crate' %}" class="font-weight-bold plain-anchor">Custom Crate (20% off)</a></p>
+                                <p class="mb-1"><a href="{% url 'create_a_crate' %}" class="font-weight-bold plain-anchor">Custom Crate (20% off){{ crate.crate_id }}</a></p>
                                 {% for item in crate.items %}
                                     <div class="crate-cart-content">
                                         <p class="m-0"><small><a href="{% url 'product_display' item.product.id %}" class="plain-anchor">{{ item.product.name }} - {{ item.product.size }} x {{ item.quantity }}</a></small></p>
@@ -151,4 +151,5 @@
             </div>
         {% endif %}
     </div>
+    {{ cart }}
 {% endblock %}

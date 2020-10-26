@@ -31,6 +31,7 @@ def checkout(request):
             'country': request.POST['country'],
         }
         order_form = OrderForm(form_data)
+        print('made it this far')
         if order_form.is_valid():
             order = order_form.save()
             for object_id, item_data in cart.items():
@@ -43,12 +44,12 @@ def checkout(request):
                             quantity=item_data,
                         )
                     else:
-                        for crate_id, quantity in item_data.items():
-                            product = Product.objects.get(id=crate_id)
+                        for product_id, quantity in item_data.items():
+                            product = Product.objects.get(id=product_id)
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,
-                                crate_id=crate_id,
+                                crate_id=object_id,
                                 quantity=quantity,
                             )
                             order_line_item.save()

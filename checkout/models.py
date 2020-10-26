@@ -35,7 +35,7 @@ class Order(models.Model):
         """ Updates the grand total each time an order line item is added and
         calculates the delivery cost """
         self.order_cost = self.lineitems.aggregate(
-            Sum('lineitem_total'))['lineitem_total__sum']
+            Sum('lineitem_total'))['lineitem_total__sum'] or 0
         if self.order_cost < settings.FREE_SHIPPING_THRESHOLD:
             self.shipping_cost = settings.STANDARD_SHIPPING_COST
             self.save

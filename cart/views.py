@@ -6,9 +6,11 @@ from products.models import Product
 
 def view_cart(request):
     """ Returns the shopping cart page page """
+    cart = request.session.get('cart')
     template = 'cart/cart.html'
     context = {
         'page_header': 'Shopping Cart',
+        'cart': cart,
     }
     return render(request, template, context)
 
