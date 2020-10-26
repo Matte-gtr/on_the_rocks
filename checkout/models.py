@@ -5,6 +5,7 @@ from django.db.models import Sum
 from django.conf import settings
 
 from products.models import Product
+from decimal import Decimal
 
 
 class Order(models.Model):
@@ -69,10 +70,11 @@ class OrderLineItem(models.Model):
         """ change defalt save method to calculate the cost of
         each line item """
         if self.crate_id:
-            self.lineitem_total = (self.product.price * self.quantity) * 0.8
+            self.lineitem_total = (self.product.price * self.quantity) * \
+                Decimal(0.8)
         else:
             self.lineitem_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Product {self.product.id} on order {self.order_number}'
+        return f'Product {self.product.id} on order {self.order.order_number}'

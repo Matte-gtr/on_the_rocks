@@ -36,7 +36,7 @@
             <!--Billing/Delivery Form-->
             <div class="col-12 col-lg-6">
                 <h5 class="text-orange">Order Details</h5>
-                <form action="" method="" id="payment-form">
+                <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                     {% csrf_token %}
                     <fieldset class="form-group">
                         <legend class="fs-20">Personal Details:</legend>

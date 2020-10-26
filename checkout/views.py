@@ -43,6 +43,7 @@ def checkout(request):
                             product=product,
                             quantity=item_data,
                         )
+                        order_line_item.save()
                     else:
                         for product_id, quantity in item_data.items():
                             product = Product.objects.get(id=product_id)
