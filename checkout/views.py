@@ -58,7 +58,7 @@ def checkout(request):
                             us to resolve this issue"))
                     order.delete()
                     return redirect(reverse('view_cart'))
-            request.session['save-details'] = 'save-details' in request.POST
+            request.session['save_details'] = 'save_details' in request.POST
             return redirect(reverse('successful_checkout',
                             args=[order.order_number]))
         else:
@@ -96,4 +96,18 @@ def checkout(request):
     return render(request, template, context)
 
 
+def successful_checkout(request, order_number):
+    """ displays a page after a successful checkout and handles
+    the saving the customers order form details """
+    order = get_object_or_404(Order, order_number=order_number)
+    save_details = request.session.get('save_details')
+    messages.success(request, 'Your order has been processed')
+    if 'cart' in request.session:
+        del request.session['cart']
 
+    template = 'checkout/successful_checkout.html'
+    context = {
+        'order': order,
+        'page_header': 'Order Received',
+    }
+    return render(request, template, context)
