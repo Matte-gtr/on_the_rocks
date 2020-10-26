@@ -31,7 +31,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" id="checkout-page">
         <div class="row">
             <!--Billing/Delivery Form-->
             <div class="col-12 col-lg-6">
@@ -158,6 +158,12 @@
                     <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'view_cart' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Edit Cart</a>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlay">
+        <div class="loading-container">
+            <div><i class="fas fa-spinner fa-pulse fa-xl"></i></div>
+            <div class="mt-3 px-3">Processing your payment, please don't close your browser.</div>
         </div>
     </div>
 {% endblock %}

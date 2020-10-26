@@ -78,7 +78,7 @@ html {
     position: fixed;
     top: 72px;
     right: 15px;
-    z-index: 99999999999;
+    z-index: 9999;
 }
 
 .custom-header {
@@ -461,6 +461,31 @@ li .nav-link {
 
 .fs-20 {
     font-size: 20px;
+}
+
+.overlay {
+    background-color: rgba(0,0,0,0.8);
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    z-index: 99999;
+    display: none;
+}
+
+.loading-container {
+    position: relative;
+    top: 50%;
+    margin: auto;
+    transform: translateY(-50%);
+    object-fit: contain;
+    text-align: center;
+    color: #fafafa;
+}
+
+div .fa-xl {
+    font-size: 140px;
+    display: block;
 }
 
 /*---------stripe---------*/
