@@ -28,21 +28,21 @@ def cart_contents(request):
             product_count += 1
             original_price = 0
             discounted_price = 0
-            for product_id, quantity in item_data.items():
-                product = get_object_or_404(Product, pk=product_id)
+            for crate_id, quantity in item_data.items():
+                product = get_object_or_404(Product, pk=crate_id)
                 original_price += quantity * product.price
                 discounted_price += (quantity * product.price) * Decimal(0.8)
                 discounted_product_price = product.price * Decimal(0.8)
                 total += (quantity * product.price) * Decimal(0.8)
                 item_count += quantity
                 items.append({
-                    'product_id': product_id,
+                    'product_id': crate_id,
                     'quantity': quantity,
                     'product': product,
                     'price': discounted_product_price,
                 })
             crates_in_cart.append({
-                'crate_id': product_id,
+                'crate_id': crate_id,
                 'items': items,
                 'original_price': original_price,
                 'discounted_price': discounted_price,
