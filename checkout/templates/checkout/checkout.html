@@ -59,8 +59,8 @@
                             <label for="save-details">Save details to your profile?</label>
                             <input type="checkbox" id="save-details" name="save-details" checked>
                         {% else %}
-                            <label class="strikeout" for="save-details-disabled">Save details to your profile?</label>
-                            <input type="checkbox" id="save-details-disabled" disabled>
+                            <label class="strikeout" for="save-details">Save details to your profile?</label>
+                            <input type="checkbox" id="save-details" name="save-details" disabled>
                             <div class="float-left">
                                 <a href="{% url 'account_signup' %}">Sign Up</a> or <a href="{% url 'account_login' %}">Login</a> to save your details.
                             </div>
