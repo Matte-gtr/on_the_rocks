@@ -135,3 +135,12 @@ def successful_checkout(request, order_number):
         'page_header': 'Order Received',
     }
     return render(request, template, context)
+
+
+def login_prompt(request):
+    """ displays the login prompt before checkout """
+    template = 'checkout/login_prompt.html'
+    context = {
+        'page_header': 'Checkout Options',
+    }
+    return render(request, template, context)

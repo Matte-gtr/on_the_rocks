@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_title %}
+    Cart
+{% endblock %}
+
+{% block page_header %}
+    <!--Page header-->
+    <div class="container page-header">
+        <div class="row">
+            <div class="col">
+                {{ page_header }}
+                <hr class="grey w-50">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col mt-5 text-center">
+                <h5 class="mb-5">Log in or create an account to speed up checkout time in the future.</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col">
+                        <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'account_login' %}" role="button">Login</a>
+                        <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'account_signup' %}" role="button">Sign Up</a>
+                    </div>
+                </div>
+                <div class="row mb-4 mt-3">
+                    <div class="col">
+                        <a class="btn btn-orange text-uppercase mr-2 mb-2" href="{% url 'checkout' %}" role="button"><i class="fas fa-lock fa-sm"></i> Checkout as Guest</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

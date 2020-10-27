@@ -137,7 +137,7 @@
                     <h6 class="text-right grand-total">Grand Total: £{{ grand_total|floatformat:2 }}</h6>
                     <div class="row div-right mb-4 mt-3">
                         <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
-                        <a class="btn btn-orange text-uppercase mr-2 mb-2" href="{% url 'checkout' %}" role="button"><i class="fas fa-lock fa-sm"></i> Proceed to Checkout</a>
+                        <a class="btn btn-orange text-uppercase mr-2 mb-2" href="{% if user.is_authenticated %}{% url 'checkout' %}{% else %}{% url 'login_prompt' %}{% endif %}" role="button"><i class="fas fa-lock fa-sm"></i> Proceed to Checkout</a>
                     </div>
                 </div>
             </div>
