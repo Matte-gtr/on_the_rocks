@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crate',
     'cart',
     'checkout',
+    'site_management',
 ]
 
 MIDDLEWARE = [
