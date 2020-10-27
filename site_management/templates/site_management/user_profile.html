@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_title %}
+    {{ user.username }}
+{% endblock %}
+{% block page_header %}
+    <div class="container page-header">
+        <div class="row">
+            <div class="col">
+                {{ page_header }}
+                <hr class="grey w-50">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <h1>You made it!</h1>
+{% endblock %}

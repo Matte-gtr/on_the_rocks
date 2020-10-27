@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from .models import ProductReview
 from products.models import Product
@@ -55,3 +56,14 @@ def delete_review(request, review_id):
         except Exception as e:
             messages.error(request, f'Error deleting review: {e}')
     return redirect(reverse('site_management'))
+
+
+@login_required
+def user_profile(request, user_id):
+    """ display a users profile with an order history and
+    billing/shipping information """
+    template = 'site_management/user_profile.html'
+    context = {
+        'page_header': 'Profile'
+    }
+    return render(request, template, context)
