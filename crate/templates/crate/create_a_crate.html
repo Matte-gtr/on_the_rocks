@@ -27,12 +27,16 @@
                 <div class="col px-5">
                     <form method="GET" action="{% url 'create_a_crate' %}">
                         <select class="form-control" name="category" id="categorySelect">
-                            <option class="light-grey" selected disabled>Select Category</option>
+                            <option class="light-grey" selected disabled value="">Select Category</option>
                             {% if category_selected %}
                                 <option value="{{ category_selected.name }}" selected>{{ category_selected.friendly_name }}</option>
                             {% else %}
                                 {% for cat in all_categories %}
-                                    <option value="{{ cat.name }}">{{ cat.friendly_name }}</option>
+                                    {% if category == cat.name %}
+                                        <option value="{{ cat.name }}" selected>{{ cat.friendly_name }}</option>
+                                    {% else %}
+                                        <option value="{{ cat.name }}">{{ cat.friendly_name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                         </select>
