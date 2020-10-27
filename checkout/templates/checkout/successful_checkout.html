@@ -15,3 +15,89 @@
         </div>
     </div>
 {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="mt-3">Hi {{ order.first_name }}, your order has been successfully processed. We hope you enjoyed your experience with On the Rocks.</p>
+            </div>
+        </div>
+        <hr class="border-black">
+        <div class="confirmation-page">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h5><strong>Address:</strong></h5>
+                    <p class="mb-0">{{ order.street_address1 }}</p>
+                    {% if order.street_address2 %}
+                        <p class="mb-0">{{ order.street_address2 }}</p>
+                    {% endif %}
+                    <p class="mb-0">{{ order.town_or_city }}</p>
+                    {% if order.postcode %}
+                        <p class="mb-0">{{ order.postcode }}</p>
+                    {% endif %}
+                    {% if order.county %}
+                        <p class="mb-0">{{ order.county }}</p>
+                    {% endif %}
+                    <p>{{ order.country }}</p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <h5><strong>Contact:</strong></h5>
+                    <p class="mb-0">{{ order.first_name }} {{ order.last_name }}</p>
+                    <p class="mb-0">{{ order.email }}</p>
+                    <p>{{ order.contact_number }}</p>
+                </div>
+            </div>
+            <hr class="border-black">
+            <div class="row">
+                <div class="col-12">
+                    <h5 class="mb-0"><strong>Order: </strong><small>{{ order.order_number }}</small></h5>
+                </div>
+            </div>
+            <hr class="border-black">
+            <div class="row">
+                <div class="col">
+                    <h5 class="pb-2"><strong>Cart:</strong></h5>
+                    {% for item in order.lineitems.all %}
+                        {% if not item.crate_id %}
+                            <div>
+                                <p class="d-flow-root"><strong>{{ item.product.name }}</strong> - {{ item.product.size }}
+                                    <span class="float-right"><strong>£{{ item.lineitem_total }}</strong></span>
+                                    <span class="d-block">Qty: {{ item.quantity }}</span>
+                                </p>
+                            </div>
+                            <hr class="w-50 border-black">
+                        {% endif %}
+                    {% endfor %}
+                    {% for crate in cratelist %}
+                        <div>
+                            <h6><strong>Custom crate (20% off)</strong></h6>
+                            {% for item in order.lineitems.all %}
+                                {% if item.crate_id == crate %}
+                                    <p class="pl-3 mb-0 d-flow-root">{{ item.product.name }} - {{ item.product.size }} x {{ item.quantity }}
+                                        <span class="float-right"><strong>£{{ item.lineitem_total }}</strong></span>
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <hr class="w-50 border-black">
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h5 class="text-right mt-3">Total: <strong>{{ order.order_cost }}</strong></h5>
+                    <h5 class="text-right">Shipping: <strong>{{ order.shipping_cost }}</strong></h5>
+                    <hr class="border-black">
+                    <h4 class="text-right mb-0">Grand Total: <strong>{{ order.grand_total }}</strong></h4>
+                </div>
+            </div>
+            <hr class="border-black">
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <a class="btn btn-secondary text-uppercase mr-2 mb-2" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Back to Shop</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

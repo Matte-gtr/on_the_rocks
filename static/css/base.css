@@ -488,6 +488,20 @@ div .fa-xl {
     display: block;
 }
 
+/*---------successful checkout---------*/
+
+.border-black {
+    border-color: black;
+}
+
+.d-flow-root {
+    display: flow-root;
+}
+
+.confirmation-page {
+    font-family: emoji;
+}
+
 /*---------stripe---------*/
 
 .stripe-card-field,

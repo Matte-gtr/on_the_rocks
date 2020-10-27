@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, reverse, get_object_or_404,\
+    HttpResponse
 from django.contrib import messages
 from django.conf import settings
 from django.views.decorators.http import require_POST
@@ -124,6 +125,13 @@ def successful_checkout(request, order_number):
     """ displays a page after a successful checkout and handles
     the saving the customers order form details """
     order = get_object_or_404(Order, order_number=order_number)
+
+    cratelist = []
+    for item in order.lineitems.all():
+        if item.crate_id:
+            if item.crate_id not in cratelist:
+                cratelist.append(item.crate_id)
+
     save_details = request.session.get('save_details')
     messages.success(request, 'Your order has been processed')
     if 'cart' in request.session:
@@ -133,6 +141,8 @@ def successful_checkout(request, order_number):
     context = {
         'order': order,
         'page_header': 'Order Received',
+        'save_details': save_details,
+        'cratelist': cratelist,
     }
     return render(request, template, context)
 
