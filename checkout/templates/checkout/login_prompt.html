@@ -18,6 +18,20 @@
 {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
+    <div class="container">
+        <div class="row">
+            <div class="col mt-5 text-center">
+                <h5 class="mb-5">You are already logged in.</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col">
+                        <a class="btn btn-orange text-uppercase mr-2 mb-2" href="{% url 'checkout' %}" role="button"><i class="fas fa-lock fa-sm"></i> Secure Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
     <div class="container">
         <div class="row">
             <div class="col mt-5 text-center">
@@ -36,4 +50,5 @@
             </div>
         </div>
     </div>
+{% endif %}
 {% endblock %}
