@@ -14,13 +14,14 @@ class OrderAdmin(admin.ModelAdmin):
 
     readonly_fields = ['order_number', 'date',
                        'shipping_cost', 'order_cost',
-                       'grand_total']
+                       'grand_total', 'cart_contents',
+                       'stripe_pid']
 
     fields = ['order_number', 'date', 'first_name',
               'last_name', 'email', 'contact_number', 'country',
               'postcode', 'town_or_city', 'street_address1',
               'street_address2', 'county', 'shipping_cost',
-              'order_cost', 'grand_total']
+              'order_cost', 'grand_total', 'cart_contents', 'stripe_pid']
 
     list_display = ['order_number', 'date', 'first_name',
                     'last_name', 'order_cost', 'shipping_cost',

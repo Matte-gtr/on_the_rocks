@@ -53,6 +53,7 @@
                         {{ order_form.postcode | as_crispy_field }}
                         {{ order_form.county | as_crispy_field }}
                         {{ order_form.country | as_crispy_field }}
+                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
                     </fieldset>
                     <fieldset class="text-right">
                         {% if user.is_authenticated %}
