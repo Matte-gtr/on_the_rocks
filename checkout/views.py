@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404,\
 from django.contrib import messages
 from django.conf import settings
 from django.views.decorators.http import require_POST
+from django.contrib.auth.models import User
 
 from .forms import OrderForm
 from .models import Order, OrderLineItem
@@ -89,9 +90,28 @@ def checkout(request):
             amount=stripe_total,
             currency=stripe_currency,
         )
-        order_form = OrderForm()
-        messages.info(request, "Please fill out the Billing/Delivery details \
-            form to complete your order.")
+
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'first_name': profile.first_name,
+                    'last_name': profile.last_name,
+                    'email': profile.email,
+                    'contact_number': profile.contact_number,
+                    'street_address1': profile.street_address1,
+                    'street_address2': profile.street_address2,
+                    'town_or_city': profile.town_or_city,
+                    'postcode': profile.postcode,
+                    'county': profile.county,
+                    'country': profile.country,
+                })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
+            messages.info(request, "Please fill out the Billing/Delivery details \
+                form to complete your order.")
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing')
@@ -146,7 +166,11 @@ def successful_checkout(request, order_number):
             'country': order.country,
         }
         user_profile_form = UserProfileForm(profile_data, instance=profile)
+        current_user = get_object_or_404(User, id=request.user.id)
         if user_profile_form.is_valid():
+            current_user.first_name = order.first_name
+            current_user.last_name = order.last_name
+            current_user.save()
             user_profile_form.save()
 
     cratelist = []

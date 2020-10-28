@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from .models import ProductReview, UserProfile
 from products.models import Product
@@ -66,8 +67,12 @@ def user_profile(request, user_id):
 
     if request.method == "POST":
         form = UserProfileForm(request.POST, instance=user_profile)
+        current_user = get_object_or_404(User, id=request.user.id)
         if form.is_valid():
             form.save()
+            current_user.first_name = user_profile.first_name
+            current_user.last_name = user_profile.last_name
+            current_user.save()
             messages.success(request, 'Your details have been updated.')
 
     form = UserProfileForm(instance=user_profile)
