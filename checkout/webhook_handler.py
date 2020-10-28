@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
 
 from .models import Order, OrderLineItem
 from products.models import Product
@@ -12,9 +15,24 @@ import time
 
 class Stripe_WebHook_Handler:
     """ Handle stripe webhooks """
-
     def __init__(self, request):
         self.request = request
+
+    def _send_confirmation_email(self, order):
+        """ Send user an order confirmation email """
+        customer_email = order.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_head.txt',
+            {'order': order})
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [customer_email]
+            )
 
     def handle_payment_intent_succeeded(self, event):
         """ Handle Stripes payment intent succeeded webhook """
@@ -77,6 +95,7 @@ class Stripe_WebHook_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            self._send_confirmation_email(order)
             return HttpResponse(content=f'Webhook recieved: {event["type"]}. \
                 Order already exists in the database', status=200)
         else:
@@ -121,6 +140,7 @@ class Stripe_WebHook_Handler:
                     order.delete()
                 return HttpResponse(status=500, content=f'Webhook recieved: \
                     {event["type"]} with error: {e}')
+        self._send_confirmation_email(order)
         return HttpResponse(content=f'Webhook recieved: {event["type"]}: Order \
             created in webhook', status=200)
 
