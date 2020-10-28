@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage
+from django.contrib.auth.decorators import login_required
 
 from site_management.forms import ReviewForm
+from products.forms import ProductForm
 from .models import Product, Category
 
 
@@ -75,8 +77,9 @@ def product_display(request, product_id):
                 except Exception as e:
                     messages.error(request, f'Review failed: {e}')
         else:
-            return redirect(reverse('home'))  # test purposes
-            # messages (request, "You have to be logged in to add reviews")
+            messages.warning(request, "You have to be logged \
+                in to add reviews")
+            return redirect(reverse('home'))
 
     template = 'products/product_display.html'
     form = ReviewForm()
@@ -85,3 +88,17 @@ def product_display(request, product_id):
         'form': form,
     }
     return render(request, template, context)
+
+
+@login_required
+def add_product(request):
+    """ a view to add a product to the site """
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'Product added successfully')
+        else:
+            messages.error(request, "Add product failed")
+
+    return redirect(reverse('site_management'))

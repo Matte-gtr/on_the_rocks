@@ -8,12 +8,14 @@ from .models import ProductReview, UserProfile
 from products.models import Product
 from checkout.models import Order
 from .forms import UserProfileForm
+from products.forms import ProductForm
 
 
 @login_required
 def site_management(request):
     """ display the site management page """
-    if request.user.is_superuser:
+    if request.user.is_staff:
+        form = ProductForm()
         template = 'site_management/site_management.html'
         page_header = 'Site Management'
         all_reviews = ProductReview.objects.all()
@@ -21,6 +23,7 @@ def site_management(request):
         context = {
             'page_header': page_header,
             'reviews': reviews,
+            'form': form,
         }
     else:
         messages.error(request, 'You need to be assigned as administrator \
@@ -32,7 +35,7 @@ def site_management(request):
 @login_required
 def approve_review(request, review_id):
     """ approve a review so it is displayed on the product page """
-    if request.user.is_superuser:
+    if request.user.is_staff:
         try:
             review = get_object_or_404(ProductReview, pk=review_id)
             product = get_object_or_404(Product, pk=review.product_id)
@@ -55,7 +58,7 @@ def approve_review(request, review_id):
 @login_required
 def delete_review(request, review_id):
     """ delete a review that is awaiting authorisation """
-    if request.user.is_superuser:
+    if request.user.is_staff:
         try:
             review = get_object_or_404(ProductReview, pk=review_id)
             review.delete()
