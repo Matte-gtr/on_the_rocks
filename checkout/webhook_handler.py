@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 from .models import Order, OrderLineItem
 from products.models import Product
@@ -33,6 +35,11 @@ class Stripe_WebHook_Handler:
         if username != 'AnonymousUser':
             user_profile = UserProfile.objects.get(user__username=username)
             if save_details:
+                current_user = get_object_or_404(User, username=username)
+                current_user.first_name = shipping_details.name.split(' ')[0]
+                current_user.last_name = shipping_details.name.split(' ')[1]
+                current_user.save()
+
                 user_profile.first_name = shipping_details.name.split(' ')[0]
                 user_profile.last_name = shipping_details.name.split(' ')[1]
                 user_profile.email = billing_details.email
