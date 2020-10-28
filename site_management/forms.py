@@ -47,7 +47,6 @@ class UserProfileForm(forms.ModelForm):
             'county': 'County',
         }
 
-        self.fields['first_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != "country":
                 placeholder = placeholders[field]

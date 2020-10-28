@@ -13,36 +13,42 @@ from .forms import UserProfileForm
 @login_required
 def site_management(request):
     """ display the site management page """
-    template = 'site_management/site_management.html'
-    page_header = 'Site Management'
-    all_reviews = ProductReview.objects.all()
-    reviews = all_reviews.filter(authorised=False)
-    context = {
-        'page_header': page_header,
-        'reviews': reviews,
-    }
+    if request.user.is_superuser:
+        template = 'site_management/site_management.html'
+        page_header = 'Site Management'
+        all_reviews = ProductReview.objects.all()
+        reviews = all_reviews.filter(authorised=False)
+        context = {
+            'page_header': page_header,
+            'reviews': reviews,
+        }
+    else:
+        messages.error(request, 'You need to be assigned as administrator \
+            to approve reviews')
+        return redirect(reverse('products'))
     return render(request, template, context)
 
 
 @login_required
 def approve_review(request, review_id):
     """ approve a review so it is displayed on the product page """
-    review = get_object_or_404(ProductReview, pk=review_id)
-
-    product = get_object_or_404(Product, pk=review.product_id)
-    rating = product.reviews.aggregate(Avg('stars'))['stars__avg']
-
     if request.user.is_superuser:
-        review.authorised = True
-        review.save(update_fields=['authorised'])
-        product.rating = round(rating, 1)
-        product.save(update_fields=['rating'])
-        messages.success(request, f'{review.product} review by\
-            {review.user} approved')
+        try:
+            review = get_object_or_404(ProductReview, pk=review_id)
+            product = get_object_or_404(Product, pk=review.product_id)
+            rating = product.reviews.aggregate(Avg('stars'))['stars__avg']
+            review.authorised = True
+            review.save(update_fields=['authorised'])
+            product.rating = round(rating, 1)
+            product.save(update_fields=['rating'])
+            messages.success(request, f'{review.product} review by\
+                {review.user} approved')
+        except Exception as e:
+            messages.error(request, f'Error deleting review: {e}')
     else:
         messages.error(request, 'You need to be assigned as administrator \
             to approve reviews')
-
+        return redirect(reverse('products'))
     return redirect(reverse('site_management'))
 
 
@@ -57,6 +63,10 @@ def delete_review(request, review_id):
                 deleted')
         except Exception as e:
             messages.error(request, f'Error deleting review: {e}')
+    else:
+        messages.error(request, 'You need to be assigned as administrator \
+            to approve reviews')
+        return redirect(reverse('products'))
     return redirect(reverse('site_management'))
 
 
