@@ -1,6 +1,8 @@
 from django.http import HttpResponse
+
 from .models import Order, OrderLineItem
 from products.models import Product
+from site_management.models import UserProfile
 
 import json
 import time
@@ -26,6 +28,23 @@ class Stripe_WebHook_Handler:
             if value == "":
                 shipping_details.address[key] = None
 
+        user_profile = None
+        username = intent.metadata.username
+        if username != 'AnonymousUser':
+            user_profile = UserProfile.objects.get(user__username=username)
+            if save_details:
+                user_profile.first_name = shipping_details.name.split(' ')[0]
+                user_profile.last_name = shipping_details.name.split(' ')[1]
+                user_profile.email = billing_details.email
+                user_profile.contact_number = shipping_details.phone
+                user_profile.street_address1 = shipping_details.address.line1
+                user_profile.street_address2 = shipping_details.address.line2
+                user_profile.town_or_city = shipping_details.address.city
+                user_profile.postcode = shipping_details.address.postal_code
+                user_profile.county = shipping_details.address.state
+                user_profile.country = shipping_details.address.country
+                user_profile.save()
+
         order_exists = False
         attempt = 1
         while attempt <= 5:
@@ -35,12 +54,12 @@ class Stripe_WebHook_Handler:
                     last_name__iexact=shipping_details.name.split(' ')[1],
                     email__iexact=billing_details.email,
                     contact_number__iexact=shipping_details.phone,
-                    country__iexact=shipping_details.address.country,
-                    postcode__iexact=shipping_details.address.postal_code,
-                    town_or_city__iexact=shipping_details.address.city,
                     street_address1__iexact=shipping_details.address.line1,
                     street_address2__iexact=shipping_details.address.line2,
+                    town_or_city__iexact=shipping_details.address.city,
+                    postcode__iexact=shipping_details.address.postal_code,
                     county__iexact=shipping_details.address.state,
+                    country__iexact=shipping_details.address.country,
                     cart_contents=cart,
                     stripe_pid=pid,
                     grand_total=grand_total,
@@ -59,14 +78,15 @@ class Stripe_WebHook_Handler:
                 order = Order.objects.create(
                     first_name=shipping_details.name.split(' ')[0],
                     last_name=shipping_details.name.split(' ')[1],
+                    user_profile=user_profile,
                     email=billing_details.email,
                     contact_number=shipping_details.phone,
-                    country=shipping_details.address.country,
-                    postcode=shipping_details.address.postal_code,
-                    town_or_city=shipping_details.address.city,
                     street_address1=shipping_details.address.line1,
                     street_address2=shipping_details.address.line2,
+                    town_or_city=shipping_details.address.city,
+                    postcode=shipping_details.address.postal_code,
                     county=shipping_details.address.state,
+                    country=shipping_details.address.country,
                     cart_contents=cart,
                     stripe_pid=pid,
                 )
