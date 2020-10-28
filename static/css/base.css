@@ -72,6 +72,11 @@ html {
   scroll-behavior: smooth;
 }
 
+.allauth-form {
+    max-width: 525px;
+    margin: 0 auto;
+}
+
 /*---------toasts/messages---------*/
 
 .message-container {
