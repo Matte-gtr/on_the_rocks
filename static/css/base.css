@@ -507,6 +507,19 @@ div .fa-xl {
     font-family: emoji;
 }
 
+/*---------user_profile---------*/
+
+.user-profile-input {
+    box-sizing: border-box;
+    height: 40px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
 /*---------stripe---------*/
 
 .stripe-card-field,

@@ -16,43 +16,46 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div id="accordion">
-            <div class="card mx-0">
-                <div class="card-header" id="reviewManagement">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseReview" aria-expanded="true" aria-controls="collapseReview">
-                        Review Management{% if reviews|length > 0 %}<span class="notification-count">{{ reviews|length }}</span>{% endif %}
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseReview" class="collapse show" aria-labelledby="reviewManagement" data-parent="#accordion">
-                    <div class="card-body">
-                        {% if reviews %}
-                            {% for review in reviews %}
-                                <div class="management-card">
-                                    <h6><small class="font-weight-bold">{{ review.product.name }} - </small><small>{{ review.user }}</small></h6>
-                                    <p class="mb-0"><small><span class="text-orange">Review: </span>{{ review.review }} - <span class="text-orange">Rating: </span>{{ review.stars }}/5</small></p>
-                                    <p class="mb-1 mt-2"><a class="btn btn-sm btn-outline-primary mr-2" href="{% url 'approve_review' review.id %}">Approve</a><a class="btn btn-sm btn-outline-danger" href="{% url 'delete_review' review.id %}">Reject</a></p>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <h6>No Reviews Pending</h6>
-                        {% endif %}
+        <div class="row">
+            <div class="col">
+                <div id="accordion">
+                    <div class="card mx-0">
+                        <div class="card-header" id="reviewManagement">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseReview" aria-expanded="true" aria-controls="collapseReview">
+                                    Review Management{% if reviews|length > 0 %}<span class="notification-count">{{ reviews|length }}</span>{% endif %}
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseReview" class="collapse show" aria-labelledby="reviewManagement" data-parent="#accordion">
+                            <div class="card-body">
+                                {% if reviews %}
+                                    {% for review in reviews %}
+                                        <div class="management-card">
+                                            <h6><small class="font-weight-bold">{{ review.product.name }} - </small><small>{{ review.user }}</small></h6>
+                                            <p class="mb-0"><small><span class="text-orange">Review: </span>{{ review.review }} - <span class="text-orange">Rating: </span>{{ review.stars }}/5</small></p>
+                                            <p class="mb-1 mt-2"><a class="btn btn-sm btn-outline-primary mr-2" href="{% url 'approve_review' review.id %}">Approve</a><a class="btn btn-sm btn-outline-danger" href="{% url 'delete_review' review.id %}">Reject</a></p>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <h6>No Reviews Pending</h6>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="card mx-0">
-                <div class="card-header" id="addProduct">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseAdd" aria-expanded="true" aria-controls="collapseAdd">
-                        Add a Product
-                        </button>
-                    </h5>
-                </div>
-
-                <div id="collapseAdd" class="collapse" aria-labelledby="addProduct" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <div class="card mx-0">
+                        <div class="card-header" id="addProduct">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseAdd" aria-expanded="true" aria-controls="collapseAdd">
+                                    Add a Product
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseAdd" class="collapse" aria-labelledby="addProduct" data-parent="#accordion">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

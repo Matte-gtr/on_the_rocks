@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
-from .models import ProductReview
+from .models import ProductReview, UserProfile
 from products.models import Product
+from .forms import UserProfileForm
 
 
 @login_required
@@ -62,8 +62,21 @@ def delete_review(request, review_id):
 def user_profile(request, user_id):
     """ display a users profile with an order history and
     billing/shipping information """
+    user_profile = get_object_or_404(UserProfile, pk=user_id)
+
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your details have been updated.')
+
+    form = UserProfileForm(instance=user_profile)
+    user_orders = user_profile.orders.all()
     template = 'site_management/user_profile.html'
+
     context = {
-        'page_header': 'Profile'
+        'page_header': 'Profile',
+        'form': form,
+        'user_orders': user_orders,
     }
     return render(request, template, context)
