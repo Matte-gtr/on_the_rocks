@@ -9,4 +9,6 @@ urlpatterns = [
          name='delete_review'),
     path('user_profile/<user_id>/', views.user_profile,
          name='user_profile'),
+    path('order_history/<order_id>/', views.order_history,
+         name='order_history'),
 ]

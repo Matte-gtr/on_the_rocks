@@ -84,9 +84,30 @@
 
                         <div id="collapseAdd" class="collapse" aria-labelledby="addProduct" data-parent="#accordion">
                             <div class="card-body">
-                                {{ user_orders }}
-                                {% for order in user_order %}
-                                    {{ order.grand_total }}
+                                <div class="row">
+                                    <div class="col">
+                                        Order Number:
+                                    </div>
+                                    <div class="col">
+                                        Date:
+                                    </div>
+                                    <div class="col text-right">
+                                        Grand Total:
+                                    </div>
+                                </div>
+                                <hr>
+                                {% for order in user_orders %}
+                                    <div class="row">
+                                        <div class="col truncate">
+                                            <a href="{% url 'order_history' order.id %}" title="{{ order.order_number }}">{{ order.order_number }}</a>
+                                        </div>
+                                        <div class="col truncate">
+                                            {{ order.date }}
+                                        </div>
+                                        <div class="col text-right">
+                                            £{{ order.grand_total }}
+                                        </div>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>
@@ -95,4 +116,11 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postload_js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        /* set cookie for accordian */
+    </script>
 {% endblock %}

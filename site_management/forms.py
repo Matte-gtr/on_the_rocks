@@ -49,8 +49,6 @@ class UserProfileForm(forms.ModelForm):
 
         self.fields['first_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            if not self.fields[field]:  # to be overwritten with js on clickevent
-                self.fields[field].readonly = True  # to be overwritten with js on clickevent
             if field != "country":
                 placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 from .models import ProductReview, UserProfile
 from products.models import Product
+from checkout.models import Order
 from .forms import UserProfileForm
 
 
@@ -76,12 +77,29 @@ def user_profile(request, user_id):
             messages.success(request, 'Your details have been updated.')
 
     form = UserProfileForm(instance=user_profile)
-    user_orders = user_profile.orders.all()
+    user_orders = user_profile.orders.all().order_by('-date')
     template = 'site_management/user_profile.html'
 
     context = {
         'page_header': 'Profile',
         'form': form,
         'user_orders': user_orders,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def order_history(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    template = 'site_management/order_history.html'
+    cratelist = []
+    for item in order.lineitems.all():
+        if item.crate_id:
+            if item.crate_id not in cratelist:
+                cratelist.append(item.crate_id)
+    context = {
+        'order': order,
+        'cratelist': cratelist,
+        'page_header': 'order history',
     }
     return render(request, template, context)

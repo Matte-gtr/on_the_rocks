@@ -77,6 +77,12 @@ html {
     margin: 0 auto;
 }
 
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /*---------toasts/messages---------*/
 
 .message-container {
