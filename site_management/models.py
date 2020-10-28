@@ -47,9 +47,10 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-    @receiver(post_save, sender=user)
-    def create_or_update_profile(sender, instance, created, **kwargs):
-        """ creates or updates a users profile """
-        if created:
-            UserProfile.objects.create(user=instance)
-        instance.user_profile.save()
+
+@receiver(post_save, sender=User)
+def create_or_update_profile(sender, instance, created, **kwargs):
+    """ creates or updates a users profile """
+    if created:
+        UserProfile.objects.create(user=instance)
+    instance.user_profile.save()
