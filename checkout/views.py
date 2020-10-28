@@ -8,6 +8,8 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
 from cart.contexts import cart_contents
+from site_management.models import UserProfile
+from site_management.forms import UserProfileForm
 
 import stripe
 import json
@@ -125,6 +127,27 @@ def successful_checkout(request, order_number):
     """ displays a page after a successful checkout and handles
     the saving the customers order form details """
     order = get_object_or_404(Order, order_number=order_number)
+    save_details = request.session.get('save_details')
+    profile = UserProfile.objects.get(user=request.user)
+    order.user_profile = profile
+    order.save()
+
+    if save_details:
+        profile_data = {
+            'first_name': order.first_name,
+            'last_name': order.last_name,
+            'email': order.email,
+            'contact_number': order.contact_number,
+            'street_address1': order.street_address1,
+            'street_address2': order.street_address2,
+            'town_or_city': order.town_or_city,
+            'postcode': order.postcode,
+            'county': order.county,
+            'country': order.country,
+        }
+        user_profile_form = UserProfileForm(profile_data, instance=profile)
+        if user_profile_form.is_valid():
+            user_profile_form.save()
 
     cratelist = []
     for item in order.lineitems.all():
@@ -132,7 +155,6 @@ def successful_checkout(request, order_number):
             if item.crate_id not in cratelist:
                 cratelist.append(item.crate_id)
 
-    save_details = request.session.get('save_details')
     messages.success(request, 'Your order has been processed')
     if 'cart' in request.session:
         del request.session['cart']

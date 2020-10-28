@@ -85,6 +85,9 @@
                         <div id="collapseAdd" class="collapse" aria-labelledby="addProduct" data-parent="#accordion">
                             <div class="card-body">
                                 {{ user_orders }}
+                                {% for order in user_order %}
+                                    {{ order.grand_total }}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
