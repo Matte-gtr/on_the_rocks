@@ -8,6 +8,7 @@ from .models import ProductReview, UserProfile
 from products.models import Product
 from checkout.models import Order
 from .forms import UserProfileForm
+from cocktails.forms import CocktailForm
 from products.forms import ProductForm
 
 
@@ -15,7 +16,8 @@ from products.forms import ProductForm
 def site_management(request):
     """ display the site management page """
     if request.user.is_staff:
-        form = ProductForm()
+        product_form = ProductForm()
+        cocktail_form = CocktailForm()
         template = 'site_management/site_management.html'
         page_header = 'Site Management'
         all_reviews = ProductReview.objects.all()
@@ -23,7 +25,8 @@ def site_management(request):
         context = {
             'page_header': page_header,
             'reviews': reviews,
-            'form': form,
+            'product_form': product_form,
+            'cocktail_form': cocktail_form,
         }
     else:
         messages.error(request, 'You need to be assigned as administrator \

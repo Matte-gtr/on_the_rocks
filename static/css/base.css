@@ -596,6 +596,7 @@ select option[value=""] {
     height: 310px;
     object-fit: contain;
     padding: 5px;
+    background: url(/media/tenor.gif) no-repeat center center;
 }
 
 .modal-dialog-80 {
