@@ -33,7 +33,7 @@
     {% block extra_js %}
     {% endblock %}
 
-    <title>{% block extra_title %}{% endblock %} | On the Rocks</title>
+    <title>{% block extra_title %}Home{% endblock %} | On the Rocks</title>
   </head>
   <body>
     <!--Navbar-->
@@ -137,7 +137,7 @@
                             <a class="nav-link text-uppercase" href="{% url 'create_a_crate' %}">Create-a-crate</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#">Cocktails</a>
+                            <a class="nav-link text-uppercase" href="{% url 'cocktails' %}">Cocktails</a>
                         </li>
                     </ul>
                 </div>
