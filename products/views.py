@@ -94,11 +94,62 @@ def product_display(request, product_id):
 def add_product(request):
     """ a view to add a product to the site """
     if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid:
-            form.save()
-            messages.success(request, 'Product added successfully')
+        if request.user.is_staff:
+            form = ProductForm(request.POST, request.FILES)
+            if form.is_valid():
+                product = form.save()
+                messages.success(request, 'Product added successfully')
+                return redirect(reverse('product_display', args=[product.id]))
+            else:
+                messages.error(request, "Add product failed, please check \
+                    the details in the form and re-submit")
         else:
-            messages.error(request, "Add product failed")
+            messages.error(request, 'You do not have the required permissions \
+            for this action')
+            return redirect(reverse('products'))
 
     return redirect(reverse('site_management'))
+
+
+@login_required
+def edit_product(request, product_id):
+    """ a view to delete a product """
+    if request.user.is_staff:
+        product = get_object_or_404(Product, pk=product_id)
+        if request.method == "POST":
+            form = ProductForm(request.POST, request.FILES, instance=product)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'{product.name} updated successfully')
+                return redirect(reverse('product_display', args=[product.id]))
+            else:
+                messages.error(request, 'Update product failed, please check \
+                    the details in the form and re-submit')
+        else:
+            form = ProductForm(instance=product)
+            messages.info(request, f'You are editing {product.name}')
+    else:
+        messages.error(request, 'You do not have the required permissions \
+            for this action')
+        return redirect(reverse('products'))
+    template = 'products/edit_product.html'
+    context = {
+        'page_header': 'Edit Product',
+        'product': product,
+        'form': form,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def delete_product(request, product_id):
+    """ a view to delete a a product """
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user.is_superuser:
+        product.delete()
+        messages.success(request, f'{product.name} has been successfully \
+            deleted')
+    else:
+        messages.error(request, 'You do not have the required permissions \
+            for this action')
+    return redirect(reverse('products'))

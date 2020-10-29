@@ -40,6 +40,20 @@
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     </form>
                 </div>
+                {% if request.user.is_staff %}
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-danger float-right mt-2 text-white"  data-toggle="modal" data-target="#deleteModal">Delete</a>
+                            <a class="btn btn-info float-right mt-2 mr-2 text-white" href="{% url 'edit_product' product.id %}">Edit</a>
+                        </div>
+                    </div>
+                {% elif request.user.is_superuser %}
+                    <div class="row">
+                        <div class="col">
+                            <a class="edit-btn float-right mt-2" href="{% url 'edit_product' product.id %}">Edit</a>
+                        </div>
+                    </div>
+                {% endif %}
                 <a class="btn btn-secondary text-uppercase mt-3" href="{% url 'products' %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Continue Shopping</a>
             </div>
             <div class="col-12 col-md-6 col-xl-4 order-1 order-md-12">
@@ -108,5 +122,24 @@
         </div>
     </section>
 </div>
-
+<!--delete modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content border border-danger">
+      <div class="modal-header">
+        <h5 class="confirm-delete" id="deleteModalLabel">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete {{ product.name }}?
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-secondary text-white" data-dismiss="modal">Cancel</a>
+        <a class="btn btn-danger text-white" href="{% url 'delete_product' product.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
