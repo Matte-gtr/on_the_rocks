@@ -40,14 +40,14 @@
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     </form>
                 </div>
-                {% if request.user.is_staff %}
+                {% if request.user.is_superuser %}
                     <div class="row">
                         <div class="col">
                             <a class="btn btn-danger float-right mt-2 text-white"  data-toggle="modal" data-target="#deleteModal">Delete</a>
                             <a class="btn btn-info float-right mt-2 mr-2 text-white" href="{% url 'edit_product' product.id %}">Edit</a>
                         </div>
                     </div>
-                {% elif request.user.is_superuser %}
+                {% elif request.user.is_staff %}
                     <div class="row">
                         <div class="col">
                             <a class="edit-btn float-right mt-2" href="{% url 'edit_product' product.id %}">Edit</a>

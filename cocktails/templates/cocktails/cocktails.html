@@ -29,9 +29,9 @@
                         <div class="row">
                             <div class="col col-sm-5 col-lg-12 py-2">
                                 {% if cocktail.image %}
-                                    <a href=""><img class="cocktail-card-image" src="{{ cocktail.image.url }}"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ cocktail.image.url }}"/></a>
                                 {% else %}
-                                    <a href=""><img class="cocktail-card-image" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
                                 {% endif %}
                             </div>
                             <div class="col d-none d-sm-inline-block d-lg-none">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="col col-lg-4 text-center text-left-lg order-1 order-lg-2 px-2 py-2 bg-grey">
-                        <a class="plain-anchor" href=""><h3 class="mb-0 mt-2">{{ cocktail.name }}</h3></a>
+                        <a class="plain-anchor" href="{% url 'display_cocktail' cocktail.id %}"><h3 class="mb-0 mt-2">{{ cocktail.name }}</h3></a>
                         <ul class="list-style-none d-none d-lg-block">
                             <li class="pb-1">{{ cocktail.product_measure }} <a href="{% url 'product_display' cocktail.product.id %}">{{ cocktail.product.name }}</a></li>
                             <li>{{ cocktail.ingredient_1 }}</li>
@@ -67,7 +67,7 @@
             <div class="cocktail-card mx-2 my-3">
                 <div class="row text-right">
                     <div class="offset-lg-5 col text-center text-right-lg px-2 py-2 bg-grey">
-                        <a class="plain-anchor" href=""><h3 class="mb-0 mt-2">{{ cocktail.name }}</h3></a>
+                        <a class="plain-anchor" href="{% url 'display_cocktail' cocktail.id %}"><h3 class="mb-0 mt-2">{{ cocktail.name }}</h3></a>
                         <ul class="list-style-none d-none d-lg-block">
                             <li class="pb-1">{{ cocktail.product_measure }} <a href="{% url 'product_display' cocktail.product.id %}">{{ cocktail.product.name }}</a></li>
                             <li>{{ cocktail.ingredient_1 }}</li>
@@ -95,9 +95,9 @@
                             </div>
                             <div class="col col-sm-5 col-lg-12 py-2">
                                 {% if cocktail.image %}
-                                    <a href=""><img class="cocktail-card-image" src="{{ cocktail.image.url }}"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ cocktail.image.url }}"/></a>
                                 {% else %}
-                                    <a href=""><img class="cocktail-card-image" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
                                 {% endif %}
                             </div>
                         </div>

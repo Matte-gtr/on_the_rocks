@@ -315,7 +315,6 @@ li .nav-link {
 
 .display-image {
     max-height: 600px;
-    transform: translateX(12.5%);
     object-fit: contain;
 }
 
@@ -599,6 +598,29 @@ select option[value=""] {
     padding: 5px;
 }
 
+.modal-dialog-80 {
+    max-width: 80%;
+    margin: 1.75rem auto;
+}
+
+.cocktail-image-section {
+    max-width: 350px;
+}
+
+.cocktail-image {
+    max-height: 600px;
+    object-fit: contain;
+    padding-left: 10px;
+}
+
+li .orange-anchor {
+    color: #ff7600;
+}
+
+li .orange-anchor:hover {
+    text-decoration: underline;
+}
+
 /*---------media queries---------*/
 
 @media (min-width: 576px) {
@@ -623,6 +645,9 @@ select option[value=""] {
     }
     .cart-delete {
         padding-right: 0;
+    }
+    .display-image {
+        transform: translateX(12.5%);
     }
 }
 
