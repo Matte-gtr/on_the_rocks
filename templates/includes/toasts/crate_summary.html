@@ -20,7 +20,11 @@
                             <div class="crate-card">
                                 <div class="row">
                                     <div class="col-2 text-center pr-0 m-auto">
-                                        <img class="img-fluid crate-img" src="{{ item.product.image.url }}">
+                                        {% if item.product.image %}
+                                            <img class="img-fluid crate-img" src="{{ item.product.image.url }}">
+                                        {% else %}
+                                            <img class="img-fluid crate-img" src="{{ MEDIA_URL }}no-image.jpg">
+                                        {% endif %}
                                     </div>
                                     <div class="col-10 mt-1 mb-1">
                                         <a href="{% url 'product_display' item.product.id %}" class="plain-anchor"><h6 class="my-0">{{ item.product.name }}</h6></a>

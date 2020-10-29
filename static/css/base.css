@@ -302,6 +302,12 @@ li .nav-link {
     border-radius: 3px;
 }
 
+.display-image {
+    max-height: 600px;
+    transform: translateX(12.5%);
+    object-fit: contain;
+}
+
 /*---------reviews---------*/
 
 .review {

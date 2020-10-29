@@ -88,8 +88,11 @@ def user_profile(request, user_id):
             current_user.last_name = user_profile.last_name
             current_user.save()
             messages.success(request, 'Your details have been updated.')
-
-    form = UserProfileForm(instance=user_profile)
+        else:
+            messages.error(request, 'The form is invalid, please check \
+                the fields and re-submit')
+    else:
+        form = UserProfileForm(instance=user_profile)
     user_orders = user_profile.orders.all().order_by('-date')
     template = 'site_management/user_profile.html'
 

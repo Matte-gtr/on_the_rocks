@@ -44,7 +44,11 @@
             </div>
             <div class="col-12 col-md-6 col-xl-4 order-1 order-md-12">
                 <div class="image-section">
-                    <img class="img-fluid" src="{{ product.image.url }}">
+                {% if product.image %}
+                    <img class="img-fluid display-image" src="{{ product.image.url }}">
+                {% else %}
+                    <img class="img-fluid display-image" src="{{ MEDIA_URL }}no-image.jpg">
+                {% endif %}
                 </div>
             </div>
         </div>
