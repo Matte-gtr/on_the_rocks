@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load product_tags %}
 
 {% block extra_title %}
     Cocktails
@@ -107,4 +108,39 @@
         {% endif %}
     {% endfor %}
 </div>
+{% if cocktails.paginator.page_range|length > 1 %}
+    <div class="container pt-2">
+        <div class="row">
+            <nav class="mx-auto">
+                <ul class="pagination">
+                    {% if cocktails.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% param_replace page=cocktails.previous_page_number %}" tabindex="-1">&laquo;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">&laquo;</a>
+                        </li>
+                    {% endif %}
+                    {% for pg in cocktails.paginator.page_range %}
+                        {% if cocktails.number == pg %}
+                            <li class="page-item active"><a class="page-link" href="?{% param_replace page=pg %}">{{ pg }}</a></li>
+                        {% elif pg > cocktails.number|add:-3 and pg < cocktails.number|add:3 %}
+                            <li class="page-item"><a class="page-link" href="?{% param_replace page=pg %}">{{ pg }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if cocktails.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?{% param_replace page=cocktails.next_page_number %}" tabindex="-1">&raquo;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">&raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

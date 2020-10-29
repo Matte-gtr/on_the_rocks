@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.core.paginator import Paginator, EmptyPage
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import Cocktail
 
@@ -18,7 +20,7 @@ def cocktails(request):
     template = 'cocktails/cocktails.html'
     context = {
         'page_header': 'Cocktails',
-        'cocktails': cocktails,
+        'cocktails': page,
     }
     return render(request, template, context)
 
@@ -33,3 +35,17 @@ def display_cocktail(request, cocktail_id):
         'cocktail': cocktail,
     }
     return render(request, template, context)
+
+
+@login_required
+def delete_cocktail(request, cocktail_id):
+    """ a view to delete a a product """
+    cocktail = get_object_or_404(Cocktail, pk=cocktail_id)
+    if request.user.is_superuser:
+        cocktail.delete()
+        messages.success(request, f'{cocktail.name} has been successfully \
+            deleted')
+    else:
+        messages.error(request, 'You do not have the required permissions \
+            for this action')
+    return redirect(reverse('cocktails'))

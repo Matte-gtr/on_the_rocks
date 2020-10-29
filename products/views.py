@@ -113,14 +113,15 @@ def add_product(request):
 
 @login_required
 def edit_product(request, product_id):
-    """ a view to delete a product """
+    """ a view to edit a product """
     if request.user.is_staff:
         product = get_object_or_404(Product, pk=product_id)
         if request.method == "POST":
             form = ProductForm(request.POST, request.FILES, instance=product)
             if form.is_valid():
                 form.save()
-                messages.success(request, f'{product.name} updated successfully')
+                messages.success(request, f'{product.name} updated \
+                    successfully')
                 return redirect(reverse('product_display', args=[product.id]))
             else:
                 messages.error(request, 'Update product failed, please check \
