@@ -159,11 +159,11 @@
                 if (state == "shipping") {
                     $('#shipping').attr("aria-expanded","true");
                     $('#shipping').removeClass("collapsed");
-                    $('#collapseShipping').addClass("show");
+                    $('#collapseShipping').collapse("show");
                 } else if (state == "order") {
                     $('#order').attr("aria-expanded","true");
                     $('#order').removeClass("collapsed");
-                    $('#collapseOrder').addClass("show");
+                    $('#collapseOrder').collapse("show");
                 };
             };
             window.onload = function() {

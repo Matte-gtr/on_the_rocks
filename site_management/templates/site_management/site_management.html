@@ -131,18 +131,18 @@
                 let position = getCookie("position");
                 if (position == "review") {
                     $('#review').attr("aria-expanded","true");
-                    $('#review').removeClass("collapsed")
-                    $('#collapseReview').addClass("show")
+                    $('#review').removeClass("collapsed");
+                    $('#collapseReview').collapse("show");
                 } else if (position == "product") {
                     $('#product').attr("aria-expanded","true");
-                    $('#product').removeClass("collapsed")
-                    $('#collapseProduct').addClass("show")
+                    $('#product').removeClass("collapsed");
+                    $('#collapseProduct').collapse("show");
                 } else if (position == "cocktail") {
                     $('#cocktail').attr("aria-expanded","true");
-                    $('#cocktail').removeClass("collapsed")
-                    $('#collapseCocktail').addClass("show")
-                }
-            }
+                    $('#cocktail').removeClass("collapsed");
+                    $('#collapseCocktail').collapse("show");
+                };
+            };
             window.onload = function() {
                 checkCookie();
             };

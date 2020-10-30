@@ -40,6 +40,10 @@ body {
     color: #ff7600;
 }
 
+.background-orange {
+    background-color: #ff7600 !important;
+}
+
 .orange-link:hover {
     color: #ff7600;
 }

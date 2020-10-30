@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="col-2 d-lg-none burger-container my-auto">
-                <button class="burger-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="burger-button" id="burger-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
@@ -223,6 +223,13 @@
                     }
                 }
                 lastScroll = scroll;
+            });
+            $("#burger-button").click(function() {
+                if ($("#burger-button").attr("aria-expanded") == "false")
+                    $("#burger-button").children().addClass("background-orange");
+                else {
+                    $("#burger-button").children().removeClass("background-orange");
+                };
             });
         });
     </script>
