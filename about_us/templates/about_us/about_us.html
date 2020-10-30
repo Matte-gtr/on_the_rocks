@@ -15,7 +15,7 @@
     </div>
 {% endblock %}
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid px-0">
         <section class="container">
             <div class="row">
                 <div class="col text-center fs-20">
@@ -34,17 +34,103 @@
         <section class="container-fluid bg-orange">
             <div class="row section-title">
                 <div class="col-12 text-center">
-                    <h4 class="text-uppercase m-0" id="reviews">Reviews</h4>
+                    <h4 class="text-uppercase m-0" id="reviews">Popular items</h4>
                 </div>
             </div>
-            <div class="container">
+            <div class="container px-0">
                 <div class="row">
-                    <div class="col text-center">
-                        <h4>Most popular items</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
+                    <div class="col text-center px-0">
+
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active text-center">
+                                    <div class="h-100 scroll-card">
+                                        <div class="row">   
+                                            <div class="col pt-2">
+                                                {% if first_product.image %}
+                                                    <a href="{% url 'product_display' first_product.id %}">
+                                                        <img src="{{ first_product.image.url }}" class="card-img-top cocktail-card-image" alt="{{ first_product.name }}">
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'product_display' first_product.id %}">
+                                                        <img src="{{ MEDIA_URL }}no-image.jpg" class="card-img-top cocktail-card-image" alt="{{ first_product.name }}">
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    <div class="card-body">
+                                        <div class="row">   
+                                            <div class="col">
+                                                <h3 class="card-title">{{ first_product.name }}{% if first_product.detail %}<small class="grey"> - {{ first_product.detail }}</small>{% endif %}</h3>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                    <div class="row">   
+                                            <div class="col">
+                                                <p class="mb-0"><a class="plain-anchor" href="{% url 'products' %}?category={{first_product.category}}"><i class="fas fa-tag fa-sm"></i> {{ first_product.category.friendly_name }}</a></p>
+                                                <p class="mb-0 card-detail grey">{{ first_product.size }}/{{ first_product.proof }}%</p>
+                                                <p class="mb-0 card-price">£{{ first_product.price }}</p>
+                                                {% if first_product.rating > 0.0 %}
+                                                    <p class="mb-0 card-detail text-orange font-weight-bold">{{ first_product.rating }}/5</p>
+                                                {% else %}
+                                                    <p class="mb-0 card-detail text-orange">No Reviews yet</p>
+                                                {% endif %}
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                                {% for product in products %}
+                                    <div class="carousel-item">
+                                        <div class="h-100 scroll-card">
+                                            <div class="row">   
+                                                <div class="col pt-2">
+                                                    {% if product.image %}
+                                                        <a href="{% url 'product_display' product.id %}">
+                                                            <img src="{{ product.image.url }}" class="card-img-top cocktail-card-image" alt="{{ product.name }}">
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="{% url 'product_display' product.id %}">
+                                                            <img src="{{ MEDIA_URL }}no-image.jpg" class="card-img-top cocktail-card-image" alt="{{ product.name }}">
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        <div class="card-body">
+                                            <div class="row">   
+                                                <div class="col">
+                                                    <h3 class="card-title">{{ product.name }}{% if product.detail %}<small class="grey"> - {{ product.detail }}</small>{% endif %}</h3>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                        <div class="row">   
+                                                <div class="col">
+                                                    <p class="mb-0"><a class="plain-anchor" href="{% url 'products' %}?category={{product.category}}"><i class="fas fa-tag fa-sm"></i> {{ product.category.friendly_name }}</a></p>
+                                                    <p class="mb-0 card-detail grey">{{ product.size }}/{{ product.proof }}%</p>
+                                                    <p class="mb-0 card-price">£{{ product.price }}</p>
+                                                    {% if product.rating > 0.0 %}
+                                                        <p class="mb-0 card-detail text-orange font-weight-bold">{{ product.rating }}/5</p>
+                                                    {% else %}
+                                                        <p class="mb-0 card-detail text-orange">No Reviews yet</p>
+                                                    {% endif %}
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
 
                     </div>
                 </div>
