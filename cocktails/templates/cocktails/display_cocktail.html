@@ -65,9 +65,9 @@
             <div class="col-12 col-md-6 col-xl-4 order-1 order-md-12">
                 <div class="cocktail-image-section">
                 {% if cocktail.image %}
-                    <img class="img-fluid cocktail-image" src="{{ cocktail.image.url }}">
+                    <img class="img-fluid cocktail-image" alt="{{ cocktail.name }}" src="{{ cocktail.image.url }}">
                 {% else %}
-                    <img class="img-fluid cocktail-image" src="{{ MEDIA_URL }}no-cocktail.jpg">
+                    <img class="img-fluid cocktail-image" alt="{{ cocktail.name }}" src="{{ MEDIA_URL }}no-cocktail.jpg">
                 {% endif %}
                 </div>
             </div>
@@ -133,7 +133,7 @@
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <div class="col-12 p-0">
-                                        <label for="quantity">Quantity: </label>
+                                        <label for="id_qty_{{ cocktail.product.id }}">Quantity: </label>
                                         <input class="form-control w-auto mb-3" type="number" name="quantity" min="1" max="99" value="1" data_item_id="{{ cocktail.product.id }}" id="id_qty_{{ cocktail.product.id }}" />
                                         <button type="submit" class="btn btn-orange">ADD TO CART</button>
                                     </div>
@@ -145,9 +145,9 @@
                     <div class="col-12 col-md-6 col-xl-4 order-1 order-md-12">
                         <div class="image-section">
                         {% if cocktail.product.image %}
-                            <img class="img-fluid display-image" src="{{ cocktail.product.image.url }}">
+                            <img class="img-fluid display-image" alt="{{ cocktail.product.name }}" src="{{ cocktail.product.image.url }}">
                         {% else %}
-                            <img class="img-fluid display-image" src="{{ MEDIA_URL }}no-image.jpg">
+                            <img class="img-fluid display-image" alt="{{ cocktail.product.name }}" src="{{ MEDIA_URL }}no-image.jpg">
                         {% endif %}
                         </div>
                     </div>

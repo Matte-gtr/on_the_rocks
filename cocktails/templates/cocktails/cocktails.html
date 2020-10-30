@@ -30,9 +30,9 @@
                         <div class="row">
                             <div class="col col-sm-5 col-lg-12 py-2">
                                 {% if cocktail.image %}
-                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ cocktail.image.url }}"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" alt="{{ cocktail.name }}" src="{{ cocktail.image.url }}"/></a>
                                 {% else %}
-                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" alt="{{ cocktail.name }}" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
                                 {% endif %}
                             </div>
                             <div class="col d-none d-sm-inline-block d-lg-none">
@@ -96,9 +96,9 @@
                             </div>
                             <div class="col col-sm-5 col-lg-12 py-2">
                                 {% if cocktail.image %}
-                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ cocktail.image.url }}"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" alt="{{ cocktail.name }}" src="{{ cocktail.image.url }}"/></a>
                                 {% else %}
-                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
+                                    <a href="{% url 'display_cocktail' cocktail.id %}"><img class="cocktail-card-image" alt="{{ cocktail.name }}" src="{{ MEDIA_URL }}no-cocktail.jpg"/></a>
                                 {% endif %}
                             </div>
                         </div>

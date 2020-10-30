@@ -1,0 +1,21 @@
+Hello {{ order.full_first }},
+
+Thanks for shopping with us at On the Rocks, we hope you enjoyed your experience.
+Please see your order details below:
+
+Order Number: {{ order.order_number }}
+Order Date: {{ order.date }}
+
+Order Total: {{ order.order_cost }}
+Delivery: {{ order.shipping_cost }}
+Grand Total: {{ order.grand_total }}
+
+Your order will be shipped to {{ order.street_address1 }} in {{ order.town_or_city }}.
+
+We have your contact number on file as {{ order.contact_number }}.
+
+If you have any questions, please feel free to get in touch {{ contact_email }}.
+
+Kind Regards,
+
+On the Rocks

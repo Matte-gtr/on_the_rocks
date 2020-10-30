@@ -17,7 +17,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col mb-4">
                 <div id="accordion">
                     <div class="card mx-0">
                         <div class="card-header" id="shippingForm">
@@ -119,53 +119,56 @@
 {% endblock %}
 
 {% block postload_js %}
-{{ block.super }}
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#shipping').click(function() {
-            if ($('#shipping').attr("aria-expanded") === "false") {
-                document.cookie = "state=shipping";
-            } else {
-                document.cookie = "state=none";
+    {{ block.super }}
+    <script>
+        $(document).ready(function() {
+            /* set cookies based on state of accordion on click */
+            $('#shipping').click(function() {
+                if ($('#shipping').attr("aria-expanded") === "false") {
+                    document.cookie = "state=shipping";
+                } else {
+                    document.cookie = "state=none";
+                };
+            });
+            $('#order').click(function() {
+                if ($('#order').attr("aria-expanded") === "false") {
+                    document.cookie = "state=order";
+                } else {
+                    document.cookie = "state=none";
+                };
+            });
+            /* getCookie() example from https://www.w3schools.com/js/js_cookies.asp */
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                    };
+                };
+                return "";
             };
-        });
-        $('#order').click(function() {
-            if ($('#order').attr("aria-expanded") === "false") {
-                document.cookie = "state=order";
-            } else {
-                document.cookie = "state=none";
-            };
-        });
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for(let i = 0; i <ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
+            /* set the show state of section captured in the state cookie */
+            function checkCookie() {
+                let state = getCookie("state");
+                if (state == "shipping") {
+                    $('#shipping').attr("aria-expanded","true");
+                    $('#shipping').removeClass("collapsed");
+                    $('#collapseShipping').addClass("show");
+                } else if (state == "order") {
+                    $('#order').attr("aria-expanded","true");
+                    $('#order').removeClass("collapsed");
+                    $('#collapseOrder').addClass("show");
                 };
             };
-            return "";
-        };
-        function checkCookie() {
-            let state = getCookie("state");
-            if (state == "shipping") {
-                $('#shipping').attr("aria-expanded","true");
-                $('#shipping').removeClass("collapsed");
-                $('#collapseShipping').addClass("show");
-            } else if (state == "order") {
-                $('#order').attr("aria-expanded","true");
-                $('#order').removeClass("collapsed");
-                $('#collapseOrder').addClass("show");
+            window.onload = function() {
+                checkCookie();
             };
-        };
-        window.onload = function() {
-            checkCookie();
-        };
-    });
+        });
     </script>
 {% endblock %}

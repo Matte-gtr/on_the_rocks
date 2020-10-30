@@ -58,9 +58,9 @@
                                             <div class="row">
                                                 <div class="col-2 text-center pr-0 m-auto">
                                                     {% if product.image %}
-                                                        <img class="img-fluid crate-img" src="{{ product.image.url }}">
+                                                        <img class="img-fluid crate-img" alt="{{ product.name }}" src="{{ product.image.url }}">
                                                     {% else %}
-                                                        <img class="img-fluid crate-img" src="{{ MEDIA_URL }}no-image.jpg">
+                                                        <img class="img-fluid crate-img" alt="{{ product.name }}" src="{{ MEDIA_URL }}no-image.jpg">
                                                     {% endif %}
                                                 </div>
                                                 <div class="col-10 mt-1">
@@ -138,9 +138,9 @@
                                     <div class="row">
                                         <div class="col-2 text-center pr-0 m-auto">
                                             {% if item.product.image %}
-                                                <img class="img-fluid crate-img" src="{{ item.product.image.url }}">
+                                                <img class="img-fluid crate-img"  alt="{{ item.product.name }}" src="{{ item.product.image.url }}">
                                             {% else %}
-                                                <img class="img-fluid crate-img" src="{{ MEDIA_URL }}no-image.jpg">
+                                                <img class="img-fluid crate-img" alt="{{ item.product.name }}" src="{{ MEDIA_URL }}no-image.jpg">
                                             {% endif %}
                                         </div>
                                         <div class="col-10 mt-1">
