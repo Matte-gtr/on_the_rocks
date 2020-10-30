@@ -27,7 +27,7 @@ SECRET_KEY = '5zfuwi&n!d=)mte+z$9g$tpdswfr25@_3so4r%1o1f3vyr-e&8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['msnell89-on-the-rocks.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -120,17 +120,18 @@ WSGI_APPLICATION = 'on_the_rocks.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
 
-DATABASES = {
-    'default': dj_database_url.parse('postgres://rbbhrwkjcmfilx:21e4863320f4009942b85e37dba50dab3b9d207c069c67ff3ce53912592b0ffc@ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/db0fjqi4ib4bad')
-}
-
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse('DATABASE_URL')
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -1,0 +1,1 @@
+web: gunicorn on_the_rocks.wsgi:application
