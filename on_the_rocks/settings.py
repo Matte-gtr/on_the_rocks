@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'checkout',
     'site_management',
     'cocktails',
+    'about_us',
 ]
 
 MIDDLEWARE = [

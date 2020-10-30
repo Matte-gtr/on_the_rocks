@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_title %}
+    About Us
+{% endblock %}
+{% block page_header %}
+    <div class="container page-header">
+        <div class="row">
+            <div class="col">
+                {{ page_header }}
+                <hr class="grey w-50">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <section class="container">
+            <div class="row">
+                <div class="col text-center fs-20">
+                    <p class="pt-3">
+                        We are a company dedicated to finding the best quality whiskey at the best prices to pass on to our customers. We 
+                        are constantly on the lookout for new and exciting bottles and we currently hold a stock of some limited edition runs
+                        and special items.
+                    </p>
+                    <p class="mb-5">
+                        Please have a look through our <a href="{% url 'products' %}"><strong>Products</strong></a> to find all of our stock, and if you are looking to buy more than
+                        1 or 2 bottles, why not have a look at our <a href="{% url 'create_a_crate' %}"><strong>Create-a-crate</strong></a> page to save 20% on all bottles from your selected categories.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="container-fluid bg-orange">
+            <div class="row section-title">
+                <div class="col-12 text-center">
+                    <h4 class="text-uppercase m-0" id="reviews">Reviews</h4>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <h4>Most popular items</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

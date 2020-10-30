@@ -117,7 +117,7 @@
                             <a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="#">About Us</a>
+                            <a class="nav-link text-uppercase" href="{% url 'about_us' %}">About Us</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -179,8 +179,10 @@
     {% block page_header %}
     {% endblock %}
 
-    {% block content %}
-    {% endblock %}
+    <div class="container-fluid px-0 site-min-height">
+        {% block content %}
+        {% endblock %}
+    </div>
 
     {% block postload_js %}
     <script type="text/javascript">

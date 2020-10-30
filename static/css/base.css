@@ -94,6 +94,14 @@ html {
     margin-bottom: 5px;
 }
 
+.site-min-height {
+    min-height: calc(100vh - 72px - 102px);
+}
+
+.bg-orange {
+    background-color: #fdedde;
+}
+
 /*---------toasts/messages---------*/
 
 .message-container {
@@ -487,7 +495,7 @@ li .nav-link {
 /*---------checkout---------*/
 
 .fs-20 {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .overlay {
@@ -635,6 +643,9 @@ li .orange-anchor:hover {
         margin-left: 0;
         margin-right: 0;
     }
+    .fs-20 {
+        font-size: 20px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -667,5 +678,8 @@ li .orange-anchor:hover {
     }
     .text-left-lg {
         text-align: left !important;
+    }
+    .site-min-height {
+        min-height: calc(100vh - 128px - 102px);
     }
 }

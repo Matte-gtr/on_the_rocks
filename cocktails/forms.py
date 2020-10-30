@@ -12,7 +12,7 @@ class CocktailForm(forms.ModelForm):
         placeholders = {
             'name': 'Name',
             'product': 'Product',
-            'product_measure': 'Product Quantity',
+            'product_measure': 'Product measurement',
             'ingredient_1': 'Ingredient 1',
             'ingredient_2': 'Ingredient 2',
             'ingredient_3': 'Ingredient 3',
