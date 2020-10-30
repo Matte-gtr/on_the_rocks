@@ -19,7 +19,7 @@
         <section class="container">
             <div class="row">
                 <div class="col text-center fs-20">
-                    <p class="pt-3">
+                    <p class="pt-4">
                         We are a company dedicated to finding the best quality whiskey at the best prices to pass on to our customers. We 
                         are constantly on the lookout for new and exciting bottles and we currently hold a stock of some limited edition runs
                         and special items.
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col text-center px-0">
 
-                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div id="carouselControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active text-center">
                                     <div class="h-100 scroll-card">
@@ -122,12 +122,12 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+                                <i class="fas fa-chevron-left fa-lg"></i>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+                                <i class="fas fa-chevron-right fa-lg"></i>
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
@@ -137,4 +137,5 @@
             </div>
         </section>
     </div>
+    {{ length.price }}
 {% endblock %}

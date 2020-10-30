@@ -102,6 +102,11 @@ html {
     background-color: #fdedde;
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+    color: #010101 !important;
+}
+
 /*---------toasts/messages---------*/
 
 .message-container {
