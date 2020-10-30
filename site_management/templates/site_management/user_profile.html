@@ -20,14 +20,14 @@
             <div class="col">
                 <div id="accordion">
                     <div class="card mx-0">
-                        <div class="card-header" id="reviewManagement">
+                        <div class="card-header" id="shippingForm">
                             <h5 class="mb-0">
-                                <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseReview" aria-expanded="true" aria-controls="collapseReview">
+                                <button class="btn btn-link plain-anchor collapsed" data-toggle="collapse" data-target="#collapseShipping" aria-expanded="false" aria-controls="collapseShipping" id="shipping">
                                     <strong>Shipping Details</strong>
                                 </button>
                             </h5>
                         </div>
-                        <div id="collapseReview" class="collapse show" aria-labelledby="reviewManagement" data-parent="#accordion">
+                        <div id="collapseShipping" class="collapse" aria-labelledby="shippingForm" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -74,15 +74,15 @@
                         </div>
                     </div>
                     <div class="card mx-0">
-                        <div class="card-header" id="addProduct">
+                        <div class="card-header" id="orderHistory">
                             <h5 class="mb-0">
-                                <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseAdd" aria-expanded="true" aria-controls="collapseAdd">
+                                <button class="btn btn-link plain-anchor collapsed" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="false" aria-controls="collapseOrder" id="order">
                                     <strong>Order History</strong>
                                 </button>
                             </h5>
                         </div>
 
-                        <div id="collapseAdd" class="collapse" aria-labelledby="addProduct" data-parent="#accordion">
+                        <div id="collapseOrder" class="collapse" aria-labelledby="orderHistory" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
@@ -119,8 +119,53 @@
 {% endblock %}
 
 {% block postload_js %}
-    {{ block.super }}
-    <script type="text/javascript">
-        /* set cookie for accordian */
+{{ block.super }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#shipping').click(function() {
+            if ($('#shipping').attr("aria-expanded") === "false") {
+                document.cookie = "state=shipping";
+            } else {
+                document.cookie = "state=none";
+            };
+        });
+        $('#order').click(function() {
+            if ($('#order').attr("aria-expanded") === "false") {
+                document.cookie = "state=order";
+            } else {
+                document.cookie = "state=none";
+            };
+        });
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                };
+            };
+            return "";
+        };
+        function checkCookie() {
+            let state = getCookie("state");
+            if (state == "shipping") {
+                $('#shipping').attr("aria-expanded","true");
+                $('#shipping').removeClass("collapsed");
+                $('#collapseShipping').addClass("show");
+            } else if (state == "order") {
+                $('#order').attr("aria-expanded","true");
+                $('#order').removeClass("collapsed");
+                $('#collapseOrder').addClass("show");
+            };
+        };
+        window.onload = function() {
+            checkCookie();
+        };
+    });
     </script>
 {% endblock %}
