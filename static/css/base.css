@@ -102,6 +102,17 @@ html {
     background-color: #fdedde;
 }
 
+.fa-scroller {
+    font-size: 40px;
+}
+
+#scroller {
+    position: fixed;
+    bottom: 25px;
+    right: 30px;
+    display: none;
+}
+
 /*---------footer---------*/
 
 .footer {

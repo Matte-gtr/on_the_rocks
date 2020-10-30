@@ -36,6 +36,7 @@
     <title>{% block extra_title %}Home{% endblock %} | On the Rocks</title>
   </head>
   <body>
+    <div id="tag-top"></div>
     <!--Navbar-->
     <header class="container-fluid navbar-light fixed-top">
         <div class="row pt-2 header-bg">
@@ -182,6 +183,11 @@
     <div class="container-fluid px-0 site-min-height">
         {% block content %}
         {% endblock %}
+        <div id="scroller">
+            <div>
+                <a href="#tag-top" class="plain-anchor text-orange"><i class="far fa-arrow-alt-circle-up fa-scroller"></i></a>
+            </div>
+        </div>
     </div>
     <footer>
         <div class="container-fluid footer">
@@ -205,6 +211,19 @@
                 $('#mobile-search').slideToggle()
             });
             $('.toast').toast('show');
+
+            let lastScroll = 0;
+            $(window).scroll(function(event){
+                let scroll = $(this).scrollTop();
+                if (scroll > lastScroll || scroll < 300){
+                    $('#scroller').hide(800);
+                } else {
+                    if (scroll > 200) {
+                        $('#scroller').show(500);
+                    }
+                }
+                lastScroll = scroll;
+            });
         });
     </script>
     {% endblock %}

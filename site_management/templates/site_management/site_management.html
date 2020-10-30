@@ -23,7 +23,7 @@
                         <div class="card-header" id="reviewManagement">
                             <h5 class="mb-0">
                                 <button class="btn btn-link plain-anchor collapsed" data-toggle="collapse" data-target="#collapseReview" aria-expanded="false" aria-controls="collapseReview" id="review">
-                                    Review Management{% if reviews|length > 0 %}<span class="notification-count">{{ reviews|length }}</span>{% endif %}
+                                    <strong>Review Management</strong>{% if reviews|length > 0 %}<span class="notification-count">{{ reviews|length }}</span>{% endif %}
                                 </button>
                             </h5>
                         </div>
@@ -47,7 +47,7 @@
                         <div class="card-header" id="addProduct">
                             <h5 class="mb-0">
                                 <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct" id="product">
-                                    Add a Product
+                                    <strong>Add a Product</strong>
                                 </button>
                             </h5>
                         </div>
@@ -66,7 +66,7 @@
                         <div class="card-header" id="addCocktail">
                             <h5 class="mb-0">
                                 <button class="btn btn-link plain-anchor" data-toggle="collapse" data-target="#collapseCocktail" aria-expanded="false" aria-controls="collapseCocktail" id="cocktail">
-                                    Add a Cocktail
+                                    <strong>Add a Cocktail</strong>
                                 </button>
                             </h5>
                         </div>
@@ -90,6 +90,7 @@
 {{ block.super }}
 <script type="text/javascript">
     $(document).ready(function() {
+        /* set cookies based on state of accordion on click */
         $('#review').click(function() {
             if ($('#review').attr("aria-expanded") === "false") {
                 document.cookie = "position=review";
@@ -111,7 +112,8 @@
                 document.cookie = "position=none";
             };
         });
-        function getCookie(cname) {
+        /* getCookie() example from https://www.w3schools.com/js/js_cookies.asp */
+        function getCookie(cname) {  
             let name = cname + "=";
             let decodedCookie = decodeURIComponent(document.cookie);
             let ca = decodedCookie.split(';');
@@ -126,6 +128,7 @@
             };
             return "";
         };
+        /* set the show state of section captured in the position cookie */
         function checkCookie() {
             let position = getCookie("position");
             if (position == "review") {
