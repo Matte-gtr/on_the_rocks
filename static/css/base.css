@@ -95,12 +95,36 @@ html {
 }
 
 .site-min-height {
-    min-height: calc(100vh - 72px - 102px);
+    min-height: calc(100vh - 72px - 102px - 60px);
 }
 
 .bg-orange {
     background-color: #fdedde;
 }
+
+/*---------footer---------*/
+
+.footer {
+    background-image: linear-gradient(to bottom right, #ffeee0,  #b5a081);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-media i {
+    margin: 12px;
+    padding: 1px;
+    color: #343436;
+    transition: all .5s ease-in-out;
+}
+
+.social-media:hover i {
+    color: #ff8552;
+    transform: scale(1.2);
+}
+
+/*---------about us---------*/
 
 .carousel-control-next,
 .carousel-control-prev {
@@ -238,7 +262,7 @@ li .nav-link {
 .landing-image {
     background: url("/media/landing-image-cropped.jpg") no-repeat center center fixed;
     background-size: cover;
-    height: calc(100vh - 72px);
+    height: calc(100vh - 72px - 60px);
     width: 100%;
 }
 
@@ -689,7 +713,7 @@ li .orange-anchor:hover {
         padding: .5rem 1rem;
     }
     .landing-image {
-        height: calc(100vh - 72px - 56px);
+        height: calc(100vh - 72px - 56px - 60px);
     }
     .nav-spacer {
         height: 128px;
@@ -701,6 +725,6 @@ li .orange-anchor:hover {
         text-align: left !important;
     }
     .site-min-height {
-        min-height: calc(100vh - 128px - 102px);
+        min-height: calc(100vh - 128px - 102px - 60px);
     }
 }
