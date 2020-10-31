@@ -6,5 +6,5 @@ urlpatterns = [
     path('add_to_crate/<product_id>', views.add_to_crate, name='add_to_crate'),
     path('delete_from_crate/<product_id>', views.delete_from_crate,
          name='delete_from_crate'),
-    path('empty_crate', views.empty_crate, name='empty_crate'),
+    path('empty_crate/', views.empty_crate, name='empty_crate'),
 ]
