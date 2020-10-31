@@ -21,7 +21,7 @@ class ProductReview(models.Model):
                                 on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     stars = models.IntegerField(default=3, choices=STAR_CHOICES)
-    review = models.TextField(null=True, blank=True)
+    review = models.TextField(blank=True)
     anon = models.BooleanField(default=False)
     authorised = models.BooleanField(default=False)
 
@@ -32,15 +32,15 @@ class ProductReview(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,
                                 related_name="user_profile")
-    first_name = models.CharField(max_length=30, null=True, blank=True)
-    last_name = models.CharField(max_length=30, null=True, blank=True)
-    email = models.EmailField(max_length=254, null=True, blank=True)
-    contact_number = models.CharField(max_length=20, null=True, blank=True)
-    street_address1 = models.CharField(max_length=80, null=True, blank=True)
-    street_address2 = models.CharField(max_length=80, null=True, blank=True)
-    town_or_city = models.CharField(max_length=40, null=True, blank=True)
-    postcode = models.CharField(max_length=20, null=True, blank=True)
-    county = models.CharField(max_length=80, null=True, blank=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    email = models.EmailField(max_length=254, blank=True)
+    contact_number = models.CharField(max_length=20, blank=True)
+    street_address1 = models.CharField(max_length=80, blank=True)
+    street_address2 = models.CharField(max_length=80, blank=True)
+    town_or_city = models.CharField(max_length=40, blank=True)
+    postcode = models.CharField(max_length=20, blank=True)
+    county = models.CharField(max_length=80, blank=True)
     country = CountryField(blank_label="Country",
                            null=True, blank=True)
 

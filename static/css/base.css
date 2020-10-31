@@ -99,7 +99,7 @@ html {
 }
 
 .site-min-height {
-    min-height: calc(100vh - 72px - 102px - 60px);
+    min-height: calc(100vh - 60px);
 }
 
 .bg-orange {
@@ -738,8 +738,5 @@ li .orange-anchor:hover {
     }
     .text-left-lg {
         text-align: left !important;
-    }
-    .site-min-height {
-        min-height: calc(100vh - 128px - 102px - 60px);
     }
 }

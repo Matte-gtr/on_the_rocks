@@ -36,151 +36,151 @@
     <title>{% block extra_title %}Home{% endblock %} | On the Rocks</title>
   </head>
   <body>
-    <div id="tag-top"></div>
-    <!--Navbar-->
-    <header class="container-fluid navbar-light fixed-top">
-        <div class="row pt-2 header-bg">
-            <div class="col d-none d-lg-flex">
-                <div class="header-logo">
-                    <h1 class="logo">
-                        <a href="{% url 'home' %}" class="logo-link">
-                            <i class="fas fa-glass-whiskey"></i>
-                            <strong>ON</strong><span class="small">the</span><strong>ROCKS</strong>
-                        </a>
-                    </h1>
-                </div>
-            </div>
-            <div class="col-2 d-lg-none burger-container my-auto">
-                <button class="burger-button" id="burger-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="burger-line"></div>
-                    <div class="burger-line"></div>
-                    <div class="burger-line"></div>
-                </button>
-            </div>
-            <div class="col d-none d-lg-inline">
-                <div class="search-container">
-                    <form class="form-inline w-100" method="GET" action="{% url 'products' %}">
-                        <input class="form-control mr-0 search-bar" type="search" placeholder="Search" aria-label="Search" name="search">
-                        <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
-                    </form>
-                </div>
-            </div>
-            <div class="col d-flex justify-content-end my-auto mr-2">
-                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                    <li class="list-inline-item dropdown mr-0">
-                        <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="text-center text-dark">
-                                <div><i class="fas fa-user fa-lg"></i></div>
-                                <p class="my-0">Account</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                            {% if request.user.is_authenticated %}
-                                {% if request.user.is_staff %}
-                                    <a href="{% url 'site_management' %}" class="dropdown-item">Site Management</a>
-                                {% endif %}
-                                <a href="{% url 'user_profile' user.id %}" class="dropdown-item">My Profile</a>
-                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                            {% else %}
-                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-                            {% endif %}
-                        </div>
-                    </li>
-                    <li class="list-inline-item d-lg-none mr-0">
-                        <a class="text-info nav-link" href="#" id="toggle-search">
-                            <div class="text-center text-dark">
-                                <div><i class="fas fa-search fa-lg"></i></div>
-                                <p class="my-0">Search</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="list-inline-item mr-0">
-                        <a class="text-info font-weight-bold nav-link" href="{% url 'view_cart' %}">
-                            <div class="text-center text-dark">
-                                <div><i class="fas fa-shopping-cart fa-lg"></i></div>
-                                {% if total %}
-                                    <p class="my-0 text-orange">£{{ total|floatformat:2 }}</p>
-                                {% else %}
-                                    <p class="my-0">£0.00</p>
-                                {% endif %}
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <nav class="row navbar navbar-expand-lg navbar-light nav-bg">
-            <div class="container">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto nav-fill w-100">
-                        <li class="nav-item d-lg-none">
-                            <a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="{% url 'about_us' %}">About Us</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Whiskeys
+    <div class="container-fluid px-0 site-min-height">
+        <div id="tag-top"></div>
+        <!--Navbar-->
+        <header class="container-fluid navbar-light fixed-top">
+            <div class="row pt-2 header-bg">
+                <div class="col d-none d-lg-flex">
+                    <div class="header-logo">
+                        <h1 class="logo">
+                            <a href="{% url 'home' %}" class="logo-link">
+                                <i class="fas fa-glass-whiskey"></i>
+                                <strong>ON</strong><span class="small">the</span><strong>ROCKS</strong>
                             </a>
-                            <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}">All Whiskeys</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=single_malt">Single Malt</a>
-                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=blended_malt">Blended Malt</a>
-                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=blended_whiskey">Blended Whiskey</a>
-                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=grain_whiskey">Grain Whiskey</a>
-                                <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=organic_whiskey">Organic Whiskey</a>
+                        </h1>
+                    </div>
+                </div>
+                <div class="col-2 d-lg-none burger-container my-auto">
+                    <button class="burger-button" id="burger-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <div class="burger-line"></div>
+                        <div class="burger-line"></div>
+                        <div class="burger-line"></div>
+                    </button>
+                </div>
+                <div class="col d-none d-lg-inline">
+                    <div class="search-container">
+                        <form class="form-inline w-100" method="GET" action="{% url 'products' %}">
+                            <input class="form-control mr-0 search-bar" type="search" placeholder="Search" aria-label="Search" name="search">
+                            <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col d-flex justify-content-end my-auto mr-2">
+                    <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+                        <li class="list-inline-item dropdown mr-0">
+                            <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="text-center text-dark">
+                                    <div><i class="fas fa-user fa-lg"></i></div>
+                                    <p class="my-0">Account</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                                {% if request.user.is_authenticated %}
+                                    {% if request.user.is_staff %}
+                                        <a href="{% url 'site_management' %}" class="dropdown-item">Site Management</a>
+                                    {% endif %}
+                                    <a href="{% url 'user_profile' user.id %}" class="dropdown-item">My Profile</a>
+                                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                                {% else %}
+                                    <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                    <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                                {% endif %}
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="{% url 'create_a_crate' %}">Create-a-crate</a>
+                        <li class="list-inline-item d-lg-none mr-0">
+                            <a class="text-info nav-link" href="#" id="toggle-search">
+                                <div class="text-center text-dark">
+                                    <div><i class="fas fa-search fa-lg"></i></div>
+                                    <p class="my-0">Search</p>
+                                </div>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="{% url 'cocktails' %}">Cocktails</a>
+                        <li class="list-inline-item mr-0">
+                            <a class="text-info font-weight-bold nav-link" href="{% url 'view_cart' %}">
+                                <div class="text-center text-dark">
+                                    <div><i class="fas fa-shopping-cart fa-lg"></i></div>
+                                    {% if total %}
+                                        <p class="my-0 text-orange">£{{ total|floatformat:2 }}</p>
+                                    {% else %}
+                                        <p class="my-0">£0.00</p>
+                                    {% endif %}
+                                </div>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="nav-spacer"></div>
-    <div class="container" id="mobile-search" style="display:none">
-        <div class="row">
-            <div class="col d-lg-none">
-                <div class="search-container py-3">
-                    <form class="form-inline w-100" method="GET" action="{% url 'products' %}">
-                        <input class="form-control mr-0 ml-2 search-bar" type="search" placeholder="Search" aria-label="Search" name="search">
-                        <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
-                    </form>
+            <nav class="row navbar navbar-expand-lg navbar-light nav-bg">
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto nav-fill w-100">
+                            <li class="nav-item d-lg-none">
+                                <a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" href="{% url 'about_us' %}">About Us</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Whiskeys
+                                </a>
+                                <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item text-uppercase" href="{% url 'products' %}">All Whiskeys</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=single_malt">Single Malt</a>
+                                    <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=blended_malt">Blended Malt</a>
+                                    <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=blended_whiskey">Blended Whiskey</a>
+                                    <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=grain_whiskey">Grain Whiskey</a>
+                                    <a class="dropdown-item text-uppercase" href="{% url 'products' %}?category=organic_whiskey">Organic Whiskey</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" href="{% url 'create_a_crate' %}">Create-a-crate</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" href="{% url 'cocktails' %}">Cocktails</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="nav-spacer"></div>
+        <div class="container" id="mobile-search" style="display:none">
+            <div class="row">
+                <div class="col d-lg-none">
+                    <div class="search-container py-3">
+                        <form class="form-inline w-100" method="GET" action="{% url 'products' %}">
+                            <input class="form-control mr-0 ml-2 search-bar" type="search" placeholder="Search" aria-label="Search" name="search">
+                            <button class="btn search-button" type="submit"><i class="fas fa-search fa-lg"></i></button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    {% if messages %}
-        <div class="message-container">
-            {% for message in messages %}
-                {% with message.level as level %}
-                    {% if level == 40 %} <!--error-->
-                        {% include 'includes/toasts/toast_error.html' %}
-                    {% elif level == 30 %} <!--warning-->
-                        {% include 'includes/toasts/toast_warning.html' %}
-                    {% elif level == 25 %} <!--success-->
-                        {% include 'includes/toasts/toast_success.html' %}
-                    {% else %} <!--info-->
-                        {% include 'includes/toasts/toast_info.html' %}
-                    {% endif %}
-                {% endwith %}
-            {% endfor %}
-        </div>
-    {% endif %}
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    {% with message.level as level %}
+                        {% if level == 40 %} <!--error-->
+                            {% include 'includes/toasts/toast_error.html' %}
+                        {% elif level == 30 %} <!--warning-->
+                            {% include 'includes/toasts/toast_warning.html' %}
+                        {% elif level == 25 %} <!--success-->
+                            {% include 'includes/toasts/toast_success.html' %}
+                        {% else %} <!--info-->
+                            {% include 'includes/toasts/toast_info.html' %}
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
-    {% block page_header %}
-    {% endblock %}
+        {% block page_header %}
+        {% endblock %}
 
-    <div class="container-fluid px-0 site-min-height">
         {% block content %}
         {% endblock %}
         <div id="scroller">
