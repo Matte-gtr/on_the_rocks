@@ -53,9 +53,7 @@
                 </div>
                 <div class="col-2 d-lg-none burger-container my-auto">
                     <button class="burger-button" id="burger-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <div class="burger-line"></div>
-                        <div class="burger-line"></div>
-                        <div class="burger-line"></div>
+                        <span id="burger-line" class="burger-line"><i class="fas fa-bars"></i></span>
                     </button>
                 </div>
                 <div class="col d-none d-lg-inline">
@@ -205,7 +203,7 @@
 
 
     {% block postload_js %}
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
             $('#toggle-search').click(function() {
                 $('#mobile-search').slideToggle()
@@ -225,10 +223,12 @@
                 lastScroll = scroll;
             });
             $("#burger-button").click(function() {
-                if ($("#burger-button").attr("aria-expanded") == "false")
-                    $("#burger-button").children().addClass("background-orange");
-                else {
-                    $("#burger-button").children().removeClass("background-orange");
+                if ($("#burger-button").attr("aria-expanded") == "false") {
+                    $("#burger-line").children().removeClass("fa-bars");
+                    $("#burger-line").children().addClass("fa-times");
+                } else {
+                    $("#burger-line").children().removeClass("fa-times");
+                    $("#burger-line").children().addClass("fa-bars");
                 };
             });
         });

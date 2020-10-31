@@ -40,10 +40,6 @@ body {
     color: #ff7600;
 }
 
-.background-orange {
-    background-color: #ff7600 !important;
-}
-
 .orange-link:hover {
     color: #ff7600;
 }
@@ -209,6 +205,9 @@ html {
 .burger-button {
     border: 0;
     background-color: transparent;
+    padding: 10px;
+    padding-top: 6px;
+    width: 62px;
 }
 
 .burger-button:focus {
@@ -216,10 +215,10 @@ html {
 }
 
 .burger-line {
-    background-color: #343a40;
     width: 25px;
     height: 3px;
     margin: 6px;
+    font-size: 31px;
 }
 
 .navbar {
@@ -235,12 +234,6 @@ li .nav-link {
     justify-content: center;
     align-items: center;
     height: 100%;
-}
-
-.burger-button {
-    padding: 10px;
-    padding-top: 0px;
-    width: 62px;
 }
 
 .burger-button div {
