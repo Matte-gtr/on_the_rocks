@@ -32,8 +32,8 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <div class="col-12 p-0">
-                                <label for="quantity">Quantity: </label>
-                                <input class="form-control w-auto mb-3" type="number" name="quantity" min="1" max="99" value="1" data_item_id="{{ product.id }}" id="id_qty_{{ product.id }}" />
+                                <label for="id_qty_{{ product.id }}">Quantity: </label>
+                                <input class="form-control w-auto mb-3" type="number" name="quantity" min="1" max="99" value="1" id="id_qty_{{ product.id }}" />
                                 <button type="submit" class="btn btn-orange">ADD TO CART</button>
                             </div>
                         </div>
