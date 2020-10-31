@@ -5,6 +5,7 @@ from decimal import Decimal
 
 
 def cart_contents(request):
+    """ returns information based on the products in the cart """
     products_in_cart = []
     crates_in_cart = []
     total = 0

@@ -5,6 +5,7 @@ from products.models import Product, Category
 
 
 def create_a_crate(request):
+    """ a view to return the create a crate page """
     template = "crate/create_a_crate.html"
     all_categories = Category.objects.all()
     category = False
@@ -35,7 +36,7 @@ def create_a_crate(request):
 
 
 def add_to_crate(request, product_id):
-    """ add a product to the crate """
+    """ a view to add a product to the crate """
     product = get_object_or_404(Product, pk=product_id)
     crate = request.session.get('crate', {})
     quantity = int(request.POST.get('quantity'))
@@ -54,6 +55,7 @@ def add_to_crate(request, product_id):
 
 
 def delete_from_crate(request, product_id):
+    """ a view to delete a product from the crate """
     product = get_object_or_404(Product, pk=product_id)
     crate = request.session.get('crate', {})
     quantity = 1
@@ -73,6 +75,7 @@ def delete_from_crate(request, product_id):
 
 
 def empty_crate(request):
+    """ a view to empty the crate """
     request.session['crate'] = {}
     messages.success(request, 'Your crate has been emptied')
 

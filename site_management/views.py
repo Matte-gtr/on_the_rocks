@@ -109,6 +109,7 @@ def user_profile(request, user_id):
 
 @login_required
 def order_history(request, order_id):
+    """ a view to display a previous order record """
     order = get_object_or_404(Order, id=order_id)
     template = 'site_management/order_history.html'
     cratelist = []

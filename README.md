@@ -26,7 +26,7 @@ I want to be able to view products and if one catches my eye, I would like to be
 I would like the option of buying in bulk and getting a discount.
 
 #### User story:
-I want to be able to make a purchase and recieve a confirmation email after purchasing an item(s).
+I want to be able to make a purchase and receive a confirmation email after purchasing an item(s).
 
 #### User story:
 I would like the option of leaving a review on a product that I liked or didn't like.
@@ -150,7 +150,7 @@ The site was then tested on 3 different browsers:
 * Apple Safari
 
 The site was also tested for fast user learning by asking 3 people to complete a list of tasks on the site. This initially revealed an issue with the automated
-email system which was due to a line break in the settings file. The colour af the delivery banner in the checkout was also lightened to catch the users attention as
+email system which was due to a line break in the settings file. The colour of the delivery banner in the checkout was also lightened to catch the user's attention as
 this was also mentioned. 
 
 Another bug was found during the checkout process where 2 orders would be created if a user didn't fill in the non-required fields. This
@@ -171,7 +171,7 @@ After disabling collect static, the project (without static or media files) was 
 An AWS S3 bucket was then created to host the static and media files and boto3 and django-storages were used to connect to S3, where the media files were 
 then copied into. 
 
-After adding S3 access keys and Stripe keys to the Heroku config vars, everything was pushed to heroku again to complete the deployment
+After adding S3 access keys and Stripe keys to the Heroku config vars, everything was pushed to heroku again to complete the deployment.
 
 To Clone the project from github, use:
  `git clone https://github.com/Matte-gtr/on_the_rocks.git`
@@ -190,19 +190,21 @@ To run the project locally use:
  `python3 manage.py runserver`
 
 #### Credits
-Codeinstitute - The stripe setup and webhooks were created following the tutorials from codeinstitute
-Freecodecamp - examples and explanations of using multiple functions 
-w3schools - General learning material and descriptions, as well as providing the initial javascript cookie template used with booptstrap accordians
-Django documentation - Used for a great deal of code at the start of the project
-Stack Overflow - various exaples of code were viewed to develop a better understanding of the django framework
+Codeinstitute - The stripe setup and webhooks were created following the tutorials from codeinstitute.
+Freecodecamp - examples and explanations of using multiple functions.
+w3schools - General learning material and descriptions, as well as providing the initial javascript cookie template used with booptstrap accordians.
+Django documentation - Used for a great deal of code at the start of the project.
+Stack Overflow - various exaples of code were viewed to develop a better understanding of the django framework.
+Youtube - the Dumbfounds - information and lessons on django testing.
 
 #### Content
-Google images - The default/no-image images
-WhiskeyExchange - The dataset was built using data and images from 
-Tenor - gif loader
+Google images - The default/no-image images.
+WhiskeyExchange - The dataset was built using data and images from https://www.thewhiskyexchange.com/ .
+Town and Country Mag - Cocktail recipes and images from https://www.townandcountrymag.com/leisure/drinks/g3242/whiskey-cocktails/ .
+Tenor - gif loader.
 
 #### Acknowledgements
-**Ignatius Ukwuoma** for providing great insight into create projects on a short timescale
+**Ignatius Ukwuoma** for providing great insight into create projects on a short timescale.
 **Kevin** from Codeinstitute for providing a very quick last minute solution to a code problem.
 
 The inspiration for this site primarily came from the codeinstitute Boutique-ado project, building on some of the ideas used in this.

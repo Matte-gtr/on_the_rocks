@@ -3,6 +3,9 @@ from products.models import Product
 
 
 class Cocktail(models.Model):
+    class Meta:
+        ordering = ['id']
+
     name = models.CharField(max_length=254, null=False, blank=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 null=False, blank=False)
