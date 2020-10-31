@@ -124,11 +124,38 @@ https://pillow.readthedocs.io/en/stable/
 
 ## Automated testing
 
-Each app within the project contains a test folder, which contains all the test files. These can be found below: 
+Each app within the project contains a test folder, which contain all the test files for the app. These can be found below: 
 
-*******https://github.com/Matte-gtr/on_the_rocks
-*******For details on how to run the tests, please see below in deplayment *
-*******All tests contain comments for clear descriptions of what is being tested.
+https://github.com/Matte-gtr/on_the_rocks/tree/master/cart/tests .
+https://github.com/Matte-gtr/on_the_rocks/tree/master/checkout/tests .
+https://github.com/Matte-gtr/on_the_rocks/tree/master/cocktails/tests .
+https://github.com/Matte-gtr/on_the_rocks/tree/master/crate/tests .
+https://github.com/Matte-gtr/on_the_rocks/tree/master/home/tests .
+https://github.com/Matte-gtr/on_the_rocks/tree/master/products/tests .
+https://github.com/Matte-gtr/on_the_rocks/tree/master/site_management .
+
+For a number of the URLs, test scripts have been written to check that the URLs are pointing at the correct templates, as well as
+pointing to the correct views.
+
+A number of the views have automated tests to check that they are receiving the correct response of 200 or 302 for redirects, as well
+as checking that the views are also returning the correct templates.
+
+Forms have been tested where possible to check that forms are valid or invalid based on the test form data they receive, as well as
+testing for any other attributes that have been included in the form init methods, such as checking for placeholders, checking fields do
+not have labels and checking they have been assigned their correct class.
+
+Models have also been tested where ever possible, in particular, the functions that are attached to the model class have been tested.
+
+No automated test scripts have been written for views relying on session data as these have been manually tested extensively.
+
+The tests did return some minor issues which have since been corrected. An issue was caught on the about us page/view which was not flagged 
+by the debugger, as well as a warning for using pagination with an unordered query set.
+
+To run these tests, open the project in development and run the following transaction in the CLI:
+
+`python3 manage.py test` 
+
+followed by the name of the app (e.g "products"). This will run all the test files within the app.
 
 ## Manual Testing
 
@@ -172,6 +199,12 @@ An AWS S3 bucket was then created to host the static and media files and boto3 a
 then copied into. 
 
 After adding S3 access keys and Stripe keys to the Heroku config vars, everything was pushed to heroku again to complete the deployment.
+
+The django settings file has also been altered with settings and paths for media links, static links, a default from email address, email host details, an email 
+port and altered email backend settings. Many of these settings point to the config variables that have been set in Heroku, as below:
+
+AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DATABASE_URL, DEFAULT_FROM_EMAIL, EMAIL_HOST_PASS, EMAIL_HOST_USER, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY,
+STRIPE_WEBHOOK_SECRET and USE_AWS.
 
 To Clone the project from github, use:
  `git clone https://github.com/Matte-gtr/on_the_rocks.git`

@@ -5,7 +5,7 @@ from checkout.views import checkout, cache_checkout_data, \
 
 
 class TestUrls(SimpleTestCase):
-    
+
     def test_login_prompt_url_resolved(self):
         url = reverse('login_prompt')
         self.assertEqual(url, '/checkout/login_prompt/')
