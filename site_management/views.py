@@ -80,11 +80,11 @@ def delete_review(request, review_id):
 def user_profile(request, user_id):
     """ display a users profile with an order history and
     billing/shipping information """
-    user_profile = get_object_or_404(UserProfile, pk=user_id)
+    current_user = get_object_or_404(User, id=request.user.id)
+    user_profile = get_object_or_404(UserProfile, pk=current_user.id)
 
     if request.method == "POST":
         form = UserProfileForm(request.POST, instance=user_profile)
-        current_user = get_object_or_404(User, id=request.user.id)
         if form.is_valid():
             form.save()
             current_user.first_name = user_profile.first_name
