@@ -17,6 +17,7 @@ def products(request):
     category_filter = ''
     current_category = ''
     query = ''
+    sort = 'category'
 
     if request.GET:
         if "search" in request.GET:
@@ -36,6 +37,11 @@ def products(request):
             category_filter = Category.objects.all()
             current_category = request.GET['category']
 
+        if 'sorting' in request.GET:
+            sorting = request.GET.get('sorting')
+            sort = sorting
+            products = products.order_by(sorting)
+
     template = 'products/products.html'
     product_count = products.count()
 
@@ -53,6 +59,7 @@ def products(request):
         'category_filter': category_filter,
         'current_category': current_category,
         'search': query,
+        'sort': sort,
     }
 
     return render(request, template, context)

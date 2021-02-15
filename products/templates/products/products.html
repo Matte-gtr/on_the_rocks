@@ -20,7 +20,7 @@
                         {% if category.name == current_category %}
                             <a class="btn btn-secondary btn-sm" href="#" role="button">{{ category.friendly_name }}</a>
                         {% else %}
-                            <a class="btn btn-outline-secondary btn-sm" href="{% url 'products' %}?category={{ category.name }}" role="button">{{ category.friendly_name }}</a>
+                            <a class="btn btn-outline-secondary btn-sm" href="?{% param_replace category=category.name %}" role="button">{{ category.friendly_name }}</a>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -39,13 +39,23 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="row">
+        <div class="row mb-1">
             <div class="col">
                 {% if search %}
-                    <p class="mb-1">{{ product_count }} Products found for "{{ search }}"</p>
+                    <p class="mb-0">{{ product_count }} Products found for "{{ search }}"</p>
                 {% else %}
-                    <p class="mb-1">{{ product_count }} Products</p>
+                    <p class="mb-0">{{ product_count }} Products</p>
                 {% endif %}
+            </div>
+            <div class="col sort-options">
+                <select name="sorting" id="sort">
+                    <option value="name" {% if sort == "name" %}selected{% endif %}>Name A-Z</option>
+                    <option value="-name" {% if sort == "-name" %}selected{% endif %}>Name Z-A</option>
+                    <option value="price" {% if sort == "price" %}selected{% endif %}>Price A-Z</option>
+                    <option value="-price" {% if sort == "-price" %}selected{% endif %}>Price Z-A</option>
+                    <option value="category" {% if sort == "category" %}selected{% endif %}>Category A-Z</option>
+                    <option value="-category" {% if sort == "-category" %}selected{% endif %}>Category Z-A</option>
+                </select>
             </div>
         </div>
     </div>
@@ -128,4 +138,21 @@
         </div>
     </div>
     {% endif %}
+{% endblock %}
+{% block postload_js %}
+{{ block.super }}
+    <script type="text/javascript">
+        $('#sort').change(function() {
+            let selector = $(this);
+            let currentUrl = new URL(window.location);
+
+            let selectedVal = selector.val();
+            let sort = selectedVal
+
+            currentUrl.searchParams.set("sorting", sort);
+
+            window.location.replace(currentUrl);
+            
+        });
+    </script>
 {% endblock %}

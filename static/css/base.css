@@ -341,6 +341,10 @@ li .nav-link {
     display: none;
 }
 
+.sort-options {
+    text-align: end;
+}
+
 /*---------product display---------*/
 
 .display-section {
