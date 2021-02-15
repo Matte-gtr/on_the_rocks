@@ -32,6 +32,7 @@
                                 <form action="{% url 'edit_cocktail' cocktail.id %}" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {{ form|crispy }}
+                                    <a class="btn btn-secondary text-uppercase mb-2" href="{% url 'display_cocktail' cocktail.id %}" role="button"><i class="fas fa-chevron-left fa-sm"></i> Back</a>
                                     <button type="submit" class="btn btn-orange text-uppercase mr-2 mb-2" id="submit-button">Update Product</button>
                                 </form>
                             </div>

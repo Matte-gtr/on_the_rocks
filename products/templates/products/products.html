@@ -51,8 +51,10 @@
                 <select name="sorting" id="sort">
                     <option value="name" {% if sort == "name" %}selected{% endif %}>Name A-Z</option>
                     <option value="-name" {% if sort == "-name" %}selected{% endif %}>Name Z-A</option>
-                    <option value="price" {% if sort == "price" %}selected{% endif %}>Price A-Z</option>
-                    <option value="-price" {% if sort == "-price" %}selected{% endif %}>Price Z-A</option>
+                    <option value="price" {% if sort == "price" %}selected{% endif %}>Price Low to High</option>
+                    <option value="-price" {% if sort == "-price" %}selected{% endif %}>Price High to Low</option>
+                    <option value="rating" {% if sort == "rating" %}selected{% endif %}>Rating Low to High</option>
+                    <option value="-rating" {% if sort == "-rating" %}selected{% endif %}>Rating High to Low</option>
                     <option value="category" {% if sort == "category" %}selected{% endif %}>Category A-Z</option>
                     <option value="-category" {% if sort == "-category" %}selected{% endif %}>Category Z-A</option>
                 </select>
